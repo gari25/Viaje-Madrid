@@ -216,6 +216,31 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 @media print{body{padding-bottom:0!important}.nav,.controls,.done-btn,.progressbar button{display:none!important}.budgetbar{background:white;color:black}.tablewrap tbody tr{box-shadow:none}}
 
+
+/* Presupuesto del grupo e individual, móvil */
+.budgetbar{display:block}.budget-overview-head{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+.budget-travelers{font-size:12px;font-weight:800;color:white;border:1px solid #c5d7ff99;background:#ffffff2b;border-radius:999px;padding:5px 10px}
+.budget-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.budget-column{min-width:0;padding:15px;background:#ffffff16;border:1px solid #d5e2ff66;border-radius:16px}
+.budget-group-title{font-size:13px;letter-spacing:.4px;font-weight:900;margin-bottom:10px}
+.budget-person{background:#eef6ff;border-color:#c2d9f8;color:#1a3c78}
+.budget-person .budget-group-title,.budget-person .budgetlabel,.budget-person .money,.budget-person .budgetvalue.secondary strong{color:#203f7a}
+.budget-column .budgetvalues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px;margin:0}
+.budget-column .budgetvalue{min-width:0}.budget-column .budgetvalue:first-child{grid-column:1/-1}
+.budget-column .budgetvalue.secondary{border:0;padding:0}.budget-column .budgetvalue.secondary strong{font-size:clamp(16px,2.2vw,21px);line-height:1.3;overflow-wrap:anywhere}
+.budget-column .money{font-size:clamp(29px,3.4vw,38px)}
+.company-cover{border-top:1px solid #d1defc73;padding-top:12px;margin-top:13px;font-size:12px;line-height:1.45;color:#eff7ff}
+.company-item{display:inline-block;font-size:12px;font-weight:800;color:#136e58;background:#e7f9ee;padding:5px 8px;border-radius:9px;margin-top:7px}
+.company-notice{background:#eefaf4!important;color:#275847!important;border:1px solid #c8ead9!important;border-left:4px solid #4fac8a!important}
+.budgetbar .budgetmeta{margin-top:13px}
+@media(max-width:760px){.budget-split{grid-template-columns:1fr;gap:10px}.budget-column{padding:13px;border-radius:14px}.budget-group-title{font-size:12px}
+.budget-column .budgetvalues{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.budget-column .budgetvalue:first-child{grid-column:1/-1}
+.budget-column .money{font-size:clamp(29px,9vw,39px)}.budget-column .budgetvalue.secondary strong{font-size:clamp(16px,5vw,20px)}
+.tablewrap td:nth-child(5)::before{content:'Individual €';display:block;color:#65758d;font-size:10px}
+.tablewrap td:nth-child(6)::before{content:'Grupo RD$';display:block;color:#65758d;font-size:10px}
+.tablewrap td:nth-child(7)::before{content:'Grupo US$';display:block;color:#65758d;font-size:10px}}
+@media print{.budget-column{background:#fff!important;border:1px solid #aaa!important}.budget-column .money,.budget-person .budgetvalue.secondary strong,.budget-person .budgetlabel{color:#111!important}}
+
 </style></head>
 <body>
 <div class="shell">
@@ -233,9 +258,26 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 <main>
 <div class="top"><div><div class="kicker">✈ EUROPA 2026 · MADRID · BARCELONA · PARÍS</div><h1 class="heading">Nuestro viaje, paso a paso ✨</h1><p class="lede">Itinerario conjunto de Kateryn y Mariangel. Comparamos rutas, actividades y gastos sin reservar nada antes de revisar los detalles.</p></div><div class="topright">🔒 Versión de consulta</div></div>
 <div class="controls"><div class="filter-group"><label for="plan">🧭 Elegir plan</label><select id="plan"><option value="A">Plan A · Kateryn sola, España</option><option value="B">Plan B · Ambas, España + París</option><option value="C" selected>Plan C · Ambas, solo España</option></select></div><div class="filter-group"><label for="city">📍 Filtrar ciudad</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>París</option></select></div><button id="print">🖨️ Imprimir</button></div>
-<div class="budgetbar" aria-live="polite"><div><div class="budgetlabel">💳 Presupuesto acumulado · Plan <span id="amount-plan">C</span></div><div class="budgetvalues"><div class="budgetvalue"><div class="budgetlabel">Euros</div><div class="money" id="grand-total">0,00 €</div></div><div class="budgetvalue secondary"><div class="budgetlabel">Pesos dominicanos</div><strong id="grand-total-dop">RD$ 0,00</strong></div><div class="budgetvalue secondary"><div class="budgetlabel">Dólares estadounidenses</div><strong id="grand-total-usd">US$ 0,00</strong></div></div><div class="budgetmeta" id="budget-summary">Importes introducidos hasta ahora</div><div class="budgetextra"><button type="button" id="copy-budget">📋 Copiar presupuesto para compartir</button></div></div>
+<div class="budgetbar" aria-live="polite">
+ <div class="budget-overview-head"><div class="budgetlabel">💳 Presupuesto · Plan <span id="amount-plan">C</span></div><span id="budget-travelers" class="budget-travelers">2 personas</span></div>
+ <div class="budget-split">
+  <div class="budget-column budget-group"><div class="budget-group-title">👥 TOTAL DEL GRUPO</div><div class="budgetvalues">
+   <div class="budgetvalue"><div class="budgetlabel">Euros</div><div class="money" id="grand-total">0,00 €</div></div>
+   <div class="budgetvalue secondary"><div class="budgetlabel">Pesos dominicanos</div><strong id="grand-total-dop">RD$ 0,00</strong></div>
+   <div class="budgetvalue secondary"><div class="budgetlabel">Dólares</div><strong id="grand-total-usd">US$ 0,00</strong></div>
+  </div></div>
+  <div class="budget-column budget-person"><div class="budget-group-title">👤 TOTAL INDIVIDUAL</div><div class="budgetvalues">
+   <div class="budgetvalue"><div class="budgetlabel">Euros</div><div class="money" id="person-total-eur">0,00 €</div></div>
+   <div class="budgetvalue secondary"><div class="budgetlabel">Pesos dominicanos</div><strong id="person-total-dop">RD$ 0,00</strong></div>
+   <div class="budgetvalue secondary"><div class="budgetlabel">Dólares</div><strong id="person-total-usd">US$ 0,00</strong></div>
+  </div></div>
+ </div>
+ <div class="company-cover" id="company-summary">🏢 Cubierto por Becones Inmobiliaria SRL: llegada y salida del aeropuerto y Airbnb (importe pendiente de informar).</div>
+ <div class="budgetmeta" id="budget-summary">Cálculo basado en los importes conocidos</div>
+ <div class="budgetextra"><button type="button" id="copy-budget">📋 Copiar presupuesto para compartir</button></div>
+</div>
 <div class="cards" id="stats"><div class="stat"><small>Fechas</small><div class="num">3–14 nov.</div></div><div class="stat"><small>Ciudades base</small><div class="num">Madrid · Barcelona · París</div></div></div>
-<section class="section active" id="resumen"><div class="panel"><h2>Elegir una alternativa</h2><p class="hint">Las tres rutas mantienen la llegada a Madrid, el compromiso profesional y la excursión del 9 de noviembre.</p><div class="plan-grid" id="plans"></div></div><div class="notice">💶 Los importes introducidos directamente en esta página se guardan <strong>solo en este navegador</strong> como simulación; no cambian lo que ve Mariangel. Para publicar tus números para ambas, pulsa <strong>Copiar presupuesto</strong> y pégamelo en el chat: actualizaré GitHub.</div><div class="notice">🏠 <strong>Airbnb ya pagado:</strong> del 4 al 9 de noviembre, salida límite a las 10:00. El enlace de Maps proporcionado señala un establecimiento llamado <strong>Boracay Resto Bar</strong>, NO la puerta del alojamiento. La ubicación exacta del Airbnb sigue sin verificarse y no se publica aquí. El importe pagado no fue comunicado y queda fuera del subtotal conocido.</div><div class="notice">⚠️ Atención: el 9 de noviembre el Airbnb vence a las 10:00 y el tour Civitatis sale antes (7:45 o 9:00, sujeto a disponibilidad). Se propone salir del Airbnb alrededor de las 07:05 (7:05 a. m.) para guardar el equipaje y encontrarse con el guía sobre las 08:40 (8:40 a. m.). Falta la dirección real de entrada al Airbnb para verificar caminatas inferiores a 200 m. <strong>Inauguración confirmada el 5 de noviembre, de 16:00 (4:00 p. m.) a 20:00 (8:00 p. m.); hora de inicio de las jornadas del 6 al 8 pendiente de confirmar.</strong></div><div class="notice">⚠️ Algunas horas son propuestas, no reservas confirmadas. El vuelo de vuelta y varias tarifas están pendientes. El Airbnb está pagado pero su precio aún no consta en el presupuesto.</div><div class="notice" id="progress-summary">✅ Progreso del viaje: todavía no hay actividades marcadas como realizadas.</div><div class="panel"><h2>Próximas decisiones</h2><div id="highlights"></div></div><div class="panel" id="hotel-atocha"><h2>🛏️ Hoteles cerca de Atocha · 9 al 10 de noviembre</h2>
+<section class="section active" id="resumen"><div class="panel"><h2>Elegir una alternativa</h2><p class="hint">Las tres rutas mantienen la llegada a Madrid, el compromiso profesional y la excursión del 9 de noviembre.</p><div class="plan-grid" id="plans"></div></div><div class="notice">💶 Los importes introducidos directamente en esta página se guardan <strong>solo en este navegador</strong> como simulación; no cambian lo que ve Mariangel. Para publicar tus números para ambas, pulsa <strong>Copiar presupuesto</strong> y pégamelo en el chat: actualizaré GitHub.</div><div class="notice">🏠 <strong>Airbnb pagado por Becones Inmobiliaria SRL:</strong> del 4 al 9 de noviembre, salida límite a las 10:00. El enlace de Maps proporcionado señala un establecimiento llamado <strong>Boracay Resto Bar</strong>, NO la puerta del alojamiento. La ubicación exacta del Airbnb sigue sin verificarse y no se publica aquí. El importe pagado no fue comunicado y queda fuera del subtotal conocido.</div><div class="notice">⚠️ Atención: el 9 de noviembre el Airbnb vence a las 10:00 y el tour Civitatis sale antes (7:45 o 9:00, sujeto a disponibilidad). Se propone salir del Airbnb alrededor de las 07:05 (7:05 a. m.) para guardar el equipaje y encontrarse con el guía sobre las 08:40 (8:40 a. m.). Falta la dirección real de entrada al Airbnb para verificar caminatas inferiores a 200 m. <strong>Inauguración confirmada el 5 de noviembre, de 16:00 (4:00 p. m.) a 20:00 (8:00 p. m.); hora de inicio de las jornadas del 6 al 8 pendiente de confirmar.</strong></div><div class="notice">⚠️ Algunas horas son propuestas, no reservas confirmadas. El vuelo de vuelta y varias tarifas están pendientes. El Airbnb está pagado pero su precio aún no consta en el presupuesto.</div><div class="notice" id="progress-summary">✅ Progreso del viaje: todavía no hay actividades marcadas como realizadas.</div><div class="panel"><h2>Próximas decisiones</h2><div id="highlights"></div></div><div class="panel" id="hotel-atocha"><h2>🛏️ Hoteles cerca de Atocha · 9 al 10 de noviembre</h2>
 <p class="hint">Comparativa para <strong>2 adultas · 1 habitación · 1 noche</strong> después de la excursión a Toledo y Segovia. Son candidatas <strong>sin reservar</strong>. No sumar dos hoteles al presupuesto: introducir únicamente el precio del elegido en el paso del 9 de noviembre.</p>
 <div class="hotel-shortlist">
 <div class="hotel-option">
@@ -270,7 +312,7 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
   <button type="button" id="toggle-completed" aria-pressed="false">Mostrar realizadas (0)</button>
 </div>
 <div class="notice">✅ Tus actividades completadas se guardan <strong>solo en este navegador</strong>, sin cambiar el itinerario de Mariangel. Puedes recuperarlas usando «Mostrar realizadas» y «Volver a pendiente». Los costos siguen incluidos en el presupuesto.</div><div class="notice">🍽️ <strong>Presupuesto de comidas:</strong> 12 € por persona por cada almuerzo y por cada cena, aplicado a los días 4–13 de noviembre. En los planes de dos personas equivale a 24 € por comida o cena. No incluye desayunos. Si el evento o la familia ofrecen una comida, cambia ese importe a 0 €. Los días 3 y 14 quedan pendientes por los horarios y comidas incluidas en los vuelos.</div><p class="hint"><strong>🕒 Horarios: 24 horas y su equivalencia de 12 horas (a. m. / p. m.).</strong> <strong>💶 Escribe el costo en euros debajo de cada actividad.</strong> Indica si el precio es para una persona o para las dos. Se sumará automáticamente al día y al presupuesto general que aparece arriba. Los costos que no introduzcas no se contabilizan.</p><div class="notice">✍️ Aquí puedes simular importes en tu dispositivo; quedan guardados en este navegador. Para que Mariangel vea los cambios publicados, utiliza «Copiar presupuesto» y envíamelos por este chat.</div><div id="agenda-list"><article class="day"><div class="dayhead"><strong>Itinerario del 3 al 14 de noviembre</strong></div><div class="event"><div class="time">05</div><div><div class="evtitle">Inauguración en el Meliá Castilla · 16:00 (4:00 p. m.)–20:00 (8:00 p. m.)</div><div class="sub">Madrid · 5 de noviembre</div></div></div><div class="event"><div class="time">09</div><div><div class="evtitle">Excursión a Toledo y Segovia</div><div class="sub">Desde Madrid · 9 de noviembre, 09:00 (9:00 a. m.; horario por confirmar)</div></div></div></article></div></section>
-<section class="section" id="costos"><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">🍽️ Se han presupuestado almuerzos y cenas a <strong>12 € por persona y por comida</strong>. Se añaden al total del plan automáticamente, pero siguen siendo estimaciones editables; desayunos y posibles comidas incluidas en las jornadas o vuelos se revisarán aparte.</div><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$71,70</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Subtotal €</th><th>Equivalente RD$</th><th>Equivalente US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
+<section class="section" id="costos"><div class="notice company-notice">🏢 <strong>Ya cubierto por Becones Inmobiliaria SRL:</strong> recepción y salida del aeropuerto, traslados aeroportuarios indicados y Airbnb del 4 al 9 de noviembre. <strong>Importes no comunicados:</strong> no se anotan como 0 €. Falta precisar si los billetes aéreos están incluidos.</div><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">🍽️ Se han presupuestado almuerzos y cenas a <strong>12 € por persona y por comida</strong>. Se añaden al total del plan automáticamente, pero siguen siendo estimaciones editables; desayunos y posibles comidas incluidas en las jornadas o vuelos se revisarán aparte.</div><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$71,70</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Grupo €</th><th>Por persona €</th><th>Grupo RD$</th><th>Grupo US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
 <section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div></section>
 <section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad base</h2><p class="hint">Madrid agrupa excursiones a Toledo y Segovia; Barcelona agrupa la visita a Sabadell. Son municipios diferentes, pero las organizamos juntas para facilitar el viaje. Selecciona un lugar para abrirlo en Google Maps.</p><div class="citygrid" id="citymaps"></div></section>
 <section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div id="checklist"></div></section>
@@ -465,6 +507,11 @@ function isLunchOrDinner(i){
  if(i.type==='Descanso')return /cena|cenar/i.test(i.title);
  return false;
 }
+function companyCovered(i){
+ return i.title==='Llegada a Madrid-Barajas, Terminal 1'
+ ||i.title==='Traslado del aeropuerto al Airbnb de Madrid · ubicación por confirmar'
+ ||i.title==='Llegada y check-in en Airbnb PAGADO · 4 al 9 de noviembre';
+}
 function defaultCost(i){
  var shared=sharedEstimates[i.plan+'|'+i.title];
  if(shared)return shared;
@@ -498,14 +545,20 @@ function costControl(i){
  +sel('status',[['estimado','Estimado'],['confirmado','Confirmado']])
  +'<span class="cost-indicator" data-price-indicator="'+i.id+'">'+costText(i)+'</span></div>';
 }
-function costText(i){var n=calcCost(i);return n===null?'Sin cotizar: no se suma':eur(n)+' · '+dop(n)+' · '+usd(n)}
+function costText(i){var n=calcCost(i),p=plans[plan].people;return n===null?(companyCovered(i)?'✓ Cubierto por Becones Inmobiliaria SRL · sin importe registrado':'Sin cotizar: no se suma'):(companyCovered(i)?'✓ Cubierto por la empresa · ':'')+'Grupo '+eur(n)+' · Individual '+eur(n/p)+' · '+dop(n)+' · '+usd(n)}
 function renderBudgetBar(){
- var x=totalCost();
+ var x=totalCost(),p=plans[plan].people,each=x.total/p;
  document.getElementById('amount-plan').textContent=plan;
+ document.getElementById('budget-travelers').textContent=p+' '+(p===1?'persona':'personas');
  document.getElementById('grand-total').textContent=eur(x.total);
  document.getElementById('grand-total-dop').textContent=dop(x.total);
  document.getElementById('grand-total-usd').textContent=usd(x.total);
- document.getElementById('budget-summary').textContent=x.priced+' actividades con importe · '+x.missing+' sin cotizar · '+eur(x.total/plans[plan].people)+' / viajera · valores orientativos';
+ document.getElementById('person-total-eur').textContent=eur(each);
+ document.getElementById('person-total-dop').textContent=dop(each);
+ document.getElementById('person-total-usd').textContent=usd(each);
+ var companyUnknown=items.filter(function(i){return avail(i.plan)&&companyCovered(i)&&calcCost(i)===null}).length;
+ document.getElementById('company-summary').textContent='🏢 Becones Inmobiliaria SRL: '+companyUnknown+' conceptos cubiertos sin importe declarado (no se suman como 0 €). También confirmó la salida del aeropuerto; traslado pendiente de precisar. Billetes aéreos por verificar.';
+ document.getElementById('budget-summary').textContent=x.priced+' actividades con precio · '+x.missing+' sin importe (incluidas '+companyUnknown+' cubiertas por empresa). Costo individual = total / '+p+'.';
 }
 function syncCostUI(){
  renderBudgetBar();
@@ -516,8 +569,9 @@ function syncCostUI(){
   var c=getCost(i),fld=el.getAttribute('data-cost-field');el.value=fld==='amount'?(c.amount==null?'':c.amount):c[fld];
  });
  var x=totalCost(),bl=document.getElementById('budget-bottomline');
- if(bl)bl.textContent='Subtotal: '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+'. Faltan por cotizar '+x.missing+' actividades.';
- document.querySelectorAll('[data-budget-total]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-total'))];if(i)el.textContent=calcCost(i)===null?'Pendiente':eur(calcCost(i))});
+ if(bl)bl.textContent='GRUPO: '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+' · POR PERSONA: '+eur(x.total/plans[plan].people)+' / '+dop(x.total/plans[plan].people)+' / '+usd(x.total/plans[plan].people)+'. Faltan '+x.missing+' importes.';
+ document.querySelectorAll('[data-budget-total]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-total'))];if(i)el.textContent=calcCost(i)===null?(companyCovered(i)?'Pagado · sin importe':'Pendiente'):eur(calcCost(i))});
+ document.querySelectorAll('[data-budget-person]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-person'))];if(i)el.textContent=calcCost(i)===null?'—':eur(calcCost(i)/plans[plan].people)});
  document.querySelectorAll('[data-budget-dop]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-dop'))];if(i)el.textContent=calcCost(i)===null?'—':dop(calcCost(i))});
  document.querySelectorAll('[data-budget-usd]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-usd'))];if(i)el.textContent=calcCost(i)===null?'—':usd(calcCost(i))});
  document.querySelectorAll('[data-day-total]').forEach(function(el){var d=el.getAttribute('data-day-total');el.textContent=eur(dayTotal(d).total)});
@@ -529,7 +583,7 @@ function eventMarkup(i){
  return '<div class="event'+(done?' finished':'')+'"><div class="time">'+escapeHtml(showBothTimes(i.time))+'</div><div class="dot"></div><div class="evbody">'
  +'<div class="evtitle">'+escapeHtml(showBothTimes(i.title))+'</div>'
  +'<div class="sub">'+escapeHtml(cityLabel(i))+' · '+escapeHtml(i.type)+'</div>'
- +'<div class="evnotes">'+escapeHtml(showBothTimes(i.note))+'</div>'
+ +'<div class="evnotes">'+escapeHtml(showBothTimes(i.note))+'</div>'+(companyCovered(i)?'<div class="company-item">✓ Pagado por Becones Inmobiliaria SRL</div>':'')
  +'<div class="evlinks"><a target="_blank" rel="noopener" href="'+link(i.place)+'">📍 Ver ubicación ↗</a></div>'
  +costControl(i)
  +'<button type="button" class="done-btn" data-toggle-done="'+i.id+'" aria-label="'+(done?'Volver a pendiente: ':'Marcar como realizada: ')+escapeHtml(i.title)+'">'+(done?'↩ Volver a pendiente':'✓ Realizada · ocultar')+'</button>'
@@ -553,14 +607,15 @@ function renderBudget(){
  document.getElementById('budget-title').textContent='Plan '+plan+' · '+plans[plan].people+' persona(s)';
  document.getElementById('budget-body').innerHTML=items.filter(function(i){return avail(i.plan)}).sort(function(a,b){return (a.date+' '+a.time).localeCompare(b.date+' '+b.time)}).map(function(i){
   var n=calcCost(i);
-  return '<tr><td><strong>'+escapeHtml(i.title)+'</strong><div class="sub">'+escapeHtml(fmt(i.date))+' · '+escapeHtml(i.city)+'</div></td>'
+  return '<tr><td><strong>'+escapeHtml(i.title)+'</strong><div class="sub">'+escapeHtml(fmt(i.date))+' · '+escapeHtml(i.city)+'</div>'+(companyCovered(i)?'<div class="company-item">✓ Pagado por Becones Inmobiliaria SRL</div>':'')+'</td>'
   +'<td>'+costControl(i)+'</td><td>'+(getCost(i).scope==='person'?plans[plan].people+' × persona':'Grupo')+'</td>'
-  +'<td><strong data-budget-total="'+i.id+'">'+(n===null?'Pendiente':eur(n))+'</strong></td>'
+  +'<td><strong data-budget-total="'+i.id+'">'+(n===null?(companyCovered(i)?'Pagado · sin importe':'Pendiente'):eur(n))+'</strong></td>'
+  +'<td><strong data-budget-person="'+i.id+'">'+(n===null?'—':eur(n/plans[plan].people))+'</strong></td>'
   +'<td><span data-budget-dop="'+i.id+'">'+(n===null?'—':dop(n))+'</span></td>'
   +'<td><span data-budget-usd="'+i.id+'">'+(n===null?'—':usd(n))+'</span></td></tr>';
  }).join('');
  var x=totalCost();
- document.getElementById('budget-bottomline').textContent='Subtotal: '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+'. Pendientes: '+x.missing+' actividades.';
+ document.getElementById('budget-bottomline').textContent='GRUPO ('+plans[plan].people+'): '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+' · INDIVIDUAL: '+eur(x.total/plans[plan].people)+' / '+dop(x.total/plans[plan].people)+' / '+usd(x.total/plans[plan].people)+'. Sin importe '+x.missing+'.';
  document.getElementById('budget-todo').innerHTML=budgets.filter(function(b){return b.plans==='ALL'||b.plans.split(',').indexOf(plan)!==-1}).map(function(b){return '<p class="budgetinfo">☐ '+escapeHtml(b.title)+' — '+escapeHtml(b.state)+'</p>'}).join('');
 }
 function renderRoutes(){document.getElementById('routes').innerHTML=routes.filter(function(r){return r.plans==='ALL'||r.plans.split(',').indexOf(plan)!==-1}).map(function(r,i){return '<article class="step"><strong>'+(i+1)+'. '+escapeHtml(r.title)+'</strong><div class="sub">'+escapeHtml(r.desc)+'</div></article>'}).join('')}
@@ -601,7 +656,9 @@ function updateCostField(el,fld){var i=items[Number(el.getAttribute('data-cost-i
 document.getElementById('copy-budget').addEventListener('click',function(){
  var list=items.filter(function(i){return avail(i.plan)&&calcCost(i)!==null}),lines=['ViajeX Plan '+plan+' · costos para publicar','Tasas de referencia: 1 EUR = RD$71,70; 1 USD = RD$62'];
  list.forEach(function(i){var c=getCost(i);lines.push(i.date+' '+i.time+' | '+i.title+' | '+c.amount+' EUR | '+(c.scope==='person'?'por persona':'grupo')+' | '+c.status+' | '+eur(calcCost(i))+' | '+dop(calcCost(i))+' | '+usd(calcCost(i)))});
- lines.push('Subtotal conocido: '+eur(totalCost().total)+' / '+dop(totalCost().total)+' / '+usd(totalCost().total)+'; sin cotizar: '+totalCost().missing);
+ lines.push('GRUPO: '+eur(totalCost().total)+' / '+dop(totalCost().total)+' / '+usd(totalCost().total));
+ lines.push('INDIVIDUAL: '+eur(totalCost().total/plans[plan].people)+' / '+dop(totalCost().total/plans[plan].people)+' / '+usd(totalCost().total/plans[plan].people)+'; sin importe '+totalCost().missing);
+ lines.push('Pagado por Becones Inmobiliaria SRL: recepción y salida del aeropuerto, traslados y Airbnb 4–9 noviembre (importes desconocidos; no contados como cero). Vuelos por confirmar.');
  var txt=lines.join('\n');
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){alert('Presupuesto copiado. Pégamelo en ChatGPT para publicarlo a ambas.')}).catch(function(){window.prompt('Copia este presupuesto para ChatGPT:',txt)})}else{window.prompt('Copia este presupuesto para ChatGPT:',txt)}
 });
