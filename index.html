@@ -269,7 +269,7 @@ function selectItems(){return items.filter(function(i){return avail(i.plan)&&(!c
 function fmt(d){return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long'}).format(new Date(d+'T12:00:00'))}
 function showBothTimes(value){
  // Keep raw itinerary times in 24-hour format for sorting and saved-cost keys.
- return String(value).replace(/\b(\d{1,2}):([0-5]\d)(?:\s*(a\.?\s*m\.?|p\.?\s*m\.?))?\b/gi,function(full,h,min){
+ return String(value).replace(/\b(\d{1,2}):([0-5]\d)(?:\s*(a\.?\s*m\.?|p\.?\s*m\.?))?(?!\d)/gi,function(full,h,min){
    var hr=Number(h);if(hr>23)return full;
    var h24=String(hr).padStart(2,'0')+':'+min;
    var h12=String(hr%12||12)+':'+min+' '+(hr<12?'a. m.':'p. m.');
