@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12372f">
+<meta name="description" content="ViajeX Europa 2026: itinerario compartido de consulta, planes A, B y C.">
+<title>ViajeX Europa 2026 · Kateryn y Mariangel</title>
+<style>
+:root{color-scheme:light;--ink:#17352f;--muted:#6a7d78;--green:#176957;--aqua:#e6f5ee;--paper:#f5f8f5;--line:#dce8df;--orange:#f4ac56;--white:white;--shadow:0 12px 35px #21433412}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,select{font:inherit}button{cursor:pointer}a{color:var(--green)}.shell{display:grid;grid-template-columns:238px minmax(0,1fr);min-height:100vh}
+aside{background:#113b33;color:white;padding:26px 16px;display:flex;flex-direction:column;gap:18px}.brand{font-size:23px;font-weight:800;letter-spacing:-.7px}.brand span{color:#96dbba}.aside-meta{font-size:12px;color:#bddecf}.nav{display:grid;gap:6px}
+.nav button{border:0;text-align:left;padding:13px 15px;color:#c9e3d7;background:none;border-radius:12px;font-weight:650}.nav button.active{background:#2a594e;color:white}.readonly{font-size:12px;border:1px solid #528374;background:#24544a;padding:12px;border-radius:13px;margin-top:auto;color:#d7eddf}
+main{padding:24px clamp(16px,4vw,50px) 55px;max-width:1450px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.kicker{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:1.8px;font-weight:800}.heading{font-size:clamp(27px,4vw,41px);line-height:1.15;margin:10px 0 8px;letter-spacing:-1.7px}.lede{color:var(--muted);max-width:750px;margin:0}.topright{background:white;border:1px solid var(--line);padding:9px 13px;border-radius:30px;font-size:12px;white-space:nowrap}.controls{display:flex;flex-wrap:wrap;gap:10px;margin:23px 0}.controls select,.controls button{background:white;color:var(--ink);border:1px solid var(--line);padding:11px 15px;border-radius:11px;min-height:44px}.controls label{font-size:12px;font-weight:800;color:var(--muted);align-self:center}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0 22px}.stat,.panel,.day,.map-card,.step{background:white;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:17px}.stat{padding:20px}.stat .num{font-weight:850;font-size:24px;letter-spacing:-1px;margin-top:5px}.stat small{font-size:12px;color:var(--muted)}.panel{padding:23px;margin:16px 0}.panel h2{margin:0 0 11px;font-size:20px;letter-spacing:-.5px}.plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.plan{border:1px solid var(--line);background:white;border-radius:16px;padding:17px;text-align:left;color:var(--ink)}.plan.sel{border:2px solid var(--green);background:#eff9f3;padding:16px}.plan .letter{font-size:24px;font-weight:850;color:var(--green)}.plan strong{display:block;margin:4px 0;font-size:14px}.plan small{color:var(--muted)}.hint{color:var(--muted);font-size:13px}.notice{border:1px solid #edd8a5;background:#fff8e9;border-radius:13px;padding:13px 15px;color:#72542f;margin:14px 0;font-size:13px}
+.section{display:none}.section.active{display:block}.section-title{font-size:20px;letter-spacing:-.5px;margin:25px 0 11px}
+.day{overflow:hidden;margin-bottom:14px}.dayhead{padding:13px 18px;background:#f8fbf9;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.dayhead strong{font-size:16px}.count{color:var(--muted);font-size:12px}.event{display:grid;grid-template-columns:62px 9px minmax(0,1fr) auto;gap:12px;padding:14px 18px;border-bottom:1px solid #edf2ef;align-items:start}.event:last-child{border:0}.time{font-weight:800;color:var(--green);font-size:12px;margin-top:3px}.dot{background:#48ad88;width:8px;height:8px;border-radius:50%;margin-top:7px}.evtitle{font-weight:750}.sub{font-size:12px;color:var(--muted);margin-top:2px}.pill{font-size:11px;padding:4px 9px;background:#e8f3ef;border-radius:30px;display:inline-block;white-space:nowrap}.pill.wait{background:#fff2e0;color:#966325}.pill.idea{background:#edf0f7;color:#63718a}.evnotes{margin-top:6px;font-size:12px;color:#627a72}.evlinks a{font-size:12px;text-decoration:none;font-weight:650}
+.citygrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.map-card{padding:20px}.map-card h3{margin:0;font-size:17px}.map-card .emoji{font-size:29px}.place-list{display:grid;gap:9px;margin:14px 0 0}.place-list a{display:flex;justify-content:space-between;gap:10px;text-decoration:none;border-bottom:1px solid #edf1ef;padding-bottom:8px;font-size:13px}.place-list a span{color:var(--green)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;background:white;min-width:550px}th,td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#eff6f1;color:#527167;font-size:12px}tr:last-child td{border:0}.large{font-size:21px;font-weight:800}.step{padding:17px 19px;margin:11px 0}.step strong{display:block}.step .sub{margin-top:5px}.footer{margin-top:38px;font-size:12px;color:var(--muted)}@media(max-width:980px){.shell{grid-template-columns:1fr}aside{padding:12px 16px;gap:10px}.brand{font-size:21px}.aside-meta,.readonly{display:none}.nav{display:flex;overflow-x:auto;scrollbar-width:none}.nav button{white-space:nowrap;padding:10px 12px}main{padding:18px 15px 35px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.citygrid,.plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:570px){.cards,.citygrid,.plan-grid{grid-template-columns:1fr}.stat{padding:15px}.heading{font-size:30px}.event{grid-template-columns:49px 7px minmax(0,1fr);gap:9px;padding:13px 12px}.event .pill{grid-column:3;justify-self:start}.dayhead{padding:12px}.topright{margin-top:5px}.controls{margin:15px 0}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside>
+<div><div class="brand">Viaje<span>X</span> ✈</div><div class="aside-meta">EUROPA · 03—14 NOV 2026</div></div>
+<nav class="nav" aria-label="Navegación">
+<button class="active" data-tab="resumen">🏠 Resumen</button><button data-tab="agenda">🗓️ Itinerario</button><button data-tab="costos">💶 Costos</button><button data-tab="rutas">🚆 Rutas</button><button data-tab="mapas">📍 Mapas</button><button data-tab="pendientes">✅ Pendientes</button>
+</nav><div class="readonly">🔒 Solo consulta. Los cambios los solicita Kateryn desde ChatGPT; Mariangel puede revisar la misma versión publicada.</div>
+</aside>
+<main>
+<div class="top"><div><div class="kicker">Organizador compartido de viaje</div><h1 class="heading">España y París, a nuestro ritmo ✨</h1><p class="lede">Itinerario conjunto de Kateryn y Mariangel. Comparamos rutas, actividades y gastos sin reservar nada antes de revisar los detalles.</p></div><div class="topright">🔒 Versión de consulta</div></div>
+<div class="controls"><label for="plan">PLAN ACTIVO</label><select id="plan"><option value="A">Plan A · Kateryn sola, España</option><option value="B">Plan B · Ambas, España + París</option><option value="C" selected>Plan C · Ambas, solo España</option></select><label for="city">CIUDAD</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>Sabadell</option><option>Toledo</option><option>Segovia</option><option>París</option><option>En traslado</option></select><button id="print">🖨️ Imprimir</button></div>
+<div class="cards" id="stats"></div>
+<section class="section active" id="resumen"><div class="panel"><h2>Elegir una alternativa</h2><p class="hint">Las tres rutas mantienen la llegada a Madrid, el compromiso profesional y la excursión del 9 de noviembre.</p><div class="plan-grid" id="plans"></div></div><div class="notice">⚠️ Los horarios son propuestas de planificación y no reservas. No hay confirmación de precios actuales ni del vuelo de vuelta. El Airbnb deja de estar disponible después del mediodía del 9 de noviembre.</div><div class="panel"><h2>Próximas decisiones</h2><div id="highlights"></div></div><div class="panel"><h2>Primeros días</h2><div id="preview"></div></div></section>
+<section class="section" id="agenda"><h2 class="section-title">Itinerario completo por día y ciudad</h2><p class="hint">Los enlaces de ubicación abren Google Maps. Los márgenes entre actividades deben revisarse con los horarios definitivos.</p><div id="agenda-list"></div></section>
+<section class="section" id="costos"><h2 class="section-title">Presupuesto en euros</h2><div class="notice">Este presupuesto está incompleto: las cantidades son referencias, no tarifas verificadas para noviembre de 2026. Los conceptos sin cotización no se suman como si costaran cero.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Concepto</th><th>Precio orientativo</th><th>Personas</th><th>Estado</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint">Objetivo histórico del viaje: controlar especialmente transporte, alojamiento y equipaje, valorando costos para una o dos personas.</p></div></section>
+<section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div></section>
+<section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad</h2><p class="hint">Selecciona cualquier punto para abrir su ubicación real. No se muestran domicilios privados.</p><div class="citygrid" id="citymaps"></div></section>
+<section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div id="checklist"></div></section>
+<div class="footer">ViajeX Europa 2026 · Información de consulta · Itinerario sujeto a revisión · Sin datos privados ni acceso de edición.</div>
+</main></div>
+<script>
+(function(){
+'use strict';
+var active='resumen',plan='C',city='';
+var rows=[
+['03','22:05','En traslado','Vuelo Air Europa Santo Domingo → Madrid','Vuelo','ALL','Salida desde SDQ según información facilitada; verificar localizador y condiciones','Aeropuerto Internacional Las Américas'],
+['04','11:10','Madrid','Llegada a Madrid-Barajas, Terminal 1','Vuelo','ALL','Vuelo sin escalas; traslado, almuerzo, descanso y orientación','Aeropuerto Adolfo Suárez Madrid-Barajas T1'],
+['04','15:00','Madrid','Traslado y organización antes del evento','Logística','ALL','Dirección del alojamiento en Madrid pendiente de incorporar sin divulgar datos privados','Hotel Meliá Castilla, Madrid'],
+['05','09:00','Madrid','Bloque reservado para evento profesional','Evento','ALL','El programa exacto aún está por verificar','Hotel Meliá Castilla, Madrid'],
+['06','09:00','Madrid','Bloque reservado para evento profesional','Evento','ALL','Reservar márgenes para traslados y comidas','Hotel Meliá Castilla, Madrid'],
+['07','09:00','Madrid','Bloque reservado para evento profesional','Evento','ALL','Horario orientativo','Hotel Meliá Castilla, Madrid'],
+['08','09:00','Madrid','Bloque reservado para evento profesional','Evento','ALL','Horario orientativo','Hotel Meliá Castilla, Madrid'],
+['08','18:30','Madrid','Paseo opcional: Puerta del Sol, Plaza Mayor y mercado','Turismo','ALL','Solo si el evento lo permite; Mercado de San Miguel opcional','Puerta del Sol Madrid'],
+['09','06:15','Madrid','Desocupar Airbnb y dejar maletas en consigna','Equipaje','ALL','El Airbnb no estará disponible después del mediodía; verificar horario de consigna','Madrid Atocha'],
+['09','07:45','Madrid','Excursión a Toledo y Segovia (Civitatis)','Excursión','ALL','Hora y punto de salida por confirmar; recorrido de jornada larga','Calle Mesón de Paños 15, Madrid'],
+['09','20:30','Madrid','Recoger equipaje, cenar y dormir en Madrid','Descanso','ALL','Reservar alojamiento para la noche del 9; no asumir llegada a hora fija','Madrid centro'],
+['10','08:30','En traslado','Tren Madrid-Atocha → Barcelona-Sants','Tren','ALL','Alta velocidad, operador y tarifa por escoger','Estación Madrid-Puerta de Atocha'],
+['10','12:30','Barcelona','Free tour de Barcelona y Barrio Gótico','Tour','A','Horario por confirmar, dependiendo del tren; propina voluntaria','Plaça de Catalunya Barcelona'],
+['10','15:30','Barcelona','Visitar Mercado de la Boquería','Comidas','A','Pasear y almorzar con calma','Mercat de la Boqueria Barcelona'],
+['11','09:30','Barcelona','Sagrada Familia y posible torre','Entrada','A','Revisar entradas oficiales y disponibilidad','Sagrada Família Barcelona'],
+['11','15:30','En traslado','FGC S2 desde Barcelona hacia Sabadell','Tren','A','Estación final según barrio de tu tía','Barcelona Plaça de Catalunya'],
+['11','17:30','Sabadell','Visita a tu tía y dormir en su casa','Familia','A','Una noche, sujeto a confirmación familiar','Sabadell Barcelona'],
+['12','10:00','Barcelona','Día libre para completar turismo y fotografías','Turismo','A','Regreso desde Sabadell; ritmo cómodo y pausas','Barcelona centro'],
+['13','10:00','En traslado','Volver de Barcelona a Madrid','Tren','A','Vigilar combinación con vuelo de regreso','Barcelona-Sants'],
+['10','13:00','Barcelona','Sagrada Familia y posible torre','Entrada','B','Visita sujeta al horario del tren; confirmar entrada','Sagrada Família Barcelona'],
+['10','15:45','En traslado','FGC S2 hacia Sabadell','Tren','B','Estación final por determinar según el barrio familiar','Barcelona Plaça de Catalunya'],
+['10','17:30','Sabadell','Visita a tu tía y noche en hotel cercano','Familia','B','Buscar hotel seguro y práctico para ambas; precio pendiente','Sabadell Barcelona'],
+['11','08:30','En traslado','Sabadell → Barcelona por FGC S2','Tren','B','Dejar maletas o prever consigna segura','Estació Sabadell Plaça Major'],
+['11','10:00','Barcelona','Free tour por Barcelona y Barrio Gótico','Tour','B','Bajo la Sagrada Familia en el plan; reservar horario del tour y propina','Plaça de Catalunya Barcelona'],
+['11','12:15','Barcelona','Fotos por la Catedral y el Barrio Gótico','Turismo','B','Paseo relajado sin duplicar trayecto del free tour','Catedral de Barcelona'],
+['11','13:00','Barcelona','Almuerzo en Mercado de la Boquería','Comidas','B','Verificar horario del mercado antes de fijar vuelos','Mercat de la Boqueria Barcelona'],
+['11','17:30','En traslado','Vuelo Barcelona → París (si hay buen horario)','Vuelo','B','Hora meramente orientativa; buscar CDG u Orly y organizar equipaje','Aeroport Josep Tarradellas Barcelona-El Prat'],
+['11','21:00','París','Llegada, cena y alojamiento en París','Descanso','B','Dormir en París para disfrutar el día siguiente','Paris France'],
+['12','09:30','París','Autobús turístico Big Bus / Tootbus','Tour','B','Comparar operadores y precio; evitar intentar todas las bajadas','Paris Louvre Pyramide'],
+['12','12:00','París','Trocadéro: fotografías de la Torre Eiffel','Turismo','B','Solo fotos exteriores, sin subida','Place du Trocadéro Paris'],
+['12','14:00','París','Campos Elíseos y recorrido panorámico','Turismo','B','Pausas para almorzar y desplazarse','Avenue des Champs-Élysées Paris'],
+['13','11:00','En traslado','Vuelo París → Madrid','Vuelo','B','Elegir aeropuerto de salida y vuelo con margen amplio','Paris Orly Airport'],
+['10','13:00','Barcelona','Sagrada Familia y posible torre','Entrada','C','No comprar hasta confirmar hora de llegada','Sagrada Família Barcelona'],
+['10','17:00','Barcelona','Tarde en Passeig de Gràcia','Turismo','C','Fotos exteriores de Casa Batlló y La Pedrera','Casa Batlló Barcelona'],
+['11','10:30','Barcelona','Barcelona a ritmo tranquilo','Turismo','C','Paseo, comida y fotografías sin prisas','Barcelona centro'],
+['11','15:30','En traslado','FGC S2 Barcelona → Sabadell','Tren','C','Calcular margen para dejar maletas y llegar 17:00–18:00','Barcelona Plaça de Catalunya'],
+['11','17:30','Sabadell','Visita a tu tía y noche en hotel cercano','Familia','C','Localizar hotel según barrio y reseñas recientes','Sabadell Barcelona'],
+['12','08:45','En traslado','Sabadell → Barcelona','Tren','C','Traslado tranquilo y consigna si hace falta','Estació Sabadell Plaça Major'],
+['12','10:00','Barcelona','Free tour Barcelona: Barrio Gótico','Tour','C','Propina voluntaria; verificar cita exacta','Plaça de Catalunya Barcelona'],
+['12','13:00','Barcelona','Mercado de la Boquería y almuerzo','Comidas','C','Reservar tiempo suficiente para sentarse a comer','Mercat de la Boqueria Barcelona'],
+['13','10:00','En traslado','Tren Barcelona → Madrid','Tren','C','Con margen para el vuelo de regreso','Barcelona-Sants'],
+['14','10:00','Madrid','Regreso internacional: comprobar billete y horario','Vuelo','ALL','No tenemos datos verificados de la reserva de vuelta','Aeropuerto Adolfo Suárez Madrid-Barajas']
+];
+var items=rows.map(function(r,i){return {id:i,date:'2026-11-'+r[0],time:r[1],city:r[2],title:r[3],type:r[4],plan:r[5],note:r[6],place:r[7]};});
+var plans={A:{title:'Kateryn sola · España',tag:'Visita familiar con noche en casa de tu tía',people:1,description:'Madrid → Barcelona → Sabadell → Madrid. Sin París.'},B:{title:'Ambas · España + París',tag:'Barcelona, Sabadell y un día completo en París',people:2,description:'Madrid → Barcelona → Sabadell → París → Madrid.'},C:{title:'Ambas · España',tag:'Más margen para recorrer Barcelona y reducir traslados',people:2,description:'Madrid → Barcelona → Sabadell → Madrid. Sin París.'}};
+var maps=[
+{city:'Madrid',icon:'🇪🇸',sites:['Hotel Meliá Castilla Madrid','Madrid-Puerta de Atocha','Puerta del Sol Madrid','Mercado de San Miguel Madrid','Calle Mesón de Paños 15 Madrid']},
+{city:'Toledo',icon:'🏰',sites:['Plaza de Zocodover Toledo','Catedral de Toledo','Alcázar de Toledo']},
+{city:'Segovia',icon:'🏛️',sites:['Acueducto de Segovia','Plaza Mayor Segovia','Alcázar de Segovia']},
+{city:'Barcelona',icon:'🇪🇸',sites:['Sagrada Família Barcelona','Plaça Catalunya Barcelona','Catedral de Barcelona','Mercat de la Boqueria Barcelona','Casa Batlló Barcelona']},
+{city:'Sabadell',icon:'🚆',sites:['Estació FGC Sabadell Plaça Major','Estació FGC La Creu Alta Sabadell','Estació FGC Sabadell Nord','Estació FGC Can Feu Gràcia']},
+{city:'París',icon:'🇫🇷',sites:['Place du Trocadéro Paris','Tour Eiffel Paris','Louvre Paris','Notre Dame Paris','Avenue des Champs-Élysées Paris']}
+];
+var budgets=[
+{title:'Billete aéreo internacional SDQ ↔ Madrid',plans:'ALL',price:'Pendiente',state:'Verificar vuelo de vuelta'},
+{title:'Tren Madrid ↔ Barcelona',plans:'ALL',price:'Pendiente',state:'Comparar Renfe / iryo / OUIGO'},
+{title:'Excursión Toledo y Segovia',plans:'ALL',price:'Pendiente',state:'Civitatis, revisar 9 de noviembre'},
+{title:'Sagrada Familia con o sin torre',plans:'ALL',price:'Pendiente',state:'Tarifa oficial y entradas por comprobar'},
+{title:'Free tour Barcelona',plans:'ALL',price:'Propina libre',state:'Confirmar fecha y plaza'},
+{title:'Alojamiento Madrid tras Airbnb (9 nov)',plans:'ALL',price:'Pendiente',state:'1 noche, equipaje seguro'},
+{title:'Hotel en Sabadell (1 noche)',plans:'B,C',price:'Pendiente',state:'Según barrio de tu tía'},
+{title:'Vuelo Barcelona → París',plans:'B',price:'Pendiente',state:'Tarifa con maletas'},
+{title:'Hotel París (11 y 12 nov)',plans:'B',price:'Pendiente',state:'Alojamientos y transporte'},
+{title:'Bus turístico París',plans:'B',price:'Pendiente',state:'Big Bus / Tootbus, comparar'},
+{title:'Vuelo París → Madrid',plans:'B',price:'Pendiente',state:'Con equipaje'},
+{title:'Consigna de equipaje',plans:'ALL',price:'Pendiente',state:'Comparar dejar en Madrid o transportar'}
+];
+var routes=[
+{title:'Aeropuerto Madrid T1 → ciudad',plans:'ALL',desc:'Metro L8 hasta Nuevos Ministerios y conexión local según obras vigentes; con maletas, comparar taxi o traslado directo. No asumir la L10 operativa en Cuzco.'},
+{title:'Madrid → Barcelona',plans:'ALL',desc:'Alta velocidad desde Madrid-Puerta de Atocha a Barcelona-Sants. Aproximadamente 2 h 30 a 3 h 15 en tren según servicio; consultar horarios reales.'},
+{title:'Barcelona → Sabadell',plans:'ALL',desc:'FGC línea S2 desde Barcelona-Plaça Catalunya. Elegir estación según el barrio de tu tía (Can Feu Gràcia, Plaça Major, La Creu Alta, Sabadell Nord o Parc del Nord).'},
+{title:'Madrid → Toledo y Segovia → Madrid',plans:'ALL',desc:'Excursión guiada de Civitatis el 9 de noviembre; salida y regreso sujetos al cupo y modalidad; no programar tren nocturno ajustado.'},
+{title:'Barcelona → París',plans:'B',desc:'Vuelo preferiblemente a París Orly o Charles de Gaulle. Sumar traslado desde el centro, seguridad aeroportuaria y recogida de maletas.'},
+{title:'París → Madrid',plans:'B',desc:'Vuelo el 13 de noviembre, manteniendo margen para conectar con el regreso internacional del 14.'}
+];
+var tasks=[
+['Confirmar horarios, sede y días exactos del evento profesional','ALL'],
+['Confirmar dirección general del Airbnb y hora de salida del 9','ALL'],
+['Elegir consigna segura para el 9 de noviembre','ALL'],
+['Reservar excursión Toledo y Segovia y confirmar la hora','ALL'],
+['Cotizar tren Madrid → Barcelona y vuelta según plan','ALL'],
+['Verificar entrada oficial Sagrada Familia y subida a torre','ALL'],
+['Confirmar barrio de tu tía para elegir estación FGC','ALL'],
+['Comparar hoteles en Sabadell y reseñas recientes','B,C'],
+['Comprobar si cabe el free tour del 11 y el vuelo tarde','B'],
+['Cotizar vuelos Barcelona → París → Madrid y maletas','B'],
+['Comparar Big Bus y Tootbus en París','B'],
+['Verificar vuelo internacional de regreso del 14','ALL'],
+['Presupuestar comidas, transporte urbano y margen de seguridad','ALL']
+];
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function link(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
+function avail(p){return p==='ALL'||p.split(',').indexOf(plan)!==-1}
+function selectItems(){return items.filter(function(i){return avail(i.plan)&&(!city||i.city===city)})}
+function fmt(d){return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long'}).format(new Date(d+'T12:00:00'))}
+function renderStats(){var filtered=selectItems(),cities={};filtered.forEach(function(i){if(i.city!=='En traslado')cities[i.city]=true});document.getElementById('stats').innerHTML=[['12','días de viaje'],[String(plans[plan].people),'viajera'+(plans[plan].people===2?'s':'')],[String(Object.keys(cities).length),'ciudades del plan'],[String(filtered.length),'actividades y traslados']].map(function(a){return '<div class="stat"><small>'+a[1]+'</small><div class="num">'+a[0]+'</div></div>'}).join('')}
+function eventMarkup(i){return '<div class="event"><div class="time">'+i.time+'</div><div class="dot"></div><div><div class="evtitle">'+escapeHtml(i.title)+'</div><div class="sub">'+escapeHtml(i.city)+' · '+escapeHtml(i.type)+'</div><div class="evnotes">'+escapeHtml(i.note)+'</div><div class="evlinks"><a target="_blank" rel="noopener" href="'+link(i.place)+'">📍 Ver ubicación ↗</a></div></div><span class="pill wait">Por verificar</span></div>'}
+function renderAgenda(preview){var a=selectItems(),by={};a.forEach(function(i){(by[i.date]||(by[i.date]=[])).push(i)});var keys=Object.keys(by).sort();if(preview)keys=keys.slice(0,3);return keys.map(function(d){return '<article class="day"><div class="dayhead"><strong>'+escapeHtml(fmt(d))+'</strong><span class="count">'+by[d].length+' paradas</span></div>'+by[d].map(eventMarkup).join('')+'</article>'}).join('')||'<p class="hint">No hay actividades en esta ciudad para el plan seleccionado.</p>'}
+function renderPlans(){document.getElementById('plans').innerHTML=Object.keys(plans).map(function(k){var p=plans[k];return '<button class="plan '+(k===plan?'sel':'')+'" data-setplan="'+k+'"><span class="letter">Plan '+k+'</span><strong>'+escapeHtml(p.title)+'</strong><small>'+escapeHtml(p.tag)+'</small></button>'}).join('')}
+function renderSummary(){renderPlans();document.getElementById('highlights').innerHTML='<p><strong>'+plans[plan].title+'</strong> · '+plans[plan].description+'</p><p class="hint">La visita a Sabadell está contemplada y las dos viajan juntas durante los Planes B y C. París solo aparece en B.</p><div class="notice">'+(plan==='B'?'Atención: el 11 de noviembre incluye free tour del Barrio Gótico y vuelo a París. Revisar bien la duración real de cada traslado.':'Mantener suficiente tiempo para comer, fotografiar, trasladarse y descansar.')+'</div>';document.getElementById('preview').innerHTML=renderAgenda(true)}
+function renderBudget(){document.getElementById('budget-title').textContent='Plan '+plan+' · '+plans[plan].people+' persona(s)';document.getElementById('budget-body').innerHTML=budgets.filter(function(b){return b.plans==='ALL'||b.plans.split(',').indexOf(plan)!==-1}).map(function(b){return '<tr><td><strong>'+escapeHtml(b.title)+'</strong><div class="sub">'+escapeHtml(b.state)+'</div></td><td>'+escapeHtml(b.price)+'</td><td>'+plans[plan].people+'</td><td><span class="pill wait">Sin cotizar</span></td></tr>'}).join('')}
+function renderRoutes(){document.getElementById('routes').innerHTML=routes.filter(function(r){return r.plans==='ALL'||r.plans.split(',').indexOf(plan)!==-1}).map(function(r,i){return '<article class="step"><strong>'+(i+1)+'. '+escapeHtml(r.title)+'</strong><div class="sub">'+escapeHtml(r.desc)+'</div></article>'}).join('')}
+function renderMaps(){document.getElementById('citymaps').innerHTML=maps.filter(function(m){return plan==='B'||m.city!=='París'}).map(function(m){return '<article class="map-card"><div class="emoji">'+m.icon+'</div><h3>'+m.city+'</h3><div class="place-list">'+m.sites.map(function(q){return '<a href="'+link(q)+'" target="_blank" rel="noopener">'+escapeHtml(q)+' <span>↗</span></a>'}).join('')+'</div></article>'}).join('')}
+function renderTasks(){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(plan)!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('')}
+function render(){document.getElementById('plan').value=plan;document.getElementById('city').value=city;renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderBudget();renderRoutes();renderMaps();renderTasks()}
+document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active)});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
+document.getElementById('plan').addEventListener('change',function(e){plan=e.target.value;render()});
+document.getElementById('city').addEventListener('change',function(e){city=e.target.value;render();if(active==='resumen')document.querySelector('[data-tab="agenda"]').click()});
+document.getElementById('print').addEventListener('click',function(){document.querySelector('[data-tab="agenda"]').click();setTimeout(function(){window.print()},120)});
+document.getElementById('plans').addEventListener('click',function(e){var b=e.target.closest('[data-setplan]');if(b){plan=b.dataset.setplan;city='';render()}});
+render();
+})();
+</script>
+</body></html>
