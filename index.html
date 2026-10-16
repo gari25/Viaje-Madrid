@@ -11,6 +11,11 @@
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
 button,select,input{font:inherit}
 .budgetbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:linear-gradient(115deg,#114c40,#20715d);color:white;border-radius:17px;padding:17px 21px;margin:16px 0 18px;box-shadow:var(--shadow)}
+.budgetvalues{display:flex;align-items:flex-start;flex-wrap:wrap;gap:14px 22px}
+.budgetvalue{min-width:155px}
+.budgetvalue.secondary{border-left:1px solid #66a08d;padding-left:20px}
+.budgetvalue.secondary strong{display:block;font-size:21px;font-weight:800;letter-spacing:-.35px}
+.budgetvalue.secondary .budgetlabel{margin-bottom:5px}
 .budgetbar .money{font-size:clamp(25px,4vw,37px);font-weight:850;line-height:1.12}
 .budgetbar .budgetlabel{font-size:11px;color:#cae6db;letter-spacing:.7px;text-transform:uppercase}
 .budgetbar .budgetmeta{color:#d8eee4;font-size:12px}
@@ -46,11 +51,11 @@ main{padding:24px clamp(16px,4vw,50px) 55px;max-width:1450px;width:100%;margin:a
 <main>
 <div class="top"><div><div class="kicker">Organizador compartido de viaje</div><h1 class="heading">España y París, a nuestro ritmo ✨</h1><p class="lede">Itinerario conjunto de Kateryn y Mariangel. Comparamos rutas, actividades y gastos sin reservar nada antes de revisar los detalles.</p></div><div class="topright">🔒 Versión de consulta</div></div>
 <div class="controls"><label for="plan">PLAN ACTIVO</label><select id="plan"><option value="A">Plan A · Kateryn sola, España</option><option value="B">Plan B · Ambas, España + París</option><option value="C" selected>Plan C · Ambas, solo España</option></select><label for="city">CIUDAD</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>Sabadell</option><option>Toledo</option><option>Segovia</option><option>París</option><option>En traslado</option></select><button id="print">🖨️ Imprimir</button></div>
-<div class="budgetbar" aria-live="polite"><div><div class="budgetlabel">Total de actividades con precio · Plan <span id="amount-plan">C</span></div><div class="money" id="grand-total">€0,00</div><div class="budgetmeta" id="budget-summary">Importes introducidos hasta ahora</div></div><div class="budgetextra"><button type="button" id="copy-budget">📋 Copiar presupuesto</button></div></div>
+<div class="budgetbar" aria-live="polite"><div><div class="budgetlabel">Presupuesto acumulado · Plan <span id="amount-plan">C</span></div><div class="budgetvalues"><div class="budgetvalue"><div class="budgetlabel">Euros</div><div class="money" id="grand-total">0,00 €</div></div><div class="budgetvalue secondary"><div class="budgetlabel">Pesos dominicanos</div><strong id="grand-total-dop">RD$ 0,00</strong></div><div class="budgetvalue secondary"><div class="budgetlabel">Dólares estadounidenses</div><strong id="grand-total-usd">US$ 0,00</strong></div></div><div class="budgetmeta" id="budget-summary">Importes introducidos hasta ahora</div><div class="budgetextra"><button type="button" id="copy-budget">📋 Copiar presupuesto para compartir</button></div></div>
 <div class="cards" id="stats"></div>
 <section class="section active" id="resumen"><div class="panel"><h2>Elegir una alternativa</h2><p class="hint">Las tres rutas mantienen la llegada a Madrid, el compromiso profesional y la excursión del 9 de noviembre.</p><div class="plan-grid" id="plans"></div></div><div class="notice">💶 Los importes introducidos directamente en esta página se guardan <strong>solo en este navegador</strong> como simulación; no cambian lo que ve Mariangel. Para publicar tus números para ambas, pulsa <strong>Copiar presupuesto</strong> y pégamelo en el chat: actualizaré GitHub.</div><div class="notice">⚠️ Los horarios son propuestas de planificación y no reservas. No hay confirmación de precios actuales ni del vuelo de vuelta. El Airbnb deja de estar disponible después del mediodía del 9 de noviembre.</div><div class="panel"><h2>Próximas decisiones</h2><div id="highlights"></div></div><div class="panel"><h2>Primeros días</h2><div id="preview"></div></div></section>
-<section class="section" id="agenda"><h2 class="section-title">Itinerario completo por día y ciudad</h2><p class="hint"><strong>💶 Agrega el costo debajo de cada actividad.</strong> Selecciona moneda y si el precio es para una persona o para las dos. Se sumará automáticamente al día y al presupuesto general que aparece arriba. Los costos que no introduzcas no se contabilizan.</p><div class="notice">✍️ Aquí puedes simular importes en tu dispositivo; quedan guardados en este navegador. Para que Mariangel vea los cambios publicados, utiliza «Copiar presupuesto» y envíamelos por este chat.</div><div id="agenda-list"></div></section>
-<section class="section" id="costos"><h2 class="section-title">Presupuesto en euros</h2><div class="notice">Importa cuánto te costaría cada paso y verás el total acumulado arriba. Admite <strong>EUR, USD y DOP</strong>, importes para el grupo o por persona. Conversión orientativa según tus tasas: <strong>1 USD = RD$62; 1 EUR = RD$71,70</strong>. No son cotizaciones bancarias en vivo. <strong>Los costos sin completar quedan fuera de la suma.</strong></div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y proceso</th><th>Importe y moneda</th><th>Personas</th><th>Total en €</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
+<section class="section" id="agenda"><h2 class="section-title">Itinerario completo por día y ciudad</h2><p class="hint"><strong>💶 Escribe el costo en euros debajo de cada actividad.</strong> Indica si el precio es para una persona o para las dos. Se sumará automáticamente al día y al presupuesto general que aparece arriba. Los costos que no introduzcas no se contabilizan.</p><div class="notice">✍️ Aquí puedes simular importes en tu dispositivo; quedan guardados en este navegador. Para que Mariangel vea los cambios publicados, utiliza «Copiar presupuesto» y envíamelos por este chat.</div><div id="agenda-list"></div></section>
+<section class="section" id="costos"><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$71,70</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Subtotal €</th><th>Equivalente RD$</th><th>Equivalente US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
 <section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div></section>
 <section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad</h2><p class="hint">Selecciona cualquier punto para abrir su ubicación real. No se muestran domicilios privados.</p><div class="citygrid" id="citymaps"></div></section>
 <section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div id="checklist"></div></section>
@@ -165,23 +170,59 @@ function selectItems(){return items.filter(function(i){return avail(i.plan)&&(!c
 function fmt(d){return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long'}).format(new Date(d+'T12:00:00'))}
 function costKey(i){return i.plan+'|'+i.date+'|'+i.time+'|'+i.title}
 function defaultCost(i){return sharedEstimates[i.plan+'|'+i.title]||null}
-function getCost(i){var k=costKey(i);return Object.prototype.hasOwnProperty.call(localEstimates,k)?localEstimates[k]:(defaultCost(i)||{amount:null,currency:'EUR',scope:'group',status:'estimado'})}
-function calcCost(i){var c=getCost(i),amount=Number(c.amount);if(c.amount==null||c.amount===''||!isFinite(amount)||amount<0)return null;var fx={EUR:1,USD:62/71.70,DOP:1/71.70};return amount*(fx[c.currency]||1)*(c.scope==='person'?plans[plan].people:1)}
+function getCost(i){
+ var k=costKey(i), raw=Object.prototype.hasOwnProperty.call(localEstimates,k)?localEstimates[k]:(defaultCost(i)||{amount:null,currency:'EUR',scope:'group',status:'estimado'});
+ var n=(raw.amount==null||raw.amount==='')?null:Number(raw.amount);
+ if(n!==null&&isFinite(n)){
+  if(raw.currency==='USD')n=n*62/71.70;
+  if(raw.currency==='DOP')n=n/71.70;
+  n=Math.round(n*100)/100;
+ } else n=null;
+ return {amount:n,currency:'EUR',scope:raw.scope==='person'?'person':'group',status:raw.status==='confirmado'?'confirmado':'estimado'};
+}
+function calcCost(i){
+ var c=getCost(i),amount=c.amount;
+ if(amount==null||!isFinite(amount)||amount<0)return null;
+ return amount*(c.scope==='person'?plans[plan].people:1);
+}
+function dop(n){return 'RD$ '+new Intl.NumberFormat('es-DO',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n*71.70)}
+function usd(n){return 'US$ '+new Intl.NumberFormat('es-DO',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n*71.70/62)}
 function eur(n){return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n)}
 function totalCost(){var total=0,priced=0,missing=0;items.filter(function(i){return avail(i.plan)}).forEach(function(i){var n=calcCost(i);if(n===null)missing++;else{total+=n;priced++}});return {total:total,priced:priced,missing:missing}}
 function persistCosts(){try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}}
 function costControl(i){
  var c=getCost(i),val=c.amount==null?'':escapeHtml(c.amount);
  var sel=function(field,opts){return '<select aria-label="'+field+'" data-cost-field="'+field+'" data-cost-id="'+i.id+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(c[field]===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'};
- return '<div class="costbox"><label for="cost-'+i.id+'">💶 Costo:</label><input id="cost-'+i.id+'" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Sin precio" aria-label="Importe estimado de '+escapeHtml(i.title)+'" data-cost-field="amount" data-cost-id="'+i.id+'" value="'+val+'">'
- +sel('currency',[['EUR','€'],['USD','USD $'],['DOP','RD$']])
+ return '<div class="costbox"><label for="cost-'+i.id+'">Costo (€):</label><input id="cost-'+i.id+'" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0,00" aria-label="Costo en euros de '+escapeHtml(i.title)+'" data-cost-field="amount" data-cost-id="'+i.id+'" value="'+val+'">'
  +sel('scope',[['group','Total grupo'],['person','Por persona']])
  +sel('status',[['estimado','Estimado'],['confirmado','Confirmado']])
- +'<span class="cost-indicator" data-price-indicator="'+i.id+'">'+costText(i)+'</span></div>'
+ +'<span class="cost-indicator" data-price-indicator="'+i.id+'">'+costText(i)+'</span></div>';
 }
-function costText(i){var n=calcCost(i),c=getCost(i);return n===null?'Sin cotizar · no incluido en el total':eur(n)+' · '+c.status+(defaultCost(i)&&!Object.prototype.hasOwnProperty.call(localEstimates,costKey(i))?' · referencia proporcionada':'')}
-function renderBudgetBar(){var x=totalCost();document.getElementById('amount-plan').textContent=plan;document.getElementById('grand-total').textContent=eur(x.total);document.getElementById('budget-summary').textContent=x.priced+' procesos con importe · '+x.missing+' pendientes de cotizar · '+eur(x.total/plans[plan].people)+' por viajera'}
-function syncCostUI(){renderBudgetBar();document.querySelectorAll('[data-price-indicator]').forEach(function(el){var i=items[Number(el.getAttribute('data-price-indicator'))];if(i)el.textContent=costText(i)});document.querySelectorAll('[data-cost-field]').forEach(function(el){if(document.activeElement===el)return;var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;var c=getCost(i);el.value=el.getAttribute('data-cost-field')==='amount'?(c.amount==null?'':c.amount):c[el.getAttribute('data-cost-field')]});var bl=document.getElementById('budget-bottomline');if(bl)bl.textContent='Subtotal conocido del plan: '+eur(totalCost().total)+'. No incluye los '+totalCost().missing+' procesos sin cotizar.';document.querySelectorAll('[data-budget-total]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-total'))];if(i)el.textContent=calcCost(i)===null?'Sin precio':eur(calcCost(i))});document.querySelectorAll('[data-day-total]').forEach(function(el){var d=el.getAttribute('data-day-total');el.textContent=eur(dayTotal(d).total)});document.querySelectorAll('[data-day-note]').forEach(function(el){var x=dayTotal(el.getAttribute('data-day-note'));el.textContent=x.missing?'Faltan '+x.missing+' costos':'Día cotizado'})}
+function costText(i){var n=calcCost(i);return n===null?'Sin cotizar: no se suma':eur(n)+' · '+dop(n)+' · '+usd(n)}
+function renderBudgetBar(){
+ var x=totalCost();
+ document.getElementById('amount-plan').textContent=plan;
+ document.getElementById('grand-total').textContent=eur(x.total);
+ document.getElementById('grand-total-dop').textContent=dop(x.total);
+ document.getElementById('grand-total-usd').textContent=usd(x.total);
+ document.getElementById('budget-summary').textContent=x.priced+' actividades con importe · '+x.missing+' sin cotizar · '+eur(x.total/plans[plan].people)+' / viajera · valores orientativos';
+}
+function syncCostUI(){
+ renderBudgetBar();
+ document.querySelectorAll('[data-price-indicator]').forEach(function(el){var i=items[Number(el.getAttribute('data-price-indicator'))];if(i)el.textContent=costText(i)});
+ document.querySelectorAll('[data-cost-field]').forEach(function(el){
+  if(document.activeElement===el)return;
+  var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;
+  var c=getCost(i),fld=el.getAttribute('data-cost-field');el.value=fld==='amount'?(c.amount==null?'':c.amount):c[fld];
+ });
+ var x=totalCost(),bl=document.getElementById('budget-bottomline');
+ if(bl)bl.textContent='Subtotal: '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+'. Faltan por cotizar '+x.missing+' actividades.';
+ document.querySelectorAll('[data-budget-total]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-total'))];if(i)el.textContent=calcCost(i)===null?'Pendiente':eur(calcCost(i))});
+ document.querySelectorAll('[data-budget-dop]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-dop'))];if(i)el.textContent=calcCost(i)===null?'—':dop(calcCost(i))});
+ document.querySelectorAll('[data-budget-usd]').forEach(function(el){var i=items[Number(el.getAttribute('data-budget-usd'))];if(i)el.textContent=calcCost(i)===null?'—':usd(calcCost(i))});
+ document.querySelectorAll('[data-day-total]').forEach(function(el){var d=el.getAttribute('data-day-total');el.textContent=eur(dayTotal(d).total)});
+ document.querySelectorAll('[data-day-note]').forEach(function(el){var y=dayTotal(el.getAttribute('data-day-note'));el.textContent=y.missing?'Faltan '+y.missing+' costos':'Día cotizado'});
+}
 function renderStats(){var filtered=selectItems(),cities={};filtered.forEach(function(i){if(i.city!=='En traslado')cities[i.city]=true});document.getElementById('stats').innerHTML=[['12','días de viaje'],[String(plans[plan].people),'viajera'+(plans[plan].people===2?'s':'')],[String(Object.keys(cities).length),'ciudades del plan'],[String(filtered.length),'actividades y traslados']].map(function(a){return '<div class="stat"><small>'+a[1]+'</small><div class="num">'+a[0]+'</div></div>'}).join('')}
 function eventMarkup(i){return '<div class="event"><div class="time">'+i.time+'</div><div class="dot"></div><div><div class="evtitle">'+escapeHtml(i.title)+'</div><div class="sub">'+escapeHtml(i.city)+' · '+escapeHtml(i.type)+'</div><div class="evnotes">'+escapeHtml(i.note)+'</div><div class="evlinks"><a target="_blank" rel="noopener" href="'+link(i.place)+'">📍 Ver ubicación ↗</a></div>'+costControl(i)+'</div><span class="pill wait">Horario propuesto</span></div>'}
 function dayTotal(d){var total=0,known=0,missing=0;items.filter(function(i){return avail(i.plan)&&i.date===d}).forEach(function(i){var n=calcCost(i);if(n===null)missing++;else{total+=n;known++}});return {total:total,known:known,missing:missing}}
@@ -191,8 +232,16 @@ function renderPlans(){document.getElementById('plans').innerHTML=Object.keys(pl
 function renderSummary(){renderPlans();document.getElementById('highlights').innerHTML='<p><strong>'+plans[plan].title+'</strong> · '+plans[plan].description+'</p><p class="hint">La visita a Sabadell está contemplada y las dos viajan juntas durante los Planes B y C. París solo aparece en B.</p><div class="notice">'+(plan==='B'?'Atención: el 11 de noviembre incluye free tour del Barrio Gótico y vuelo a París. Revisar bien la duración real de cada traslado.':'Mantener suficiente tiempo para comer, fotografiar, trasladarse y descansar.')+'</div>';document.getElementById('preview').innerHTML=renderAgenda(true)}
 function renderBudget(){
  document.getElementById('budget-title').textContent='Plan '+plan+' · '+plans[plan].people+' persona(s)';
- document.getElementById('budget-body').innerHTML=items.filter(function(i){return avail(i.plan)}).map(function(i){return '<tr><td><strong>'+escapeHtml(i.title)+'</strong><div class="sub">'+escapeHtml(fmt(i.date))+' · '+escapeHtml(i.city)+'</div></td><td>'+costControl(i)+'</td><td>'+(getCost(i).scope==='person'?plans[plan].people+' × persona':'Grupo')+'</td><td><strong data-budget-total="'+i.id+'">'+(calcCost(i)===null?'Sin precio':eur(calcCost(i)))+'</strong></td></tr>'}).join('');
- var x=totalCost();document.getElementById('budget-bottomline').textContent='Subtotal conocido: '+eur(x.total)+'. Hay '+x.missing+' actividades o procesos sin cotizar. Los importes pueden corresponder a pagos ya hechos o futuros: verifica antes de interpretarlos como saldo pendiente.';
+ document.getElementById('budget-body').innerHTML=items.filter(function(i){return avail(i.plan)}).map(function(i){
+  var n=calcCost(i);
+  return '<tr><td><strong>'+escapeHtml(i.title)+'</strong><div class="sub">'+escapeHtml(fmt(i.date))+' · '+escapeHtml(i.city)+'</div></td>'
+  +'<td>'+costControl(i)+'</td><td>'+(getCost(i).scope==='person'?plans[plan].people+' × persona':'Grupo')+'</td>'
+  +'<td><strong data-budget-total="'+i.id+'">'+(n===null?'Pendiente':eur(n))+'</strong></td>'
+  +'<td><span data-budget-dop="'+i.id+'">'+(n===null?'—':dop(n))+'</span></td>'
+  +'<td><span data-budget-usd="'+i.id+'">'+(n===null?'—':usd(n))+'</span></td></tr>';
+ }).join('');
+ var x=totalCost();
+ document.getElementById('budget-bottomline').textContent='Subtotal: '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+'. Pendientes: '+x.missing+' actividades.';
  document.getElementById('budget-todo').innerHTML=budgets.filter(function(b){return b.plans==='ALL'||b.plans.split(',').indexOf(plan)!==-1}).map(function(b){return '<p class="budgetinfo">☐ '+escapeHtml(b.title)+' — '+escapeHtml(b.state)+'</p>'}).join('');
 }
 function renderRoutes(){document.getElementById('routes').innerHTML=routes.filter(function(r){return r.plans==='ALL'||r.plans.split(',').indexOf(plan)!==-1}).map(function(r,i){return '<article class="step"><strong>'+(i+1)+'. '+escapeHtml(r.title)+'</strong><div class="sub">'+escapeHtml(r.desc)+'</div></article>'}).join('')}
@@ -208,9 +257,9 @@ document.addEventListener('input',function(e){var fld=e.target.getAttribute('dat
 document.addEventListener('change',function(e){var fld=e.target.getAttribute('data-cost-field');if(fld&&fld!=='amount')updateCostField(e.target,fld)});
 function updateCostField(el,fld){var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;var c=Object.assign({},getCost(i));if(fld==='amount'){var n=el.value===''?null:Number(el.value);c.amount=(n===null||!isFinite(n)||n<0)?null:n}else{c[fld]=el.value}localEstimates[costKey(i)]=c;persistCosts();syncCostUI()}
 document.getElementById('copy-budget').addEventListener('click',function(){
- var list=items.filter(function(i){return avail(i.plan)&&calcCost(i)!==null}),lines=['ViajeX Plan '+plan+' · presupuestos para publicar','Tasas: 1 USD = RD$62; 1 EUR = RD$71,70'];
- list.forEach(function(i){var c=getCost(i);lines.push(i.date+' '+i.time+' | '+i.title+' | '+c.amount+' '+c.currency+' | '+(c.scope==='person'?'por persona':'grupo')+' | '+c.status+' | '+eur(calcCost(i))+' total')});
- lines.push('Subtotal conocido: '+eur(totalCost().total)+'; sin cotizar: '+totalCost().missing);
+ var list=items.filter(function(i){return avail(i.plan)&&calcCost(i)!==null}),lines=['ViajeX Plan '+plan+' · costos para publicar','Tasas de referencia: 1 EUR = RD$71,70; 1 USD = RD$62'];
+ list.forEach(function(i){var c=getCost(i);lines.push(i.date+' '+i.time+' | '+i.title+' | '+c.amount+' EUR | '+(c.scope==='person'?'por persona':'grupo')+' | '+c.status+' | '+eur(calcCost(i))+' | '+dop(calcCost(i))+' | '+usd(calcCost(i)))});
+ lines.push('Subtotal conocido: '+eur(totalCost().total)+' / '+dop(totalCost().total)+' / '+usd(totalCost().total)+'; sin cotizar: '+totalCost().missing);
  var txt=lines.join('\n');
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){alert('Presupuesto copiado. Pégamelo en ChatGPT para publicarlo a ambas.')}).catch(function(){window.prompt('Copia este presupuesto para ChatGPT:',txt)})}else{window.prompt('Copia este presupuesto para ChatGPT:',txt)}
 });
