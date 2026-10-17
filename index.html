@@ -242,6 +242,15 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 @media print{.budget-column{background:#fff!important;border:1px solid #aaa!important}.budget-column .money,.budget-person .budgetvalue.secondary strong,.budget-person .budgetlabel{color:#111!important}}
 
 [hidden]{display:none!important}
+
+.purchase-guide{margin-top:17px;padding:17px}.purchase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.purchase-city{min-width:0;padding:15px;border:1px solid #dce6f5;border-radius:15px;background:#f9fbff;display:flex;flex-direction:column;gap:9px}
+.purchase-city h3{margin:0;color:#234880;font-size:17px}.purchase-city h4{font-size:13px;color:#2856a2;margin:9px 0 1px}
+.purchase-city ol{padding-left:20px;margin:5px 0}.purchase-city li{font-size:12.5px;line-height:1.5;padding:3px 0}
+.purchase-city p{font-size:12.5px;line-height:1.5;color:#53627c}
+.ticket-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}.ticket-links a{display:inline-flex;align-items:center;padding:8px 10px;min-height:40px;border:1px solid #cad8f0;border-radius:9px;text-decoration:none;font-size:12px;font-weight:750;background:#fff}
+@media(max-width:1000px){.purchase-grid{grid-template-columns:1fr}}@media(max-width:760px){.purchase-guide{padding:14px}.purchase-city{padding:13px}.ticket-links a{min-height:43px}}
+
 </style></head>
 <body>
 <div class="shell">
@@ -330,7 +339,40 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 </div>
 <div class="notice">✅ Tus actividades completadas se guardan <strong>solo en este navegador</strong>, sin cambiar el itinerario de Mariangel. Puedes recuperarlas usando «Mostrar realizadas» y «Volver a pendiente». Los costos siguen incluidos en el presupuesto.</div><div class="notice">🍽️ <strong>Presupuesto de comidas:</strong> 12 € por persona por cada almuerzo y por cada cena, aplicado a los días 4–13 de noviembre. En los planes de dos personas equivale a 24 € por comida o cena. No incluye desayunos. Si el evento o la familia ofrecen una comida, cambia ese importe a 0 €. Los días 3 y 14 quedan pendientes por los horarios y comidas incluidas en los vuelos.</div><p class="hint"><strong>🕒 Horarios: 24 horas y su equivalencia de 12 horas (a. m. / p. m.).</strong> <strong>💶 Escribe el costo en euros debajo de cada actividad.</strong> Indica si el precio es para una persona o para las dos. Se sumará automáticamente al día y al presupuesto general que aparece arriba. Los costos que no introduzcas no se contabilizan.</p><div class="notice">✍️ Aquí puedes simular importes en tu dispositivo; quedan guardados en este navegador. Para que Mariangel vea los cambios publicados, utiliza «Copiar presupuesto» y envíamelos por este chat.</div><div id="agenda-list"><article class="day"><div class="dayhead"><strong>Itinerario del 3 al 14 de noviembre</strong></div><div class="event"><div class="time">05</div><div><div class="evtitle">Inauguración en el Meliá Castilla · 16:00 (4:00 p. m.)–20:00 (8:00 p. m.)</div><div class="sub">Madrid · 5 de noviembre</div></div></div><div class="event"><div class="time">09</div><div><div class="evtitle">Excursión a Toledo y Segovia</div><div class="sub">Desde Madrid · 9 de noviembre, 09:00 (9:00 a. m.; horario por confirmar)</div></div></div></article></div></section>
 <section class="section" id="costos"><div class="notice company-notice">🏢 <strong>Ya cubierto por Becones Inmobiliaria SRL:</strong> recepción y salida del aeropuerto, traslados aeroportuarios indicados y Airbnb del 4 al 9 de noviembre. <strong>Importes no comunicados:</strong> no se anotan como 0 €. Falta precisar si los billetes aéreos están incluidos.</div><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">🍽️ Se han presupuestado almuerzos y cenas a <strong>12 € por persona y por comida</strong>. Se añaden al total del plan automáticamente, pero siguen siendo estimaciones editables; desayunos y posibles comidas incluidas en las jornadas o vuelos se revisarán aparte.</div><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$71,70</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Grupo €</th><th>Por persona €</th><th>Grupo RD$</th><th>Grupo US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div id="carry-optional" class="notice" hidden></div><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
-<section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div></section>
+<section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div>
+<div class="panel purchase-guide" id="comprar-billetes">
+<h2>🚌🚇 Cómo comprar billetes de autobús y Metro</h2>
+<p class="hint">Sin límite fijo para caminar. Priorizar autobús público directo, Metro o tren con tramos a pie cómodos y márgenes para descanso y maletas; no taxi, Uber ni vehículos compartidos. Las líneas precisas se verifican antes de viajar.</p>
+<div class="purchase-grid">
+<article class="purchase-city">
+<h3>🇪🇸 Madrid</h3>
+<h4>🚌 EMT: sencillo 1,50 €</h4>
+<ol><li>Busca tu parada, línea y dirección con el planificador oficial EMT.</li><li>Sube por delante; paga acercando tarjeta contactless o móvil al lector junto al conductor.</li><li>Valida una vez por cada persona (dos toques con la misma tarjeta funcionan); también puedes solicitar al conductor el billete y pagar en efectivo.</li></ol>
+<h4>🚇 Metro Zona A: sencillo 1,50 €</h4>
+<ol><li>Acerca tu tarjeta o móvil al torno señalado para pago bancario directo; valida una vez por viajera.</li><li>Otra opción: compra Tarjeta Multi en máquina del Metro (2,50 € de soporte), carga el sencillo o bono Metrobús y valida antes de entrar.</li><li>El Metrobús de 10 viajes se puede compartir validando por las dos; revisar suplementos de Metro al aeropuerto.</li></ol>
+<h4>✈️ Exprés aeropuerto 203: 5 €</h4>
+<p>Bus público entre Barajas y Atocha en horario diurno; de madrugada, conexión por Cibeles. Pagar en el autobús con tarjeta, móvil o efectivo. Útil el 13 para recoger maletas en Atocha y el 14 para ir a Barajas.</p>
+<div class="ticket-links"><a href="https://www.emtmadrid.es/Aeropuerto" target="_blank" rel="noopener noreferrer">Bus 203 ↗</a><a href="https://www.emtmadrid.es/Elementos-Cabecera/Enlaces-Pie-vertical/VIAJAR-EN-BUS/Titulos-y-tarifas.aspx" target="_blank" rel="noopener noreferrer">Tarifas EMT ↗</a><a href="https://www.crtm.es/billetes-y-tarifas" target="_blank" rel="noopener noreferrer">Comprar Metro ↗</a></div>
+</article>
+<article class="purchase-city">
+<h3>🇪🇸 Barcelona y Sabadell</h3>
+<h4>🚌 Bus TMB: sencillo 2,90 €</h4>
+<ol><li>Busca la línea y el sentido. Sube por delante y paga en el lector contactless junto al conductor.</li><li>Valida con tarjeta bancaria Visa/Mastercard/Amex o móvil. Repite por cada viajera.</li><li>Un billete sencillo no cubre otros buses ni el Metro en transbordo.</li></ol>
+<h4>🚇 Metro TMB: sencillo 2,90 € (1 zona)</h4>
+<ol><li>Compra en máquina una T-mobilitat anónima de cartón (1 € adicional) y carga el billete. Cada persona necesita su propio sencillo.</li><li>En algunos accesos señalizados se puede pagar directamente con tarjeta bancaria.</li><li>Para <strong>FGC a Sabadell</strong>, compra el billete o título integrado con las zonas adecuadas; el sencillo TMB no sirve automáticamente para FGC.</li></ol>
+<div class="ticket-links"><a href="https://www.tmb.cat/es/tarifas-metro-bus-barcelona/validacion-tarjeta-bancaria" target="_blank" rel="noopener noreferrer">Tarjeta bus y Metro ↗</a><a href="https://t-mobilitat.cat/es/web/t-mobilitat/tarifas/billete-sencillo" target="_blank" rel="noopener noreferrer">Comprar billete ↗</a><a href="https://www.fgc.cat/es/billetes/" target="_blank" rel="noopener noreferrer">FGC ↗</a></div>
+</article>
+<article class="purchase-city" id="paris-billetes">
+<h3>🇫🇷 París</h3>
+<h4>🚌 Bus-Tram: sencillo 2,05 €</h4>
+<ol><li>Instala la aplicación oficial Île-de-France Mobilités y compra el billete Bus-Tram para cada una, o cárgalo en Navigo Easy.</li><li>Valida tarjeta Navigo o móvil compatible al subir. Si no hay billete, algunos buses venden a bordo con tarjeta por 2,55 € (sin transbordo).</li></ol>
+<h4>🚇 Metro-Train-RER: 2,55 €</h4>
+<ol><li>Cada viajera compra su Navigo Easy (soporte 2 €) o utiliza su propio teléfono compatible con la aplicación.</li><li>Carga billete Metro-Train-RER en la app o en máquina de estación y valida al entrar.</li><li>Metro y bus requieren billetes diferentes. CDG y Orly tienen título especial de aeropuerto. Tootbus turístico lleva billete propio.</li></ol>
+<div class="ticket-links"><a href="https://www.iledefrance-mobilites.fr/en/comment-et-ou-acheter-mon-titre-de-transport" target="_blank" rel="noopener noreferrer">Comprar billetes ↗</a><a href="https://www.iledefrance-mobilites.fr/en/tarifs-titre-de-transport-en-commun-2026" target="_blank" rel="noopener noreferrer">Tarifas 2026 ↗</a><a href="https://www.iledefrance-mobilites.fr/en/titres-et-tarifs/supports/passe-navigo-easy" target="_blank" rel="noopener noreferrer">Navigo Easy ↗</a></div>
+</article>
+</div>
+<div class="notice">🧳 Bounce Madrid 9–13 nov: <strong>68 € grupo (2 × 23 kg) / 34 € por persona</strong>, estimación no reservada. Barcelona y París: <strong>18 € grupo / 9 € por persona</strong> opcionales si hoteles no admiten mochilas/carry-on; confirmar piezas y que la tarifa cubre ambas ciudades. Entrega del 9 a las 08:05 pendiente de comprobar frente a la salida propuesta de Civitatis a las 09:00.</div>
+</div></section>
 <section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad base</h2><p class="hint">Madrid agrupa excursiones a Toledo y Segovia; Barcelona agrupa la visita a Sabadell. Son municipios diferentes, pero las organizamos juntas para facilitar el viaje. Selecciona un lugar para abrirlo en Google Maps.</p><div class="citygrid" id="citymaps"></div></section>
 <section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div id="checklist"></div></section>
 <div class="footer">ViajeX Europa 2026 · Información de consulta · Itinerario sujeto a revisión · Sin datos privados ni acceso de edición.</div>
@@ -658,7 +700,7 @@ function renderMaps(){
  }).join('');
 }
 function renderTasks(){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(plan)!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('')}
-function render(){document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('hotel-paris').hidden=plan!=='B';renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
+function render(){document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('hotel-paris').hidden=plan!=='B';document.getElementById('paris-billetes').hidden=plan!=='B';renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
 document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active);if(e.dataset.tab===active)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current')});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
 document.getElementById('toggle-completed').addEventListener('click',function(){showCompleted=!showCompleted;render()});
 document.addEventListener('click',function(e){
