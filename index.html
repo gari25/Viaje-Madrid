@@ -390,7 +390,7 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 'use strict';
 var active='resumen',plan='B',city='';
 var rows=[
-['03','22:05','En traslado','Billete Air Europa ida y vuelta · Santo Domingo ↔ Madrid (salida)','Vuelo','ALL','El billete Air Europa comunicado corresponde a IDA Y VUELTA, no solo a este tramo. Ida SDQ → MAD el 3 de noviembre (llegada 4). La vuelta MAD → SDQ el 14 está comprendida en la misma cotización, sin duplicar su importe. Verificar precio total para dos personas, número de vuelo, reserva y equipaje.,'Aeropuerto Internacional Las Américas'],
+['03','22:05','En traslado','Billete Air Europa ida y vuelta · Santo Domingo ↔ Madrid (salida)','Vuelo','ALL','El billete Air Europa comunicado corresponde a IDA Y VUELTA, no solo a este tramo. Ida SDQ → MAD el 3 de noviembre (llegada 4). La vuelta MAD → SDQ el 14 está comprendida en la misma cotización, sin duplicar su importe. Verificar precio total para dos personas, número de vuelo, reserva y equipaje.','Aeropuerto Internacional Las Américas'],
 ['04','11:10','Madrid','Llegada a Madrid-Barajas, Terminal 1','Vuelo','ALL','Vuelo sin escalas; traslado, almuerzo, descanso y orientación','Aeropuerto Adolfo Suárez Madrid-Barajas T1'],
 ['04','13:15','Madrid','Traslado desde Barajas T1 al Airbnb pagado · Tetuán','Traslado','ALL','Ubicación exacta confirmada por Kateryn, guardada solo para planificación privada. En la web compartida aparece únicamente el distrito Tetuán. Priorizar Metro o autobús, sin taxis, Uber ni servicios compartidos, y comprobar la comodidad de los tramos a pie con equipaje y sin límite fijo. El vuelo llega a las 11:10; prever recogida de maletas y margen.','Tetuán, Madrid'],
 ['04','14:30','Madrid','Llegada y check-in en Airbnb PAGADO · 4 al 9 de noviembre','Alojamiento','ALL','Ubicación exacta confirmada privadamente por Kateryn el 16 de octubre, zona Tetuán, Madrid. Hora de check-in 14:30 orientativa; verificar hora y llave con anfitrión. Salida el lunes 9 a las 10:00. Alojamiento cubierto por Becones Inmobiliaria SRL; importe no comunicado.','Tetuán, Madrid'],
@@ -500,6 +500,7 @@ try {
  if(restored&&typeof restored==='object'&&!Array.isArray(restored))doneItems=restored;
 } catch(e) {doneItems={};}
 function saveDoneItems(){try{localStorage.setItem('viajex-completed-v1',JSON.stringify(doneItems))}catch(e){}}
+// Los importes locales solo reemplazan la base cuando contienen un valor deliberadamente introducido.
 var localEstimates={};
 try{localEstimates=JSON.parse(localStorage.getItem('viajex-costos-local-v1')||'{}')||{};}catch(e){localEstimates={};}
 var budgets=[
@@ -612,7 +613,9 @@ function defaultCost(i){
  return isLunchOrDinner(i)?{amount:12,currency:'EUR',scope:'person',status:'estimado'}:null;
 }
 function getCost(i){
- var k=costKey(i), raw=Object.prototype.hasOwnProperty.call(localEstimates,k)?localEstimates[k]:(defaultCost(i)||{amount:null,currency:'EUR',scope:'group',status:'estimado'});
+ var k=costKey(i), fallback=defaultCost(i)||{amount:null,currency:'EUR',scope:'group',status:'estimado'};
+ var saved=localEstimates[k];
+ var raw=(saved && saved.amount!==null && saved.amount!=='' && Number(saved.amount)>0)?saved:fallback;
  var n=(raw.amount==null||raw.amount==='')?null:Number(raw.amount);
  if(n!==null&&isFinite(n)){
   if(raw.currency==='USD')n=n*62/72.50;
