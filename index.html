@@ -357,7 +357,7 @@ var rows=[
 ['10','17:30','Sabadell','Visita a tu tía y noche en hotel cercano','Familia','B','Buscar hotel seguro y práctico para ambas; precio pendiente','Sabadell Barcelona'],
 ['11','07:00','En traslado','Sabadell → Barcelona-Sants por FGC y Metro','Tren','B','Salida de Sabadell en torno a las 07:00 como objetivo, no horario verificado. FGC S2 a Plaça Catalunya y Metro L3 hacia Barcelona-Sants; comprobar horarios, andenes, accesibilidad y tramo de caminata exterior máximo 200 m. Las dos viajan con carry-on y mochila; maletas de 23 kg quedan en Madrid.','Estació Sabadell Plaça Major'],
 ['11','08:40','Barcelona','Llegar con antelación a Barcelona-Sants y encontrar el andén del TGV','Logística','B','Objetivo antes de las 09:00 para un TGV matinal; el horario concreto del 11 de noviembre no está confirmado. Comprobar controles, billetes, andén y asiento. El free tour de Barcelona no cabe esta mañana si viajan a París en tren.','Estació Barcelona Sants'],
-['11','09:30','En traslado','Tren TGV INOUI Barcelona-Sants → París-Gare de Lyon','Tren','B','Propuesta de tren directo matinal (duración habitual en SNCF alrededor de 6 h 45 a 7 h). Hora 09:30 orientativa; NO equivale a billete, tarifa, plaza ni horario confirmado para el 11/11. https://www.sncf-connect.com/es-es/tren/horarios/barcelona/paris','Barcelona Sants'],
+['11','09:30','En traslado','Tren TGV INOUI Barcelona-Sants → París-Gare de Lyon','Tren','B','Precio APROXIMADO comunicado por Kateryn: 170 € por persona, 340 € para ambas; importe estimado no pagado ni reservado. Propuesta de tren directo matinal (duración habitual alrededor de 6 h 45 a 7 h). Hora 09:30 orientativa, no horario verificado del 11/11. Confirmar tarifa final, equipaje y plazas. https://www.sncf-connect.com/es-es/tren/horarios/barcelona/paris','Barcelona Sants'],
 ['11','13:00','En traslado','Almuerzo sencillo a bordo del tren hacia París','Comidas','B','Comer durante el recorrido, con agua y bocadillos comprados antes de salir. Se evita una escala adicional en Barcelona para aprovechar la tarde de París. Presupuesto 12 € por persona orientativo.','Barcelona Sants'],
 ['11','16:30','París','Llegada propuesta a París-Gare de Lyon','Tren','B','Al priorizar un TGV matinal desde Barcelona, la llegada suele ser a media tarde, pero 16:30 es orientativo. Conservar margen para bajar, orientarse, usar Metro/bus, llegar al hotel y check-in; sin taxi ni transporte compartido. El tiempo parisino del día 11 depende del billete real.','Paris Gare de Lyon'],
 ['11','18:15','París','Check-in en hotel de París · 2 noches (11 y 12)','Alojamiento','B','Alojamiento para las noches del 11 y 12 de noviembre, salida el 13. Rose Bourbon / Hotel Exquis son candidatos mencionados, no reservados. Una búsqueda 11-12 cubre solo UNA noche y no basta. Verificar precio total de dos noches para dos, reseñas recientes y enlaces con Gare de Lyon y tour.','Paris France'],
@@ -411,7 +411,7 @@ var maps=[
 ];
 /* Importe compartido inicial: ejemplo facilitado, no tarifa verificada.
    Se puede actualizar por ChatGPT desde GitHub sin exponer credenciales. */
-var sharedEstimates = {'ALL|Excursión Toledo y Segovia desde Madrid · aprox. 11 h':{amount:110.40,currency:'EUR',scope:'group',status:'estimado'}};
+var sharedEstimates = {'ALL|Excursión Toledo y Segovia desde Madrid · aprox. 11 h':{amount:110.40,currency:'EUR',scope:'group',status:'estimado'},'B|Tren TGV INOUI Barcelona-Sants → París-Gare de Lyon':{amount:170,currency:'EUR',scope:'person',status:'estimado'}};
 // El ejemplo "$88" para Sabadell está pendiente de aclarar si significa RD$ o US$.
 // Evitamos asignarle una moneda que no fue especificada.
 var doneItems={};
@@ -431,7 +431,7 @@ var budgets=[
 {title:'Free tour Barcelona',plans:'ALL',price:'Propina libre',state:'Confirmar fecha y plaza'},
 {title:'Alojamiento Madrid tras Airbnb (9 nov)',plans:'ALL',price:'Pendiente',state:'Comparar 8Rooms Madrid 90,16 € / 98 € frente a Hostal Alegría desde 50 € (sin confirmar para fecha). Añadir solo hotel elegido al costo del paso 20:30'},
 {title:'Hotel en Sabadell (1 noche)',plans:'B,C',price:'Pendiente',state:'Según barrio de tu tía'},
-{title:'TGV directo Barcelona-Sants → París-Gare de Lyon 11 nov',plans:'B',price:'Pendiente',state:'Tarifa para dos, salida matinal y condiciones de carry-on; horario no reservado'},
+{title:'TGV directo Barcelona-Sants → París-Gare de Lyon 11 nov',plans:'B',price:'170 € por persona / 340 € grupo (estimado)',state:'Referencia indicada por Kateryn, incluida automáticamente en subtotal Plan B; precio final, horario, plazas y carry-on por confirmar. No sumar de nuevo manualmente'},
 {title:'Hotel París 2 noches: llegada 11 y salida 13 nov',plans:'B',price:'Pendiente',state:'Rose Bourbon y Hotel Exquis como candidatas. Cotizar 2 noches, 1 habitación para dos, impuestos incluidos'},
 {title:'Tootbus turístico París (12 nov)',plans:'B',price:'Pendiente',state:'Preferencia de Mariangel vía Civitatis, confirmar precio para dos'},
 {title:'Vuelo París → Madrid',plans:'B',price:'Pendiente',state:'Con equipaje'},
@@ -455,7 +455,7 @@ var tasks=[
 ['Confirmar barrio de tu tía para elegir estación FGC','ALL'],
 ['Comparar hoteles en Sabadell y reseñas recientes','B,C'],
 ['Plan B: elegir el 10 en Barcelona entre Sagrada Familia y free tour Barrio Gótico para poder visitar a la tía en Sabadell; el día 11 se destina al tren a París','B'],
-['Cotizar TGV Barcelona-Sants → París-Gare de Lyon para el 11, preferiblemente matinal; calcular FGC Sabadell, Metro, 2 carry-on y presupuesto total dos','B'],
+['Confirmar precio final y reservar TGV Barcelona-Sants → París-Gare de Lyon del 11: aprox. 170 €/persona (340 € ambas, ya presupuestados). Verificar horario matinal, FGC desde Sabadell y equipaje','B'],
 ['Priorizar Tootbus Civitatis el 12 de noviembre, precio total dos, horarios y paradas cercanas para fotografías exteriores Eiffel','B'],
 ['Cotizar alojamiento París 2 noches 11–13 noviembre (Rose Bourbon, Hotel Exquis como candidatos) y salida París → Madrid el 13','B'],
 ['Verificar vuelo internacional de regreso del 14','ALL'],
