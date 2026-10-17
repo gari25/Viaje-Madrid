@@ -486,7 +486,7 @@ var maps=[
 ];
 /* Importe compartido inicial: ejemplo facilitado, no tarifa verificada.
    Se puede actualizar por ChatGPT desde GitHub sin exponer credenciales. */
-var sharedEstimates = {'B,C|Bounce Madrid, dos maletas de 23 kg (9–13 nov)':{amount:68,currency:'EUR',scope:'group',status:'estimado'},'B|Check-in Hotel Rose Bourbon · 2 noches (11 y 12)':{amount:285,currency:'EUR',scope:'group',status:'estimado'},'B|Vuelo Iberia París-CDG → Madrid-Barajas · llegada antes de las 17:00':{amount:170,currency:'EUR',scope:'group',status:'estimado'},'B|Big Bus París 24 horas + crucero por el Sena · Civitatis':{amount:92.80,currency:'EUR',scope:'group',status:'estimado'},'ALL|Tren Madrid-Atocha → Barcelona-Sants · Ouigo 06471':{amount:58,currency:'USD',scope:'group',status:'estimado'},'B|Barcelona-Sants → Sabadell Sud':{amount:60,currency:'USD',scope:'person',status:'estimado'},'ALL|Excursión Toledo y Segovia desde Madrid · aprox. 11 h':{amount:178.00,currency:'EUR',scope:'group',status:'estimado'},'B|Barcelona-Sants → París-Gare de Lyon vía Lyon Part-Dieu · Omio':{amount:250,currency:'EUR',scope:'group',status:'estimado'},'B,C|Bounce Madrid, dos maletas de 23 kg (9–13 nov)':{amount:68,currency:'EUR',scope:'group',status:'estimado'}};
+var sharedEstimates = {'ALL|Check-in Negresco Plaza Mayor · pendiente de reserva':{amount:110.20,currency:'EUR',scope:'group',status:'estimado'},'B|Sagrada Familia · audioguía español sin torres':{amount:75.98,currency:'USD',scope:'group',status:'estimado'},'A|Volver de Barcelona a Madrid · presupuesto pendiente':{amount:60,currency:'EUR',scope:'group',status:'estimado'},'C|Tren Barcelona → Madrid · presupuesto pendiente':{amount:120,currency:'EUR',scope:'group',status:'estimado'},'ALL|Posible vuelo Air Europa Madrid → Santo Domingo · llegada nocturna buscada':{amount:null,currency:'EUR',scope:'group',status:'estimado'},'B,C|Bounce Madrid, dos maletas de 23 kg (9–13 nov)':{amount:68,currency:'EUR',scope:'group',status:'estimado'},'B|Check-in Hotel Rose Bourbon · 2 noches (11 y 12)':{amount:285,currency:'EUR',scope:'group',status:'estimado'},'B|Vuelo Iberia París-CDG → Madrid-Barajas · llegada antes de las 17:00':{amount:170,currency:'EUR',scope:'group',status:'estimado'},'B|Big Bus París 24 horas + crucero por el Sena · Civitatis':{amount:92.80,currency:'EUR',scope:'group',status:'estimado'},'ALL|Tren Madrid-Atocha → Barcelona-Sants · Ouigo 06471':{amount:58,currency:'USD',scope:'group',status:'estimado'},'B|Barcelona-Sants → Sabadell Sud':{amount:60,currency:'USD',scope:'person',status:'estimado'},'ALL|Excursión Toledo y Segovia desde Madrid · aprox. 11 h':{amount:178.00,currency:'EUR',scope:'group',status:'estimado'},'B|Barcelona-Sants → París-Gare de Lyon vía Lyon Part-Dieu · Omio':{amount:250,currency:'EUR',scope:'group',status:'estimado'},'B,C|Bounce Madrid, dos maletas de 23 kg (9–13 nov)':{amount:68,currency:'EUR',scope:'group',status:'estimado'}};
 // El ejemplo "$88" para Sabadell está pendiente de aclarar si significa RD$ o US$.
 // Evitamos asignarle una moneda que no fue especificada.
 var doneItems={};
@@ -499,7 +499,7 @@ function saveDoneItems(){try{localStorage.setItem('viajex-completed-v1',JSON.str
 var localEstimates={};
 try{localEstimates=JSON.parse(localStorage.getItem('viajex-costos-local-v1')||'{}')||{};}catch(e){localEstimates={};}
 var budgets=[
-{title:'Billete aéreo internacional SDQ ↔ Madrid',plans:'ALL',price:'Pendiente',state:'Verificar vuelo de vuelta'},
+{title:'Billete aéreo internacional SDQ ↔ Madrid',plans:'ALL',price:'SIN COTIZAR (no sumado)',state:'Solicitar ida SDQ→MAD 3 nov (llegada 4), regreso MAD→SDQ sáb 14 nov con llegada nocturna local. Candidata Air Europa UX89 15:35 MAD el 14, sujeto a verificar hora de llegada a SDQ, disponibilidad y tarifa final. Comparar 1 viajera Plan A / 2 viajeras B,C y equipaje 23 kg, cabina y mochila.'},
 {title:'Tren Madrid → Barcelona (10 nov)',plans:'ALL',price:'US$58 para las dos (estimado)',state:'OUIGO 06471 06:22–09:45; confirmar equipaje y precio final en Omio'},
 {title:'Excursión Toledo y Segovia',plans:'ALL',price:'Pendiente',state:'Civitatis, revisar 9 de noviembre'},
 {title:'Sagrada Familia con o sin torre',plans:'ALL',price:'Pendiente',state:'Tarifa oficial y entradas por comprobar'},
@@ -509,7 +509,7 @@ var budgets=[
 {title:'Hotel alternativo Barcelona-Sants 10–11 nov',plans:'B',price:'Pendiente · solo si no van a Sabadell',state:'Hostal LK Barcelona 91,40 € para ambas, o comparar Hotel Transit, SmartRoom y Acta City47. Gasto alternativo, NO acumulable al viaje Sabadell ida/vuelta'},
 {title:'Hotel en Sabadell (1 noche)',plans:'B,C',price:'Pendiente',state:'Según barrio de tu tía'},
 {title:'Barcelona → París vía Lyon Part-Dieu 11 nov',plans:'B',price:'250 € total para 2 (estimado)',state:'Omio: 08:14–16:27. Transbordo de 1 h 10 sin conexión garantizada; dos billetes independientes. Precio mostrado $246,10; presupuesto indicado 250 €. Verificar cargos y equipaje'},
-{title:'Alojamiento París 11–13 noviembre (2 noches)',plans:'B',price:'Pendiente',state:'Comparar Hotel Rose Bourbon y Hotel Exquis; cotizar 2 noches (11–13 nov) para dos, impuestos incluidos, llegada por la tarde y cancelación; sin reservar'},
+{title:'Alojamiento París 11–13 noviembre (2 noches)',plans:'B',price:'Rose Bourbon 285 € / Amélie 277 € (solo una opción)',state:'Rose Bourbon 285 € incluido en subtotal B. Amélie 277 € alternativa Agoda no reembolsable sin ascensor; no sumar ambas, verificar impuestos finales y cancelación.'},
 {title:'Big Bus París 24 h + crucero (12 nov)',plans:'B',price:'92,80 € grupo / 46,40 € persona (cotización)',state:'Civitatis · 2 adultas · cancelación gratis hasta 24 h antes; pendiente de pagar y confirmar horas'},
 {title:'Vuelo Iberia París-CDG → Madrid (13 nov)',plans:'B',price:'170 € grupo / 85 € persona · cotización orientativa',state:'Salida diurna, llegada prevista a MAD antes de las 17:00; pendiente de confirmar vuelo y precio. Cabina: 10 kg 56×40×25 cm + mochila 30×40×15 cm por persona (operado por Iberia). Sin maleta facturada'},
 {title:'Bounce dos maletas grandes (9–13 nov)',plans:'B,C',price:'68 € grupo / 34 € persona (estimado)',state:'Ya incluido en subtotal estimado. Local, horario, seguridad, recogida del 13 y tarifa 23 kg por verificar; NO reservado'},
@@ -600,6 +600,8 @@ function companyCovered(i){
 }
 function defaultCost(i){
  var shared=sharedEstimates[i.plan+'|'+i.title]||sharedEstimates['B,C|'+i.title];
+ if(i.plan==='ALL'&&i.title==='Excursión Toledo y Segovia desde Madrid · aprox. 11 h'&&plan==='A')return {amount:89,currency:'EUR',scope:'group',status:'estimado'};
+ if(i.plan==='ALL'&&i.title==='Tren Madrid-Atocha → Barcelona-Sants · Ouigo 06471'&&plan==='A')return {amount:29,currency:'USD',scope:'group',status:'estimado'};
  if(shared)return shared;
  return isLunchOrDinner(i)?{amount:12,currency:'EUR',scope:'person',status:'estimado'}:null;
 }
