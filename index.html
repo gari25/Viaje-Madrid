@@ -252,6 +252,23 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 @media(max-width:1000px){.purchase-grid{grid-template-columns:1fr}}@media(max-width:760px){.purchase-guide{padding:14px}.purchase-city{padding:13px}.ticket-links a{min-height:43px}}
 
 .hotel-tariff-warning{background:#fff3e4;color:#6e471c;border:1px solid #ebd0a8;border-radius:11px;padding:12px;font-size:13px;line-height:1.55}
+
+/* Selección global de fechas · Plan B 2026 */
+.daypicker-wrap{position:sticky;top:8px;z-index:25;margin:12px 0 18px;background:#f5f8fc;border:1px solid #d3e0f2;border-radius:16px;padding:11px 12px;box-shadow:0 3px 14px rgba(29,66,108,.09)}
+.daypicker-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#294d77;font-size:12px;font-weight:800;margin-bottom:9px}
+.daypicker-scroll{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain;padding:2px 0 7px;-webkit-overflow-scrolling:touch}
+.daypicker-btn{flex:0 0 auto;min-width:65px;min-height:48px;border:1px solid #c3d3e8;border-radius:12px;background:white;color:#345578;font-size:12px;font-weight:750;padding:7px 13px;text-align:center;line-height:1.35;white-space:nowrap;cursor:pointer}
+.daypicker-btn.active,.daypicker-btn[aria-pressed="true"]{color:white;background:#285c9c;border-color:#285c9c;box-shadow:0 2px 8px rgba(40,92,156,.22)}
+.daypicker-btn:focus-visible{outline:3px solid #eaa957;outline-offset:2px}
+.day-filter-summary{font-size:13px;color:#325574;margin:0 0 13px}
+.day-filter-summary strong{color:#173a63}
+.route-day-item{border-left:3px solid #81a7d6;padding:11px 13px;margin:8px 0;background:#fff;border-radius:0 12px 12px 0}
+.route-day-item a,.daily-check a{font-size:12px;font-weight:700}
+.daily-check{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
+.daily-check .daily-check-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.daily-check button{min-height:40px;border:1px solid #b9ccdf;background:#f6faff;color:#245687;border-radius:10px;padding:8px 11px;font-weight:700}
+@media(max-width:570px){.daypicker-wrap{top:4px;margin:9px 0 13px;padding:10px 9px}.daypicker-btn{min-width:68px;min-height:50px}.daypicker-heading{font-size:11px}}
+@media print{.daypicker-wrap{position:static}}
 </style></head>
 <body>
 <div class="shell">
@@ -341,14 +358,14 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 </div>
 <p class="hint">Ningún hotel está reservado ni se incluye en el presupuesto hasta cotizar las fechas exactas.</p>
 </div><div class="panel"><h2>Primeros días</h2><div id="preview"><div class="notice">4 nov. — Llegada al Airbnb · 5 nov. — Inauguración 16:00–20:00 · 9 nov. — Toledo y Segovia.</div></div></div></section>
-<section class="section" id="agenda"><h2 class="section-title">Itinerario completo por día y ciudad</h2>
+<section class="section" id="agenda"><h2 class="section-title">Itinerario completo por día y ciudad</h2><div class="daypicker-wrap" data-day-picker aria-label="Seleccionar día del itinerario"></div>
 <div class="progressbar">
   <div><strong id="progress-count">0 de 0 actividades realizadas</strong><div class="hint">Pulsa «✓ Realizada» al terminar una actividad. Se ocultará de lo pendiente.</div></div>
   <button type="button" id="toggle-completed" aria-pressed="false">Mostrar realizadas (0)</button>
 </div>
 <div class="notice">✅ Tus actividades completadas se guardan <strong>solo en este navegador</strong>, sin cambiar el itinerario de Mariangel. Puedes recuperarlas usando «Mostrar realizadas» y «Volver a pendiente». Los costos siguen incluidos en el presupuesto.</div><div class="notice">🍽️ <strong>Presupuesto de comidas:</strong> 12 € por persona por cada almuerzo y por cada cena, aplicado a los días 4–13 de noviembre. En los planes de dos personas equivale a 24 € por comida o cena. No incluye desayunos. Si el evento o la familia ofrecen una comida, cambia ese importe a 0 €. Los días 3 y 14 quedan pendientes por los horarios y comidas incluidas en los vuelos.</div><p class="hint"><strong>🕒 Horarios: 24 horas y su equivalencia de 12 horas (a. m. / p. m.).</strong> <strong>💶 Escribe el costo en euros debajo de cada actividad.</strong> Indica si el precio es para una persona o para las dos. Se sumará automáticamente al día y al presupuesto general que aparece arriba. Los costos que no introduzcas no se contabilizan.</p><div class="notice">✍️ Aquí puedes simular importes en tu dispositivo; quedan guardados en este navegador. Para que Mariangel vea los cambios publicados, utiliza «Copiar presupuesto» y envíamelos por este chat.</div><div id="agenda-list"><article class="day"><div class="dayhead"><strong>Itinerario del 3 al 14 de noviembre</strong></div><div class="event"><div class="time">05</div><div><div class="evtitle">Inauguración en el Meliá Castilla · 16:00 (4:00 p. m.)–20:00 (8:00 p. m.)</div><div class="sub">Madrid · 5 de noviembre</div></div></div><div class="event"><div class="time">09</div><div><div class="evtitle">Excursión a Toledo y Segovia</div><div class="sub">Desde Madrid · 9 de noviembre, 09:00 (9:00 a. m.; horario por confirmar)</div></div></div></article></div></section>
-<section class="section" id="costos"><div class="notice company-notice">🏢 <strong>Ya cubierto por Becones Inmobiliaria SRL:</strong> recepción y salida del aeropuerto, traslados aeroportuarios indicados y Airbnb del 4 al 9 de noviembre. <strong>Importes no comunicados:</strong> no se anotan como 0 €. Falta precisar si los billetes aéreos están incluidos.</div><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">🍽️ Se han presupuestado almuerzos y cenas a <strong>12 € por persona y por comida</strong>. Se añaden al total del plan automáticamente, pero siguen siendo estimaciones editables; desayunos y posibles comidas incluidas en las jornadas o vuelos se revisarán aparte.</div><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$72,50</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Grupo €</th><th>Por persona €</th><th>Grupo RD$</th><th>Grupo US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div id="carry-optional" class="notice" hidden></div><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
-<section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div id="routes"></div>
+<section class="section" id="costos"><div class="daypicker-wrap" data-day-picker aria-label="Seleccionar día del itinerario"></div><div class="notice company-notice">🏢 <strong>Ya cubierto por Becones Inmobiliaria SRL:</strong> recepción y salida del aeropuerto, traslados aeroportuarios indicados y Airbnb del 4 al 9 de noviembre. <strong>Importes no comunicados:</strong> no se anotan como 0 €. Falta precisar si los billetes aéreos están incluidos.</div><h2 class="section-title">Presupuesto en euros, pesos y dólares</h2><div class="notice">🍽️ Se han presupuestado almuerzos y cenas a <strong>12 € por persona y por comida</strong>. Se añaden al total del plan automáticamente, pero siguen siendo estimaciones editables; desayunos y posibles comidas incluidas en las jornadas o vuelos se revisarán aparte.</div><div class="notice">Escribe <strong>únicamente euros (€)</strong> por actividad. ViajeX calcula automáticamente su equivalencia en <strong>RD$</strong> y <strong>US$</strong> para cada paso y para el total del plan. Tasas de referencia facilitadas por ti: <strong>€1 = RD$72,50</strong> y <strong>US$1 = RD$62</strong>. No son tasas bancarias en vivo. Los costos pendientes no se incluyen en el subtotal.</div><div class="panel"><h2 id="budget-title">Conceptos a cotizar</h2><div class="tablewrap"><table><thead><tr><th>Fecha y actividad</th><th>Ingresar costo (€)</th><th>Personas</th><th>Grupo €</th><th>Por persona €</th><th>Grupo RD$</th><th>Grupo US$</th></tr></thead><tbody id="budget-body"></tbody></table></div><p class="hint" id="budget-bottomline"></p><div id="carry-optional" class="notice" hidden></div><div class="panel" style="box-shadow:none"><h2>Otros gastos por completar</h2><div id="budget-todo"></div></div></div></section>
+<section class="section" id="rutas"><h2 class="section-title">Transporte y conexiones</h2><div class="daypicker-wrap" data-day-picker aria-label="Seleccionar día del itinerario"></div><div id="routes"></div>
 <div class="panel purchase-guide" id="comprar-billetes">
 <h2>🚌🚇 Cómo comprar billetes de autobús y Metro</h2>
 <p class="hint">Sin límite fijo para caminar. Priorizar autobús público directo, Metro o tren con tramos a pie cómodos y márgenes para descanso y maletas; no taxi, Uber ni vehículos compartidos. Las líneas precisas se verifican antes de viajar.</p>
@@ -382,14 +399,16 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 </div>
 <div class="notice">🧳 Bounce Madrid 9–13 nov: <strong>68 € grupo (2 × 23 kg) / 34 € por persona</strong>, estimación no reservada. Barcelona y París: <strong>18 € grupo / 9 € por persona</strong> opcionales si hoteles no admiten mochilas/carry-on; confirmar piezas y que la tarifa cubre ambas ciudades. Entrega del 9 a las 08:05 pendiente de comprobar frente a la salida propuesta de Civitatis a las 09:00.</div>
 </div></section>
-<section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad base</h2><p class="hint">Madrid agrupa excursiones a Toledo y Segovia; Barcelona agrupa la visita a Sabadell. Son municipios diferentes, pero las organizamos juntas para facilitar el viaje. Selecciona un lugar para abrirlo en Google Maps.</p><div class="citygrid" id="citymaps"></div></section>
-<section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div id="checklist"></div></section>
+<section class="section" id="mapas"><h2 class="section-title">Mapas por ciudad base</h2><div class="daypicker-wrap" data-day-picker aria-label="Seleccionar día del itinerario"></div><p class="hint">Madrid agrupa excursiones a Toledo y Segovia; Barcelona agrupa la visita a Sabadell. Son municipios diferentes, pero las organizamos juntas para facilitar el viaje. Selecciona un lugar para abrirlo en Google Maps.</p><div class="citygrid" id="citymaps"></div></section>
+<section class="section" id="pendientes"><h2 class="section-title">Antes de reservar</h2><div class="daypicker-wrap" data-day-picker aria-label="Seleccionar día del itinerario"></div><div id="checklist"></div></section>
 <div class="footer">ViajeX Europa 2026 · Información de consulta · Itinerario sujeto a revisión · Sin datos privados ni acceso de edición.</div>
 </main></div>
 <script>
 (function(){
 'use strict';
-var active='resumen',plan='B',city='';
+var active='resumen',plan='B',city='',selectedDay='all';
+var journeyDates=Array.from({length:12},function(_,idx){return new Date(Date.UTC(2026,10,3+idx)).toISOString().slice(0,10)});
+
 var rows=[
 ['03','22:05','En traslado','Vuelo internacional ida y vuelta SDQ ↔ Madrid · Iberia o Air Europa','Vuelo','ALL','DOS ALTERNATIVAS EXCLUYENTES para ambas ida y vuelta: IBERIA US$1.900 TOTAL (US$950 por persona) como presupuesto base; AIR EUROPA US$2.200 TOTAL (US$1.100 por persona), diferencia US$300. NO sumar ambas. Ambas tarifas según cotización comunicada incluyen artículo personal, maleta de mano de hasta 10 kg y maleta facturada de hasta 23 kg (la de 23 kg va en bodega, no en cabina). Selección/cambio de asiento incluida para ambas 24 horas antes del vuelo, según confirmación de Kateryn. Ningún vuelo comprado. Los horarios precisos pueden cambiar según la aerolínea. El billete corresponde a IDA Y VUELTA, no solo a este tramo. Ida SDQ → MAD el 3 de noviembre (llegada 4). La vuelta MAD → SDQ el 14 está comprendida en la misma cotización, sin duplicar su importe. Verificar precio total para dos personas, número de vuelo, reserva y equipaje.','Aeropuerto Internacional Las Américas'],
 ['04','11:10','Madrid','Llegada Barajas T1, traslado y check-in Airbnb Tetuán · PAGADO POR BECONES','Alojamiento','ALL','Ubicación exacta confirmada privadamente por Kateryn el 16 de octubre, zona Tetuán, Madrid. Hora de check-in 14:30 orientativa; verificar hora y llave con anfitrión. Salida el lunes 9 a las 10:00. Alojamiento cubierto por Becones Inmobiliaria SRL; importe no comunicado.','Tetuán, Madrid'],
@@ -569,7 +588,11 @@ function cityLabel(i){
  if(i.city==='En traslado')return 'En traslado · área de '+baseCity(i);
  return i.city;
 }
-function selectItems(){return items.filter(function(i){return avail(i.plan)&&(!city||baseCity(i)===city)}).sort(function(a,b){return (a.date+' '+a.time).localeCompare(b.date+' '+b.time)})}
+function selectItems(){return items.filter(function(i){return avail(i.plan)&&(!city||baseCity(i)===city)&&(selectedDay==='all'||i.date===selectedDay)}).sort(function(a,b){return (a.date+' '+a.time).localeCompare(b.date+' '+b.time)})}
+function dailyItems(){return items.filter(function(i){return avail(i.plan)&&i.date===selectedDay&&(!city||baseCity(i)===city)}).sort(function(a,b){return a.time.localeCompare(b.time)})}
+function dayLabel(d){var date=new Date(d+'T12:00:00');return new Intl.DateTimeFormat('es-ES',{weekday:'short',day:'numeric'}).format(date).replace('.','')}
+function renderDayPickers(){var all=selectedDay==='all';var label=all?'Todo el viaje':'Fecha: '+fmt(selectedDay);var html='<div class="daypicker-heading"><span>📅 Selecciona el día</span><span>'+escapeHtml(label)+'</span></div><div class="daypicker-scroll" role="group" aria-label="Filtrar itinerario por día"><button class="daypicker-btn'+(all?' active':'')+'" data-day-select="all" aria-pressed="'+all+'">Todos</button>'+journeyDates.map(function(d){var on=selectedDay===d;return '<button class="daypicker-btn'+(on?' active':'')+'" data-day-select="'+d+'" aria-pressed="'+on+'" aria-label="'+escapeHtml(fmt(d))+'">'+escapeHtml(dayLabel(d))+'</button>'}).join('')+'</div>';document.querySelectorAll('[data-day-picker]').forEach(function(el){el.innerHTML=html;var current=el.querySelector('[aria-pressed="true"]');if(current&&current.scrollIntoView){try{current.scrollIntoView({block:'nearest',inline:'nearest'})}catch(e){}}})}
+
 function fmt(d){return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long'}).format(new Date(d+'T12:00:00'))}
 function showBothTimes(value){
  // Keep raw itinerary times in 24-hour format for sorting and saved-cost keys.
@@ -713,7 +736,7 @@ function renderPlans(){document.getElementById('plans').innerHTML=Object.keys(pl
 function renderSummary(){renderPlans();document.getElementById('highlights').innerHTML='<p><strong>'+plans[plan].title+'</strong> · '+plans[plan].description+'</p><p class="hint">Itinerario único para ambas. París está incluido; Sabadell y noche en Barcelona-Sants son alternativas de alojamiento que deben elegirse antes de reservar.</p><div class="notice">'+(plan==='B'?'El 11 de noviembre: Sabadell → Barcelona-Sants → París-Gare de Lyon en tren. Las dos maletas de 23 kg se quedan en Madrid; viajar con carry-on y mochila.':'Mantener suficiente tiempo para comer, fotografiar, trasladarse y descansar.')+'</div>';document.getElementById('preview').innerHTML=renderAgenda(true)}
 function renderBudget(){
  document.getElementById('budget-title').textContent='Plan '+plan+' · '+plans[plan].people+' persona(s)';
- document.getElementById('budget-body').innerHTML=items.filter(function(i){return avail(i.plan)}).sort(function(a,b){return (a.date+' '+a.time).localeCompare(b.date+' '+b.time)}).map(function(i){
+ document.getElementById('budget-body').innerHTML=selectItems().map(function(i){
   var n=calcCost(i);
   return '<tr><td><strong>'+escapeHtml(i.title)+'</strong><div class="sub">'+escapeHtml(fmt(i.date))+' · '+escapeHtml(i.city)+'</div>'+(companyCovered(i)?'<div class="company-item">✓ Pagado por Becones Inmobiliaria SRL</div>':'')+'</td>'
   +'<td>'+costControl(i)+'</td><td>'+(getCost(i).scope==='person'?plans[plan].people+' × persona':'Grupo')+'</td>'
@@ -722,12 +745,29 @@ function renderBudget(){
   +'<td><span data-budget-dop="'+i.id+'">'+(n===null?'—':dop(n))+'</span></td>'
   +'<td><span data-budget-usd="'+i.id+'">'+(n===null?'—':usd(n))+'</span></td></tr>';
  }).join('');
- var x=totalCost();
- document.getElementById('budget-bottomline').textContent='GRUPO ('+plans[plan].people+'): '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+' · INDIVIDUAL: '+eur(x.total/plans[plan].people)+' / '+dop(x.total/plans[plan].people)+' / '+usd(x.total/plans[plan].people)+'. Sin importe '+x.missing+'.';
- document.getElementById('budget-todo').innerHTML=budgets.filter(function(b){return b.plans==='ALL'||b.plans.split(',').indexOf(plan)!==-1}).map(function(b){return '<p class="budgetinfo">☐ '+escapeHtml(b.title)+' — '+escapeHtml(b.state)+'</p>'}).join('');
+ var x=selectedDay==='all'?totalCost():dayTotal(selectedDay),all=totalCost();
+ document.getElementById('budget-bottomline').textContent=(selectedDay==='all'?'TOTAL GENERAL':'SUBTOTAL '+fmt(selectedDay))+' · GRUPO ('+plans[plan].people+'): '+eur(x.total)+' / '+dop(x.total)+' / '+usd(x.total)+' · INDIVIDUAL: '+eur(x.total/plans[plan].people)+' / '+dop(x.total/plans[plan].people)+' / '+usd(x.total/plans[plan].people)+'. Sin importe '+x.missing+'.'+(selectedDay==='all'?'':' · TOTAL GENERAL DEL VIAJE: '+eur(all.total)+' (sin conceptos aún por cotizar).');
+ document.getElementById('budget-title').textContent=(selectedDay==='all'?'Plan '+plan+' · todas las fechas':fmt(selectedDay)+' · subtotal del día')+' · '+plans[plan].people+' personas';
+ document.getElementById('budget-todo').innerHTML=selectedDay==='all'?budgets.filter(function(b){return b.plans==='ALL'||b.plans.split(',').indexOf(plan)!==-1}).map(function(b){return '<p class="budgetinfo">☐ '+escapeHtml(b.title)+' — '+escapeHtml(b.state)+'</p>'}).join(''):selectItems().filter(function(i){return calcCost(i)===null}).map(function(i){return '<p class="budgetinfo">☐ Sin cotizar: '+escapeHtml(i.time+' · '+i.title)+'</p>'}).join('')||'<p class="hint">No hay otros importes pendientes en las actividades de este día; verifica las reservas definitivas.</p>';
 }
-function renderRoutes(){document.getElementById('routes').innerHTML=routes.filter(function(r){return r.plans==='ALL'||r.plans.split(',').indexOf(plan)!==-1}).map(function(r,i){return '<article class="step"><strong>'+(i+1)+'. '+escapeHtml(r.title)+'</strong><div class="sub">'+escapeHtml(r.desc)+'</div></article>'}).join('')}
+function renderRoutes(){
+ if(selectedDay==='all'){document.getElementById('routes').innerHTML=routes.filter(function(r){return r.plans==='ALL'||r.plans.split(',').indexOf(plan)!==-1}).map(function(r,i){return '<article class="step"><strong>'+(i+1)+'. '+escapeHtml(r.title)+'</strong><div class="sub">'+escapeHtml(r.desc)+'</div></article>'}).join('');return;}
+ var list=dailyItems(),travelTypes=['Traslado','Tren','Vuelo','Excursión','Equipaje','Tour'],travel=list.filter(function(i){return travelTypes.includes(i.type)||/Llegada Barajas|Big Bus|check-in|Cambiar de hotel/i.test(i.title)});
+ var html='<p class="day-filter-summary">Trayectos y ubicaciones del <strong>'+escapeHtml(fmt(selectedDay))+'</strong>. Horarios orientativos hasta confirmar billetes y rutas.</p>';
+ html+=travel.map(function(i){return '<article class="route-day-item"><strong>'+escapeHtml(showBothTimes(i.time+' · '+i.title))+'</strong><div class="sub">'+escapeHtml(showBothTimes(i.note))+'</div><a href="'+link(i.place)+'" target="_blank" rel="noopener noreferrer">📍 Abrir ubicación en Google Maps ↗</a></article>'}).join('');
+ if(!travel.length)html+='<div class="notice">No hay traslados específicos previstos este día. Revisa las visitas y direcciones que aparecen en la agenda.</div>';
+ document.getElementById('routes').innerHTML=html;
+}
 function renderMaps(){
+ if(selectedDay!=='all'){
+  var seen={},entries=dailyItems().filter(function(i){return i.place&&i.place.trim()}).filter(function(i){var key=i.place.toLowerCase().trim();if(seen[key])return false;seen[key]=true;return true});
+  var html='<p class="day-filter-summary">Lugares del <strong>'+escapeHtml(fmt(selectedDay))+'</strong>. Abre cada ubicación o consulta el recorrido en Google Maps. Las direcciones de familiares se mantienen privadas.</p>';
+  var points=entries.map(function(i){return i.place}).slice(0,9),dirUrl='';
+  if(points.length>1){var start=points[0],end=points[points.length-1],middle=points.slice(1,-1).slice(0,3);dirUrl='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(start)+'&destination='+encodeURIComponent(end)+(middle.length?'&waypoints='+encodeURIComponent(middle.join('|')):'')+'&travelmode=transit';}
+  if(dirUrl)html+='<div class="notice"><a href="'+dirUrl+'" target="_blank" rel="noopener noreferrer"><strong>🗺️ Abrir recorrido del día en Google Maps ↗</strong></a><div class="hint">La app de Google Maps ajustará el recorrido y medios de transporte reales.</div></div>';
+  html+='<div class="citygrid">'+entries.map(function(i){return '<article class="map-card"><h3>'+escapeHtml(i.place)+'</h3><div class="sub">'+escapeHtml(i.time+' · '+i.title)+'</div><p><a href="'+link(i.place)+'" target="_blank" rel="noopener noreferrer">📍 Ver en Google Maps ↗</a></p></article>'}).join('')+'</div>';
+  document.getElementById('citymaps').innerHTML=entries.length?html:'<p class="notice">No hay ubicaciones registradas para este día y filtro de ciudad.</p>';return;
+ }
  var groups=[
   {name:'Madrid',icon:'🇪🇸',sections:[{name:'Madrid · turismo y transportes',city:'Madrid'},{name:'Toledo · excursión desde Madrid',city:'Toledo'},{name:'Segovia · excursión desde Madrid',city:'Segovia'}]},
   {name:'Barcelona',icon:'🇪🇸',sections:[{name:'Barcelona · turismo y transportes',city:'Barcelona'},{name:'Sabadell · visita familiar',city:'Sabadell'}]},
@@ -740,10 +780,14 @@ function renderMaps(){
   }).join('')+'</article>';
  }).join('');
 }
-function renderTasks(){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(plan)!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('')}
-function render(){document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('hotel-paris').hidden=plan!=='B';document.getElementById('hotel-barcelona-backup').hidden=plan!=='B';document.getElementById('paris-billetes').hidden=plan!=='B';renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
+function renderTasks(){
+ if(selectedDay==='all'){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(plan)!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('');return;}
+ document.getElementById('checklist').innerHTML='<p class="day-filter-summary">Actividades del <strong>'+escapeHtml(fmt(selectedDay))+'</strong>. Marca las realizadas; se sincronizan con Agenda.</p>'+dailyItems().map(function(i){var done=isDone(i),price=calcCost(i);return '<article class="step daily-check"><div><strong>'+(done?'✅':'☐')+' '+escapeHtml(i.time+' · '+i.title)+'</strong><div class="sub">'+(companyCovered(i)?'Pagado por Becones':(price===null?'Precio pendiente':price===0?'Sin costo':eur(price)+' para ambas'))+' · '+escapeHtml(i.city)+'</div></div><div class="daily-check-controls"><a href="'+link(i.place)+'" target="_blank" rel="noopener noreferrer">📍 Ubicación ↗</a>'+bookingMarkup(i)+'<button type="button" data-toggle-done="'+i.id+'">'+(done?'↩ Pendiente':'✓ Realizada')+'</button></div></article>'}).join('')||'<p class="notice">No hay actividades previstas para esta fecha y el filtro seleccionado.</p>';
+}
+function render(){renderDayPickers();document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('hotel-paris').hidden=plan!=='B';document.getElementById('hotel-barcelona-backup').hidden=plan!=='B';document.getElementById('paris-billetes').hidden=plan!=='B';renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
 document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active);if(e.dataset.tab===active)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current')});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
 document.getElementById('toggle-completed').addEventListener('click',function(){showCompleted=!showCompleted;render()});
+document.addEventListener('click',function(e){var btn=e.target.closest('[data-day-select]');if(!btn)return;var day=btn.getAttribute('data-day-select');if(day!=='all'&&!journeyDates.includes(day))return;selectedDay=day;render();});
 document.addEventListener('click',function(e){
  var btn=e.target.closest('[data-toggle-done]');
  if(!btn)return;
