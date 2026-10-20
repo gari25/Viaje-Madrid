@@ -309,7 +309,7 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 <main>
 <div class="daypicker-wrap daypicker-global" data-day-picker aria-label="Seleccionar día del itinerario"></div>
 <div class="top"><div><div class="kicker">✈ EUROPA 2026 · MADRID · BARCELONA · PARÍS</div><h1 class="heading">Nuestro viaje, paso a paso ✨</h1><p class="lede">Itinerario conjunto de Kateryn y Mariangel. Comparamos rutas, actividades y gastos sin reservar nada antes de revisar los detalles.</p></div><div class="topright">🔒 Versión de consulta</div></div>
-<div class="controls"><div class="filter-group"><label for="plan">🧭 Itinerario elegido</label><select id="plan"><option value="B" selected>Plan B · Kateryn y Mariangel · España + París</option></select></div><div class="filter-group"><label for="city">📍 Filtrar ciudad</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>París</option></select></div><button id="print">🖨️ Imprimir</button></div>
+<div class="controls"><div class="filter-group"><label for="plan">🧭 Itinerario elegido</label><select id="plan"><option value="B" selected>Plan B · Kateryn y Mariangel · España + París</option></select></div><div class="filter-group"><label for="city">📍 Filtrar ciudad</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>París</option><option>Lisboa</option></select></div><button id="print">🖨️ Imprimir</button></div>
 <div class="budgetbar" aria-live="polite">
  <div class="budget-overview-head"><div class="budgetlabel">💳 Presupuesto · Plan <span id="amount-plan">B</span></div><span id="budget-travelers" class="budget-travelers">2 personas</span></div>
  <div class="budget-split">
@@ -431,7 +431,7 @@ main{width:100%;max-width:100%;min-width:0;padding:12px 12px 25px!important}
 (function(){
 'use strict';
 var active='resumen',plan='B',city='',selectedDay='all',travelMode='paris';
-try{var savedScenario=localStorage.getItem('viajex-scenario-v1');if(savedScenario==='paris'||savedScenario==='espana')travelMode=savedScenario}catch(e){}
+try{var savedScenario=localStorage.getItem('viajex-scenario-v1');if(savedScenario==='paris'||savedScenario==='lisboa')travelMode=savedScenario;else if(savedScenario==='espana')travelMode='lisboa'}catch(e){}
 try{var rememberedDay=localStorage.getItem('viajex-selected-day-v1');if(rememberedDay==='all'||/^2026-11-(0[3-9]|1[0-4])$/.test(rememberedDay||''))selectedDay=rememberedDay;}catch(e){}
 var journeyDates=Array.from({length:12},function(_,idx){return new Date(Date.UTC(2026,10,3+idx)).toISOString().slice(0,10)});
 
@@ -538,7 +538,7 @@ var rows=[
 ['12','20:30','Barcelona','Cena en Barcelona','Comidas','A,C','Presupuesto de 12 € por persona del plan. Confirmar ubicación antes de regresar a Madrid el día 13.','Barcelona, España'],
 ['12','13:00','París','Almuerzo durante el recorrido turístico por París','Comidas','B','Presupuesto de 12 € por persona para las dos. Reservar aproximadamente una hora de descanso entre Trocadéro y Campos Elíseos.','París, Francia'],
 ['12','20:30','París','Cena después del tour turístico','Comidas','B','Presupuesto de 12 € por persona para las dos. Preparar equipaje para volver a Madrid el día 13.','París, Francia'],
-['10','20:30','Barcelona','Cena en Barcelona después del free tour · alternativa sin París','Comidas','ALT','Presupuesto de 12 € por persona. Descansar y preparar visita a Sabadell al día siguiente.','Barcelona-Sants'],
+['10','20:30','Barcelona','Cena en Barcelona después del free tour · alternativa Lisboa','Comidas','ALT','Presupuesto de 12 € por persona. Descansar y preparar visita a Sabadell al día siguiente.','Barcelona-Sants'],
 ['11','20:00','Sabadell','Alojamiento en Sabadell 11–12 · alternativa sin París','Alojamiento','ALT','Reserva de presupuesto de 100 € para las dos en una habitación doble. Si duermen con la familia, poner 0 €. Sin hotel escogido ni reserva.','Sabadell Barcelona'],
 ['12','18:30','Barcelona','Hotel Barcelona 12–13 · alternativa sin París','Alojamiento','ALT','Reserva de presupuesto de 100 € por habitación doble para las dos, noche del 12 al 13. Elegir cerca de Sants o zona segura con buena conexión al tren. No cotizado ni reservado.','Barcelona Sants'],
 ['13','18:30','Madrid','Hotel Madrid 13–14 · una noche antes de regreso a RD','Alojamiento','ALL','Reserva provisional de 110 € para ambas por una habitación doble. Falta elegir hotel, verificar tarifa real, impuestos y transporte a Barajas. Aplica a ambos escenarios.','Madrid España'],
@@ -546,6 +546,7 @@ var rows=[
 var items=rows.filter(function(r){return r[5]==='ALL'||r[5].split(',').includes('B')||r[5].split(',').includes('C')||r[5]==='ALT'}).map(function(r,i){return {id:i,date:'2026-11-'+r[0],time:r[1],city:r[2],title:r[3],type:r[4],plan:r[5],note:r[6],place:r[7]};});
 var plans={B:{title:'Kateryn y Mariangel · España + París',tag:'Plan único del 3 al 14 de noviembre',people:2,description:'Madrid → Barcelona → Sabadell o noche en Sants (alternativas) → París → Madrid → Santo Domingo. Dos viajeras.'}};
 var maps=[
+{city:'Lisboa',icon:'🇵🇹',sites:['Aeroporto Humberto Delgado Lisboa','Saldanha Lisboa Portugal','Praça do Comércio Lisboa Portugal','Mosteiro dos Jerónimos Lisboa Portugal','Torre de Belém Lisboa Portugal','Miradouro das Portas do Sol Lisboa Portugal']},
 {city:'Madrid',icon:'🇪🇸',sites:['Hotel Meliá Castilla Madrid','Madrid-Puerta de Atocha','Puerta del Sol Madrid','Mercado de San Miguel Madrid','Calle Mesón de Paños 15 Madrid']},
 {city:'Toledo',icon:'🏰',sites:['Plaza de Zocodover Toledo','Catedral de Toledo','Alcázar de Toledo']},
 {city:'Segovia',icon:'🏛️',sites:['Acueducto de Segovia','Plaza Mayor Segovia','Alcázar de Segovia']},
@@ -626,30 +627,20 @@ function avail(p){return p==='ALL'||p.split(',').indexOf(plan)!==-1}
 function visibleItem(i){
  if(i.plan==='ALL')return true;
  if(travelMode==='paris')return i.plan.split(',').includes('B');
- if(i.plan==='ALT')return true;
- if(i.plan==='B,C')return i.date==='2026-11-09';
- if(i.plan==='C')return i.date>='2026-11-11';
- if(i.plan==='B'){
-  if(i.date==='2026-11-10')return !/Sabadell Sud|SOLO ALTERNATIVA|Visitar a tu tía/i.test(i.title);
-  return i.title.includes('Reserva adicional de taxis');
- }
+ if(i.plan==='LIS')return true;
+ if(i.plan==='B,C')return i.date==='2026-11-09'||(i.date==='2026-11-10'&&i.type==='Comidas');
+ if(i.plan==='B'){if(i.date==='2026-11-10')return !/Sabadell Sud|SOLO ALTERNATIVA|Visitar a tu tía|ALTERNATIVA EXCLUYENTE/i.test(i.title);return i.title.includes('Reserva adicional de taxis');}
  return false;
 }
-function visibleRoute(r){
- if(travelMode==='espana')return (r.plans==='ALL'||r.plans.split(',').includes('C')||r.plans==='ALT')&&!/París|Paris|Lyon|CDG|TGV/i.test(r.title);
- return (r.plans==='ALL'||r.plans.split(',').includes('B'))&&!/alternativa sin París/i.test(r.title);
-}
-function visibleBudget(b){
- if(travelMode==='paris')return b.plans==='ALL'||b.plans.split(',').includes('B');
- return (b.plans==='ALL'||b.plans.split(',').includes('C')||b.plans==='ALT')&&!/París|Paris|Lyon|CDG|Big Bus/i.test(b.title);
-}
-
+function visibleRoute(r){if(travelMode==='lisboa')return r.plans==='ALL'||r.plans==='LIS';return (r.plans==='ALL'||r.plans.split(',').includes('B'))&&!/alternativa sin París/i.test(r.title);}
+function visibleBudget(b){return travelMode==='paris'?(b.plans==='ALL'||b.plans.split(',').includes('B')):(b.plans==='ALL'||b.plans==='LIS');}
 function baseCity(i){
  if(i.city==='Sabadell')return 'Barcelona';
  if(i.city==='Toledo'||i.city==='Segovia')return 'Madrid';
  if(i.city!=='En traslado')return i.city;
  var t=i.title;
- if(t.includes('París → Madrid')||t.includes('Barcelona → Madrid')||t.includes('Volver de Barcelona a Madrid'))return 'Madrid';
+ if(t.includes('París → Madrid')||t.includes('Barcelona → Madrid')||t.includes('Volver de Barcelona a Madrid')||t.includes('Lisboa LIS → Madrid'))return 'Madrid';
+ if(t.includes('Barcelona BCN → Lisboa')||t.includes('Lisboa'))return 'Lisboa';
  if(t.includes('Barcelona → París')||t.includes('París'))return 'París';
  if(t.includes('Barcelona')||t.includes('Sabadell'))return 'Barcelona';
  return 'Madrid';
@@ -663,8 +654,8 @@ function cityLabel(i){
 function selectItems(){return items.filter(function(i){return visibleItem(i)&&(!city||baseCity(i)===city)&&(selectedDay==='all'||i.date===selectedDay)}).sort(function(a,b){return (a.date+' '+a.time).localeCompare(b.date+' '+b.time)})}
 function dailyItems(){return items.filter(function(i){return visibleItem(i)&&i.date===selectedDay&&(!city||baseCity(i)===city)}).sort(function(a,b){return a.time.localeCompare(b.time)})}
 function dayLabel(d){var date=new Date(d+'T12:00:00');return new Intl.DateTimeFormat('es-ES',{weekday:'short',day:'numeric'}).format(date).replace('.','')}
-function scenarioTotals(){var previous=travelMode;travelMode='paris';var p=totalCost();travelMode='espana';var e=totalCost();travelMode=previous;return {paris:p.total,espana:e.total,missingParis:p.missing,missingEspana:e.missing}}
-function renderDayPickers(){var variant='<div class="scenario-switch" role="group" aria-label="Elegir itinerario"><div class="scenario-label">🧭 Plan B · Comparar rutas antes de reservar</div><button type="button" data-scenario="paris" class="'+(travelMode==='paris'?'active':'')+'" aria-pressed="'+(travelMode==='paris')+'">🇫🇷 Con París</button><button type="button" data-scenario="espana" class="'+(travelMode==='espana'?'active':'')+'" aria-pressed="'+(travelMode==='espana')+'">🇪🇸 Alternativa sin París</button></div>';var totals=scenarioTotals();variant+='<div class="scenario-label">Presupuesto parcial para ambas · Con París: <strong>'+eur(totals.paris)+'</strong> · Sin París: <strong>'+eur(totals.espana)+'</strong> · Ahorro provisional: <strong>'+eur(Math.max(0,totals.paris-totals.espana))+'</strong>. Sin incluir conceptos pendientes.</div>';var all=selectedDay==='all';var label=all?'Todo el viaje':'Fecha: '+fmt(selectedDay);var html='<div class="daypicker-heading"><span>📅 Selecciona el día</span><span>'+escapeHtml(label)+'</span></div><div class="daypicker-scroll" role="group" aria-label="Filtrar itinerario por día"><button class="daypicker-btn'+(all?' active':'')+'" data-day-select="all" aria-pressed="'+all+'">Todos</button>'+journeyDates.map(function(d){var on=selectedDay===d;return '<button class="daypicker-btn'+(on?' active':'')+'" data-day-select="'+d+'" aria-pressed="'+on+'" aria-label="'+escapeHtml(fmt(d))+'">'+escapeHtml(dayLabel(d))+'</button>'}).join('')+'</div>';document.querySelectorAll('[data-day-picker]').forEach(function(el){el.innerHTML=variant+html;var current=el.querySelector('.daypicker-scroll [aria-pressed="true"]'),strip=el.querySelector('.daypicker-scroll');if(current&&strip){strip.scrollLeft=Math.max(0,current.offsetLeft-strip.offsetLeft-(strip.clientWidth-current.clientWidth)/2)}})}
+function scenarioTotals(){var previous=travelMode;travelMode='paris';var p=totalCost();travelMode='lisboa';var e=totalCost();travelMode=previous;return {paris:p.total,espana:e.total,missingParis:p.missing,missingEspana:e.missing}}
+function renderDayPickers(){var variant='<div class="scenario-switch" role="group" aria-label="Elegir itinerario"><div class="scenario-label">🧭 Plan B · Comparar rutas antes de reservar</div><button type="button" data-scenario="paris" class="'+(travelMode==='paris'?'active':'')+'" aria-pressed="'+(travelMode==='paris')+'">🇫🇷 Con París</button><button type="button" data-scenario="lisboa" class="'+(travelMode==='lisboa'?'active':'')+'" aria-pressed="'+(travelMode==='espana')+'">🇵🇹 Alternativa Lisboa</button></div>';var totals=scenarioTotals();variant+='<div class="scenario-label">Presupuesto parcial para ambas · Con París: <strong>'+eur(totals.paris)+'</strong> · Lisboa: <strong>'+eur(totals.espana)+'</strong> · Diferencia provisional: <strong>'+eur(Math.abs(totals.paris-totals.espana))+'</strong>. Sin incluir conceptos pendientes.</div>';var all=selectedDay==='all';var label=all?'Todo el viaje':'Fecha: '+fmt(selectedDay);var html='<div class="daypicker-heading"><span>📅 Selecciona el día</span><span>'+escapeHtml(label)+'</span></div><div class="daypicker-scroll" role="group" aria-label="Filtrar itinerario por día"><button class="daypicker-btn'+(all?' active':'')+'" data-day-select="all" aria-pressed="'+all+'">Todos</button>'+journeyDates.map(function(d){var on=selectedDay===d;return '<button class="daypicker-btn'+(on?' active':'')+'" data-day-select="'+d+'" aria-pressed="'+on+'" aria-label="'+escapeHtml(fmt(d))+'">'+escapeHtml(dayLabel(d))+'</button>'}).join('')+'</div>';document.querySelectorAll('[data-day-picker]').forEach(function(el){el.innerHTML=variant+html;var current=el.querySelector('.daypicker-scroll [aria-pressed="true"]'),strip=el.querySelector('.daypicker-scroll');if(current&&strip){strip.scrollLeft=Math.max(0,current.offsetLeft-strip.offsetLeft-(strip.clientWidth-current.clientWidth)/2)}})}
 
 function fmt(d){return new Intl.DateTimeFormat('es-ES',{weekday:'long',day:'numeric',month:'long'}).format(new Date(d+'T12:00:00'))}
 function showBothTimes(value){
@@ -736,7 +727,7 @@ function costText(i){var n=calcCost(i),p=plans[plan].people;return n===null?(com
 function renderBudgetBar(){
  var x=totalCost(),p=plans[plan].people,each=x.total/p;
  document.getElementById('amount-plan').textContent=plan;
- document.getElementById('budget-travelers').textContent=p+' '+(p===1?'persona':'personas')+' · '+(travelMode==='paris'?'París':'Sin París');
+ document.getElementById('budget-travelers').textContent=p+' '+(p===1?'persona':'personas')+' · '+(travelMode==='paris'?'París':'Lisboa');
  document.getElementById('grand-total').textContent=eur(x.total);
  document.getElementById('grand-total-dop').textContent=dop(x.total);
  document.getElementById('grand-total-usd').textContent=usd(x.total);
@@ -808,7 +799,7 @@ function renderAgenda(preview){
  }).join('') || '<p class="notice">✅ No quedan actividades pendientes en este filtro. Pulsa «Mostrar realizadas» para revisarlas o marcarlas de nuevo como pendientes.</p>';
 }
 function renderPlans(){document.getElementById('plans').innerHTML=Object.keys(plans).map(function(k){var p=plans[k];return '<button class="plan '+(k===plan?'sel':'')+'" data-setplan="'+k+'"><span class="letter">Plan '+k+'</span><strong>'+escapeHtml(p.title)+'</strong><small>'+escapeHtml(p.tag)+'</small></button>'}).join('')}
-function renderSummary(){renderPlans();document.getElementById('highlights').innerHTML='<p><strong>Kateryn y Mariangel · '+(travelMode==='paris'?'Plan B: España y París':'Plan B: alternativa por España, sin París')+'</strong></p><p class="hint">Dos escenarios excluyentes, para las mismas dos viajeras y las mismas fechas. Cambiar de opción no reserva ni cancela servicios.</p><div class="scenario-notice">'+(travelMode==='paris'?'París requiere vigilar protestas, condiciones de seguridad, trenes y vuelos. La conexión ferroviaria en Lyon no está protegida.':'Ruta sin París: Madrid → Barcelona → Sabadell → Barcelona → Madrid. Los hoteles y transportes nuevos están presupuestados provisionalmente, no reservados. No se suman gastos turísticos ni transporte hacia París.')+'</div>';document.getElementById('preview').innerHTML=renderAgenda(true)}
+function renderSummary(){renderPlans();document.getElementById('highlights').innerHTML='<p><strong>Kateryn y Mariangel · '+(travelMode==='paris'?'Plan B: España y París':'Plan B: España y Lisboa')+'</strong></p><p class="hint">Dos escenarios excluyentes, para las mismas dos viajeras y las mismas fechas. Cambiar de opción no reserva ni cancela servicios.</p><div class="scenario-notice">'+(travelMode==='paris'?'París requiere vigilar protestas, condiciones de seguridad, trenes y vuelos. La conexión ferroviaria en Lyon no está protegida.':'Ruta Lisboa: Madrid → Barcelona → visita opcional a Sabadell (10 nov) → vuelo directo a Lisboa (11 nov) → Belém, Baixa y Alfama (12 nov) → vuelo Lisboa-Madrid (13 nov) → Santo Domingo (14 nov). No hay tren directo Barcelona-Lisboa; viajar por tierra consume alrededor de 15 h o más. Vuelos y hotel Lisboa todavía no reservados.')+'</div>';document.getElementById('preview').innerHTML=renderAgenda(true)}
 function renderBudget(){
  document.getElementById('budget-title').textContent='Plan '+plan+' · '+(travelMode==='paris'?'con París':'alternativa sin París')+' · '+plans[plan].people+' persona(s)';
  document.getElementById('budget-body').innerHTML=selectItems().map(function(i){
@@ -844,6 +835,7 @@ function renderMaps(){
   document.getElementById('citymaps').innerHTML=entries.length?html:'<p class="notice">No hay ubicaciones registradas para este día y filtro de ciudad.</p>';return;
  }
  var groups=[
+  {name:'Lisboa',icon:'🇵🇹',sections:[{name:'Lisboa · centro histórico y Belém',city:'Lisboa'}]},
   {name:'Madrid',icon:'🇪🇸',sections:[{name:'Madrid · turismo y transportes',city:'Madrid'},{name:'Toledo · excursión desde Madrid',city:'Toledo'},{name:'Segovia · excursión desde Madrid',city:'Segovia'}]},
   {name:'Barcelona',icon:'🇪🇸',sections:[{name:'Barcelona · turismo y transportes',city:'Barcelona'},{name:'Sabadell · visita familiar',city:'Sabadell'}]},
   {name:'París',icon:'🇫🇷',sections:[{name:'París · autobús turístico y fotografías',city:'París'}]}
@@ -856,13 +848,13 @@ function renderMaps(){
  }).join('');
 }
 function renderTasks(){
- if(selectedDay==='all'){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(travelMode==='paris'?'B':'C')!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('');return;}
+ if(selectedDay==='all'){document.getElementById('checklist').innerHTML=tasks.filter(function(x){return x[1]==='ALL'||x[1].split(',').indexOf(travelMode==='paris'?'B':'LIS')!==-1}).map(function(x,i){return '<article class="step"><strong>☐ '+escapeHtml(x[0])+'</strong><div class="sub">Pendiente de verificar antes de reservar o publicar un costo como definitivo.</div></article>'}).join('');return;}
  document.getElementById('checklist').innerHTML='<p class="day-filter-summary">Actividades del <strong>'+escapeHtml(fmt(selectedDay))+'</strong>. Marca las realizadas; se sincronizan con Agenda.</p>'+dailyItems().map(function(i){var done=isDone(i),price=calcCost(i);return '<article class="step daily-check"><div><strong>'+(done?'✅':'☐')+' '+escapeHtml(i.time+' · '+i.title)+'</strong><div class="sub">'+(companyCovered(i)?'Pagado por Becones':(price===null?'Precio pendiente':price===0?'Sin costo':eur(price)+' para ambas'))+' · '+escapeHtml(i.city)+'</div></div><div class="daily-check-controls"><a href="'+link(i.place)+'" target="_blank" rel="noopener noreferrer">📍 Ubicación ↗</a>'+bookingMarkup(i)+'<button type="button" data-toggle-done="'+i.id+'">'+(done?'↩ Pendiente':'✓ Realizada')+'</button></div></article>'}).join('')||'<p class="notice">No hay actividades previstas para esta fecha y el filtro seleccionado.</p>';
 }
 function render(){renderDayPickers();document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('hotel-paris').hidden=travelMode!=='paris';document.getElementById('hotel-barcelona-backup').hidden=travelMode!=='paris';document.getElementById('paris-billetes').hidden=travelMode!=='paris';renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
 document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active);if(e.dataset.tab===active)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current')});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
 document.getElementById('toggle-completed').addEventListener('click',function(){showCompleted=!showCompleted;render()});
-document.addEventListener('click',function(e){var b=e.target.closest('[data-scenario]');if(!b)return;var choice=b.getAttribute('data-scenario');if(choice!=='paris'&&choice!=='espana')return;travelMode=choice;city='';try{localStorage.setItem('viajex-scenario-v1',choice)}catch(e){}render();});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-scenario]');if(!b)return;var choice=b.getAttribute('data-scenario');if(choice!=='paris'&&choice!=='lisboa')return;travelMode=choice;city='';try{localStorage.setItem('viajex-scenario-v1',choice)}catch(e){}render();});
 document.addEventListener('click',function(e){var btn=e.target.closest('[data-day-select]');if(!btn)return;var day=btn.getAttribute('data-day-select');if(day!=='all'&&!journeyDates.includes(day))return;selectedDay=day;try{localStorage.setItem('viajex-selected-day-v1',day)}catch(e){}render();});
 document.addEventListener('click',function(e){
  var btn=e.target.closest('[data-toggle-done]');
