@@ -24,6 +24,24 @@ h1{font-size:clamp(27px,4vw,38px);margin:10px 0 8px;line-height:1.12}p{line-heig
 .notice{padding:15px;border:1px solid #e7d8b3;background:#fff9ed;color:#77623f;border-radius:13px;margin-top:20px;font-size:13px}
 footer{font-size:12px;color:#6d7c90;margin-top:22px}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.top{padding:21px 18px}}
+
+/* Selector de planes, identidad visual independiente */
+body{background:radial-gradient(circle at 8% 5%,#e6efff 0,transparent 42%),radial-gradient(circle at 95% 15%,#e6f5ed 0,transparent 40%),#f3f6fb}
+.top{background:linear-gradient(130deg,#fff 15%,#eef4fc 100%);border-top:6px solid #285d9c}
+.top h1{color:#1d3c6b;letter-spacing:-1.1px}
+.card{position:relative;overflow:hidden;min-height:340px;padding:23px;transition:box-shadow .15s ease,transform .15s ease}
+.card.a{background:linear-gradient(140deg,#fff 16%,#eaf1fd 100%);border-color:#bdd1ef;border-top-color:#cf334e}
+.card.b{background:linear-gradient(140deg,#fff 16%,#e8f8ee 100%);border-color:#b9dfc8;border-top-color:#c92d4b}
+.card.c{background:linear-gradient(140deg,#fff 16%,#fff2db 100%);border-color:#e8d4b8;border-top-color:#d07621}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 26px #19375823}
+.card .flag{font-size:48px;line-height:1.15}
+.card .plan-chip{display:inline-block;max-width:max-content;letter-spacing:.2px;border-radius:99px;padding:6px 10px;background:#ffffffc0;border:1px solid var(--stroke)}
+.card h2{font-size:25px;letter-spacing:-.7px;line-height:1.12}
+.card p{color:#44556c}
+.btn{font-size:14px;border-bottom:4px solid var(--accent);box-shadow:0 6px 14px #19375825}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:760px){.card{min-height:0;padding:20px}.card h2{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.card{transition:none!important}.card:hover{transform:none!important}}
 </style>
 </head>
 <body>
