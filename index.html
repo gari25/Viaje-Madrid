@@ -325,6 +325,73 @@ a,.evlinks a{color:#205eaa}
 button[data-toggle-done]{border-color:#205eaa;color:#205eaa}
 @media(max-width:980px){.nav{background:#102a60!important}.nav button.active{background:#e8f1ff!important;color:#102a60!important}}
 @media print{.plan-page-header{display:none!important}}
+
+/* ViajeX UI refresh: Plan A, sistema visual completo */
+:root{--ux-primary:#205CAD;--ux-nav:#142F65;--ux-accent:#D33E57;--ux-soft:#E9F2FF;--ux-outline:#BDCEF0;--ux-paper:#F0F5FF;--green:#205CAD;--ink:#142F65;--muted:#526783;--paper:#F0F5FF;--aqua:#E9F2FF;--line:#BDCEF0;--shadow:0 7px 22px rgba(25,45,80,.075)}
+body{background:var(--ux-paper)!important;color:var(--ux-nav)}
+aside{background:linear-gradient(170deg,var(--ux-nav),var(--ux-primary))!important;color:#fff!important}
+.brand span{color:var(--ux-accent)!important}
+.readonly{background:#ffffff17!important;border-color:#ffffff4a!important;color:#f5f7fe!important}
+.nav{background:transparent!important}
+.nav button{color:#f4f8ff!important;transition:background .17s ease}
+.nav button:hover{background:#ffffff24!important}
+.nav button.active{background:var(--ux-soft)!important;color:var(--ux-nav)!important;box-shadow:inset 4px 0 0 var(--ux-accent)!important}
+.plan-page-header{background:#fff!important;border:1px solid var(--ux-outline)!important;border-left:6px solid var(--ux-accent)!important;color:var(--ux-nav)!important;box-shadow:0 7px 19px #192e4612!important}
+.plan-page-header a{color:var(--ux-primary)!important}
+.plan-page-button{background:var(--ux-soft)!important;border-color:var(--ux-outline)!important;border-bottom:3px solid var(--ux-accent)!important}
+.top.ux-hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(180px,245px);align-items:center;gap:19px;padding:27px 30px!important;min-height:220px;background:linear-gradient(115deg,#fff 5%,var(--ux-soft) 75%,#fff 100%)!important;border:1px solid var(--ux-outline)!important;border-top:6px solid var(--ux-accent)!important;border-radius:21px!important;box-shadow:0 10px 30px #182e4912!important}
+.ux-hero-copy{min-width:0}
+.ux-hero .kicker{color:var(--ux-primary)!important;font-size:12px!important;letter-spacing:1.1px!important}
+.ux-hero .heading{font-size:clamp(30px,3.4vw,45px)!important;line-height:1.12;letter-spacing:-1.3px;color:var(--ux-nav)!important;margin:8px 0 12px}
+.ux-hero .lede{color:#526783!important;font-size:14px!important;line-height:1.58}
+.ux-route{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ux-route span{font-weight:750;font-size:12px;padding:6px 10px;background:#fff;border:1px solid var(--ux-outline);border-radius:99px;color:var(--ux-nav)}
+.ux-route b{font-size:15px;color:var(--ux-accent)}
+.ux-hero-stamp{min-height:161px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;border:1px solid var(--ux-outline);border-radius:20px;background:linear-gradient(160deg,#fff,var(--ux-soft));box-shadow:inset 0 0 0 4px #ffffff6e,0 9px 21px #152f4c18;color:var(--ux-nav)}
+.ux-stamp-flag{font-size:51px;line-height:1.16}.ux-stamp-place{font-weight:900;font-size:18px;line-height:1.2;margin-top:7px}
+.ux-stamp-line{display:block;width:47px;height:4px;border-radius:10px;background:var(--ux-accent);margin:12px 0 5px}.ux-stamp-note{font-size:11px;color:#526783;line-height:1.35}
+.controls{background:#fff!important;border:1px solid var(--ux-outline)!important;border-radius:15px!important;box-shadow:0 4px 16px #192e4610!important;margin:15px 0!important;padding:13px!important;align-items:end}
+.controls .plan-only-filter{display:none!important}
+.controls .filter-group{flex:1 1 240px}
+.controls select{background:var(--ux-soft)!important;color:var(--ux-nav)!important;border:1px solid var(--ux-outline)!important;min-height:47px}
+.controls button#print{background:var(--ux-primary)!important;color:#fff!important;border:1px solid var(--ux-primary)!important;border-radius:10px!important;min-height:47px}
+.daypicker-wrap.daypicker-global{background:var(--ux-soft)!important;border:1px solid var(--ux-outline)!important;border-top:4px solid var(--ux-accent)!important;box-shadow:0 6px 22px #1b39522b!important}
+.daypicker-heading{color:var(--ux-nav)!important}
+.daypicker-btn{background:#fff!important;border-color:var(--ux-outline)!important;color:var(--ux-primary)!important;min-height:47px}
+.daypicker-btn.active,.daypicker-btn[aria-pressed="true"]{background:var(--ux-primary)!important;color:#fff!important;border-color:var(--ux-primary)!important;box-shadow:inset 0 -4px 0 var(--ux-accent),0 3px 11px #243a5820!important}
+.budgetbar{background:linear-gradient(116deg,var(--ux-nav),var(--ux-primary) 77%,var(--ux-accent) 135%)!important;border:1px solid var(--ux-outline)!important;border-radius:21px!important;box-shadow:0 14px 30px #21355726!important}
+.budgetbar .budget-column.budget-group{background:#ffffff1c!important;border-color:#ffffff70!important}
+.budgetbar .budget-column.budget-person{background:#fff!important;border-color:var(--ux-outline)!important;color:var(--ux-nav)!important}
+.budgetbar .budget-person .budgetlabel,.budgetbar .budget-person .budget-group-title,.budgetbar .budget-person .money,.budgetbar .budget-person .budgetvalue.secondary strong{color:var(--ux-nav)!important}
+.budgetbar .budgetlabel,.budgetbar .budget-group-title,.budgetbar .budgetmeta,.budgetbar #budget-summary{color:#fff!important}
+.budgetbar button{background:#fff!important;color:var(--ux-nav)!important;border-color:var(--ux-outline)!important;border-radius:10px!important;min-height:42px}
+.section-title{color:var(--ux-nav)!important;border-left:4px solid var(--ux-accent);padding-left:12px}
+.stat,.panel,.day,.map-card,.step,.purchase-city,.hotel-option{border-color:var(--ux-outline)!important;box-shadow:0 5px 17px #182e4910!important}
+.panel h2,.stat .num,.map-card h3{color:var(--ux-nav)!important}
+.dayhead{background:var(--ux-soft)!important;border-bottom-color:var(--ux-outline)!important}
+.dayhead strong{color:var(--ux-nav)!important}
+.daysum{background:#fff!important;color:var(--ux-primary)!important;border-left:4px solid var(--ux-accent)}
+.event{border-bottom-color:var(--ux-outline)!important}.event .dot,.dot{background:var(--ux-accent)!important}
+.time,.evtitle{color:var(--ux-nav)!important}
+.pill{background:var(--ux-soft)!important;color:var(--ux-primary)!important}
+a,.evlinks a,.ticket-links a{color:var(--ux-primary)}
+.plan.sel{background:var(--ux-soft)!important;border-color:var(--ux-primary)!important}
+#budget-bottomline{padding:12px 14px;background:var(--ux-soft);border:1px solid var(--ux-outline);border-radius:12px;color:var(--ux-nav)}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--ux-accent)!important;outline-offset:2px}
+@media(max-width:1100px){.nav{background:var(--ux-nav)!important}}
+@media(max-width:760px){
+.nav{background:linear-gradient(100deg,var(--ux-nav),var(--ux-primary))!important;border-top:2px solid var(--ux-accent)!important}
+.nav button.active{background:var(--ux-soft)!important;color:var(--ux-nav)!important;box-shadow:inset 0 3px 0 var(--ux-accent)!important}
+.top.ux-hero{grid-template-columns:minmax(0,1fr) 90px;gap:10px;min-height:0;padding:17px 15px!important;border-radius:17px!important}
+.ux-hero .heading{font-size:clamp(24px,5.6vw,31px)!important;letter-spacing:-.5px}.ux-hero .lede{font-size:12px!important}
+.ux-hero-stamp{min-height:117px;padding:8px;border-radius:13px}.ux-stamp-flag{font-size:34px}.ux-stamp-place{font-size:12px}.ux-stamp-note{display:none}
+.ux-route{gap:4px;margin-top:12px}.ux-route span{padding:5px 7px;font-size:10px}.ux-route b{font-size:11px}
+.controls{display:flex!important;gap:8px!important;flex-wrap:wrap;padding:11px!important}.controls .filter-group{flex:1 1 180px}.controls button#print{flex:1 1 80px;min-height:44px}
+.daypicker-wrap.daypicker-global{top:0;margin:0 -12px 12px!important}.budgetbar{padding:15px 13px!important}
+}
+@media(max-width:410px){.top.ux-hero{grid-template-columns:minmax(0,1fr) 70px}.ux-stamp-flag{font-size:28px}.ux-stamp-place{font-size:10px;word-break:break-word}.controls button#print{width:100%}}
+@media(prefers-reduced-motion:reduce){.nav button{transition:none!important}}
+@media print{.nav{display:none!important}.daypicker-wrap.daypicker-global{position:static!important}}
 </style></head>
 <body>
 <div class="shell">
@@ -342,10 +409,10 @@ button[data-toggle-done]{border-color:#205eaa;color:#205eaa}
 <main>
 <div class="plan-page-header"><strong>🇫🇷 Plan A · París · itinerario principal</strong><a class="plan-page-button" href="./alternativas.html">Ver itinerarios alternativos →</a></div>
 <div class="daypicker-wrap daypicker-global" data-day-picker aria-label="Seleccionar día del itinerario"></div>
-<div class="top"><div><div class="kicker">✈ VIAJEX EUROPA 2026 · PLAN B · PARÍS</div><h1 class="heading">Plan A · París ✨</h1><p class="lede">Itinerario de Kateryn y Mariangel · Madrid → Barcelona → París → Madrid → Santo Domingo. Excursión Toledo y Segovia, Sagrada Familia, Big Bus y crucero. La visita a Sabadell exige confirmar los horarios de conexión.</p></div><div class="topright">🔒 Versión de consulta</div></div>
-<div class="controls"><div class="filter-group"><label for="plan">🧭 Itinerario elegido</label><select id="plan"><option value="B" selected>Plan A · París</option></select></div><div class="filter-group"><label for="city">📍 Filtrar ciudad</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>París</option></select></div><button id="print">🖨️ Imprimir</button></div>
+<div class="top ux-hero"><div class="ux-hero-copy"><div class="kicker">VIAJEX EUROPA 2026 · PLAN A · FRANCIA</div><h1 class="heading">Plan A · París</h1><p class="lede">Itinerario de Kateryn y Mariangel · Madrid → Barcelona → París → Madrid → Santo Domingo. Excursión Toledo y Segovia, Sagrada Familia, Big Bus y crucero. La visita a Sabadell exige confirmar los horarios de conexión.</p><div class="ux-route" aria-label="Recorrido del viaje"><span>Madrid</span><b aria-hidden="true">›</b><span>Barcelona</span><b aria-hidden="true">›</b><span>París</span><b aria-hidden="true">›</b><span>Madrid</span></div></div><div class="ux-hero-stamp" aria-hidden="true"><span class="ux-stamp-flag">🇫🇷</span><span class="ux-stamp-place">París</span><span class="ux-stamp-line"></span><span class="ux-stamp-note">Torre Eiffel · Sena · Big Bus</span></div></div>
+<div class="controls"><div class="filter-group plan-only-filter"><label for="plan">Plan A</label><select id="plan" tabindex="-1"><option value="A" selected>Plan A · París</option></select></div><div class="filter-group"><label for="city">📍 Filtrar ciudad</label><select id="city"><option value="">Todas las ciudades</option><option>Madrid</option><option>Barcelona</option><option>París</option></select></div><button id="print">🖨️ Imprimir</button></div>
 <div class="budgetbar" aria-live="polite">
- <div class="budget-overview-head"><div class="budgetlabel">💳 Presupuesto · Plan <span id="amount-plan">B</span></div><span id="budget-travelers" class="budget-travelers">2 personas</span></div>
+ <div class="budget-overview-head"><div class="budgetlabel">💳 Presupuesto · Plan <span id="amount-plan">A</span></div><span id="budget-travelers" class="budget-travelers">2 personas</span></div>
  <div class="budget-split">
   <div class="budget-column budget-group"><div class="budget-group-title">👥 TOTAL DEL GRUPO</div><div class="budgetvalues">
    <div class="budgetvalue"><div class="budgetlabel">Euros</div><div class="money" id="grand-total">Pendiente de calcular</div></div>
