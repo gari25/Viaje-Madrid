@@ -398,6 +398,31 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 
 /* Fichas fotográficas verificables de alojamiento y consignas */
 .stay-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin-top:17px}.stay-card{background:#fff;border:1px solid var(--ux-outline);border-radius:16px;padding:17px;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 12px #203e6010}.stay-card-top{display:flex;gap:10px;align-items:center}.stay-card-top span{font-size:29px}.stay-card-top small{color:var(--ux-primary);font-size:12px;font-weight:700}.stay-card h3{margin:0;font-size:17px;color:var(--ux-nav)}.stay-card p{font-size:13px;color:var(--ux-muted);line-height:1.5;flex:1;margin:0}.stay-card a{display:block;text-align:center;border-radius:10px;padding:12px 10px;background:var(--ux-soft);border:1px solid var(--ux-outline);font-weight:750;text-decoration:none;color:var(--ux-primary)}.stay-card a:hover{background:#fff;outline:2px solid var(--ux-accent)}@media(max-width:520px){.stay-grid{grid-template-columns:1fr}}
+
+/* Agenda visual: lectura inmediata de actividades por icono y color */
+.agenda-legend{display:flex;gap:7px;flex-wrap:wrap;padding:12px 14px;margin:0 0 14px;background:#fff;border:1px solid var(--ux-outline);border-radius:14px}
+.agenda-legend>span{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:750;padding:5px 9px;background:var(--ux-soft);border-radius:999px;color:var(--ux-nav)}
+.event{position:relative;border-left:5px solid transparent!important;padding-left:13px!important}
+.event.activity-luggage{border-left-color:#8c5bc2!important;background:linear-gradient(90deg,#f5efff 0%,#fff 26%)!important}
+.event.activity-stay{border-left-color:#2487b5!important;background:linear-gradient(90deg,#ebf7ff 0%,#fff 26%)!important}
+.event.activity-food{border-left-color:#dc8b2f!important;background:linear-gradient(90deg,#fff6e9 0%,#fff 26%)!important}
+.event.activity-transport{border-left-color:#2a68bf!important;background:linear-gradient(90deg,#eaf2ff 0%,#fff 26%)!important}
+.event.activity-visit{border-left-color:#198f73!important;background:linear-gradient(90deg,#eafaf3 0%,#fff 26%)!important}
+.event.activity-event{border-left-color:#a45883!important;background:linear-gradient(90deg,#fff0f7 0%,#fff 26%)!important}
+.event.activity-rest{border-left-color:#8c94a7!important;background:linear-gradient(90deg,#f2f4f8 0%,#fff 26%)!important}
+.event.activity-other{border-left-color:var(--ux-accent)!important}
+.activity-heading{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 6px}
+.activity-icon{font-size:24px;line-height:1.2;flex:0 0 auto}
+.activity-type{font-size:11px;font-weight:850;letter-spacing:.1px;border-radius:7px;padding:5px 8px;background:#eef1f6;color:#34455f}
+.activity-luggage .activity-type{background:#e8dafa;color:#60368c}
+.activity-stay .activity-type{background:#dceefa;color:#155b83}
+.activity-food .activity-type{background:#fff0d9;color:#985918}
+.activity-transport .activity-type{background:#dce9ff;color:#1b4f96}
+.activity-visit .activity-type{background:#d9f4e9;color:#17674e}
+.activity-event .activity-type{background:#f7e1ee;color:#82365c}
+.activity-rest .activity-type{background:#e6e9ef;color:#525d72}
+.event .evtitle{font-size:15px;line-height:1.42}
+@media(max-width:600px){.agenda-legend{gap:5px;padding:9px}.agenda-legend>span{font-size:10px;padding:5px 7px}.activity-icon{font-size:22px}.activity-type{font-size:10px}.event{padding-left:9px!important}}
 </style></head>
 <body>
 <div class="shell">
@@ -722,10 +747,28 @@ function bookingMarkup(i){
  else if(t.includes('omio')||t.includes('tren')||t.includes('tgv')||t.includes('barcelona-sants')){url='https://www.omio.es/';label='🚆 Consultar trenes en Omio'}
  return url?' <a target="_blank" rel="noopener noreferrer" href="'+url+'">'+label+' ↗</a>':'';
 }
+function activityVisual(i){
+ var t=(i.title+' '+i.note).toLowerCase(),type=i.type;
+ if(/bounce|consigna|guardar maletas|recuperar maletas|recoger las maletas/.test(t)||type==='Equipaje')return {icon:'🧳',label:'Bounce / equipaje',key:'luggage'};
+ if(type==='Alojamiento'||/check-in|checkout|hotel|hostal|airbnb/.test(i.title.toLowerCase())&&type!=='Evento')return {icon:'🏨',label:'Hotel / alojamiento',key:'stay'};
+ if(type==='Comidas'||/almuerz|almorz|comida|cenar|cena|desayuno/.test(i.title.toLowerCase()))return {icon:/desayuno/.test(t)?'☕':'🍽️',label:/desayuno/.test(t)?'Desayuno':/cena|cenar/.test(i.title.toLowerCase())?'Cena':'Comida',key:'food'};
+ if(type==='Descanso')return {icon:'😴',label:'Descanso',key:'rest'};
+ if(type==='Traslado'||/vuelo|aeropuerto|tren|metro|autobús|bus |taxi|ouigo|renfe|iberia|air europa|vueling/.test(i.title.toLowerCase())){
+  if(/vuelo|aeropuerto|air europa|iberia|vueling/.test(i.title.toLowerCase()))return {icon:'✈️',label:'Vuelo / aeropuerto',key:'transport'};
+  if(/tren|ouigo|renfe|ave |sants/.test(i.title.toLowerCase()))return {icon:'🚆',label:'Tren',key:'transport'};
+  return {icon:'🚇',label:'Transporte',key:'transport'};
+ }
+ if(type==='Evento'||/jornada|inauguración|congreso/.test(i.title.toLowerCase()))return {icon:'💼',label:'Evento profesional',key:'event'};
+ if(/tour|visita|excursión|mirador|paseo|foto|fotograf/.test(t)||type==='Actividad')return {icon:'📸',label:'Visita / paseo',key:'visit'};
+ return {icon:'📍',label:type||'Actividad',key:'other'};
+}
+function activityLegend(){return '<div class="agenda-legend" aria-label="Leyenda de actividades">'+[
+ ['✈️','Vuelo'],['🚆','Tren'],['🚇','Transporte'],['🍽️','Comida / cena'],['🧳','Bounce'],['🏨','Hotel'],['📸','Visita'],['💼','Evento'],['😴','Descanso']
+].map(function(x){return '<span><span aria-hidden="true">'+x[0]+'</span> '+x[1]+'</span>'}).join('')+'</div>';}
 function eventMarkup(i){
- var done=isDone(i);
- return '<div class="event'+(done?' finished':'')+'"><div class="time">'+escapeHtml(showBothTimes(i.time))+'</div><div class="dot"></div><div class="evbody">'
- +'<div class="evtitle">'+escapeHtml(showBothTimes(i.title))+'</div>'
+ var done=isDone(i),visual=activityVisual(i);
+ return '<div class="event activity-'+visual.key+(done?' finished':'')+'"><div class="time">'+escapeHtml(showBothTimes(i.time))+'</div><div class="dot"></div><div class="evbody">'
+ +'<div class="activity-heading"><span class="activity-icon" aria-hidden="true">'+visual.icon+'</span><span class="activity-type">'+escapeHtml(visual.label)+'</span></div><div class="evtitle">'+escapeHtml(showBothTimes(i.title))+'</div>'
  +'<div class="sub">'+escapeHtml(cityLabel(i))+' · '+escapeHtml(i.type)+'</div>'
  +'<div class="evnotes">'+escapeHtml(showBothTimes(i.note))+'</div>'+(companyCovered(i)?'<div class="company-item">✓ Pagado por Becones Inmobiliaria SRL</div>':'')
  +'<div class="evlinks"><a target="_blank" rel="noopener" href="'+link(i.place)+'">📍 Ver ubicación ↗</a>'+bookingMarkup(i)+'</div>'
@@ -740,7 +783,7 @@ function renderAgenda(preview){
  filtered.forEach(function(i){(by[i.date]||(by[i.date]=[])).push(i)});
  var dates=Object.keys(by).sort();
  if(preview)dates=dates.slice(0,3);
- return dates.map(function(d){
+ return activityLegend()+dates.map(function(d){
   return '<article class="day"><div class="dayhead"><div><strong>'+escapeHtml(fmt(d))+'</strong><div class="count">'+by[d].length+' actividades visibles</div></div>'+daySummary(d)+'</div>'
   +by[d].map(eventMarkup).join('')+'</article>';
  }).join('') || '<p class="notice">✅ No quedan actividades pendientes en este filtro. Pulsa «Mostrar realizadas» para revisarlas o marcarlas de nuevo como pendientes.</p>';
