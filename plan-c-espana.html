@@ -423,6 +423,13 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .activity-rest .activity-type{background:#e6e9ef;color:#525d72}
 .event .evtitle{font-size:15px;line-height:1.42}
 @media(max-width:600px){.agenda-legend{gap:5px;padding:9px}.agenda-legend>span{font-size:10px;padding:5px 7px}.activity-icon{font-size:22px}.activity-type{font-size:10px}.event{padding-left:9px!important}}
+
+/* El selector de fechas lleva a la jornada exacta, sin taparla con la barra fija. */
+#agenda .day[data-agenda-day]{scroll-margin-top:155px}
+#agenda .day[data-agenda-day]:first-of-type{border-top:3px solid var(--ux-accent)}
+#agenda-list{scroll-margin-top:155px}
+.daypicker-global .daypicker-btn{cursor:pointer}
+@media(max-width:570px){#agenda .day[data-agenda-day],#agenda-list{scroll-margin-top:145px}}
 </style></head>
 <body>
 <div class="shell">
@@ -752,7 +759,7 @@ function renderAgenda(preview){
  var dates=Object.keys(by).sort();
  if(preview)dates=dates.slice(0,3);
  return activityLegend()+dates.map(function(d){
-  return '<article class="day"><div class="dayhead"><div><strong>'+escapeHtml(fmt(d))+'</strong><div class="count">'+by[d].length+' actividades visibles</div></div>'+daySummary(d)+'</div>'
+  return '<article class="day" data-agenda-day="'+d+'"><div class="dayhead"><div><strong>'+escapeHtml(fmt(d))+'</strong><div class="count">'+by[d].length+' actividades visibles</div></div>'+daySummary(d)+'</div>'
   +by[d].map(eventMarkup).join('')+'</article>';
  }).join('') || '<p class="notice">✅ No quedan actividades pendientes en este filtro. Pulsa «Mostrar realizadas» para revisarlas o marcarlas de nuevo como pendientes.</p>';
 }
@@ -813,7 +820,36 @@ function render(){renderDayPickers();document.getElementById('plan').value=plan;
 document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active);if(e.dataset.tab===active)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current')});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
 document.getElementById('toggle-completed').addEventListener('click',function(){showCompleted=!showCompleted;render()});
 
-document.addEventListener('click',function(e){var btn=e.target.closest('[data-day-select]');if(!btn)return;var day=btn.getAttribute('data-day-select');if(day!=='all'&&!journeyDates.includes(day))return;selectedDay=day;try{localStorage.setItem('viajex-selected-day-v1-D',day)}catch(e){}render();});
+// Seleccionar una fecha abre directamente la agenda de ese día, también desde Inicio o Costos.
+document.addEventListener('click',function(e){
+ var btn=e.target.closest('[data-day-select]');
+ if(!btn)return;
+ var day=btn.getAttribute('data-day-select');
+ if(day!=='all'&&!journeyDates.includes(day))return;
+ selectedDay=day;
+ city=''; // Mostrar el día completo, aunque antes estuviera filtrada otra ciudad.
+ try{localStorage.setItem('viajex-selected-day-v1-D',day)}catch(e){}
+ active='agenda';
+ render();
+ document.querySelectorAll('[data-tab]').forEach(function(tab){
+  var chosen=tab.dataset.tab==='agenda';
+  tab.classList.toggle('active',chosen);
+  if(chosen)tab.setAttribute('aria-current','page');else tab.removeAttribute('aria-current');
+ });
+ document.querySelectorAll('section.section').forEach(function(section){
+  section.classList.toggle('active',section.id==='agenda');
+ });
+ // Después de activar la pestaña, ubicar la jornada debajo de la barra fija de fechas.
+ window.requestAnimationFrame(function(){
+  var target=day==='all'?document.getElementById('agenda'):document.querySelector('[data-agenda-day="'+day+'"]');
+  if(!target)target=document.getElementById('agenda-list')||document.getElementById('agenda');
+  if(!target)return;
+  var bar=document.querySelector('.daypicker-wrap.daypicker-global');
+  var offset=(bar?bar.getBoundingClientRect().height:0)+14;
+  var top=Math.max(0,window.scrollY+target.getBoundingClientRect().top-offset);
+  window.scrollTo({top:top,behavior:window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ });
+});
 document.addEventListener('click',function(e){
  var btn=e.target.closest('[data-toggle-done]');
  if(!btn)return;
