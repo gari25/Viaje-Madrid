@@ -644,7 +644,7 @@ function selectItems(){return items.filter(function(i){return visibleItem(i)&&(!
 function dailyItems(){return items.filter(function(i){return visibleItem(i)&&i.date===selectedDay&&(!city||baseCity(i)===city)}).sort(function(a,b){return a.time.localeCompare(b.time)})}
 function dayLabel(d){var date=new Date(d+'T12:00:00');return new Intl.DateTimeFormat('es-ES',{weekday:'short',day:'numeric'}).format(date).replace('.','')}
 function renderSabadellHome(){
- var sabadellHtml='<div class="sabadell-switch" role="group" aria-label="Elegir alternativa Sabadell"><span class="switch-label">👪 Visita familiar opcional:</span><button type="button" data-sabadell="barcelona" aria-pressed="'+(sabadellMode==='barcelona')+'">🏙️ Quedarnos en Barcelona</button><button type="button" data-sabadell="sabadell" aria-pressed="'+(sabadellMode==='sabadell')+'">👪 Visitar a mi tía en Sabadell</button><span class="switch-note">Si visitan Sabadell el 10, se sustituye el free tour y regresan a dormir a Barcelona. Si no, conservan free tour y hotel Barcelona. FGC por verificar. El presupuesto se recalcula según la opción elegida.</span></div>';
+ var sabadellHtml='<div class="sabadell-switch" role="group" aria-label="Elegir alternativa Sabadell"><span class="switch-label">👪 Visita familiar opcional:</span><button type="button" data-sabadell="barcelona" aria-pressed="'+(sabadellMode==='barcelona')+'">🏙️ Quedarnos en Barcelona</button><button type="button" data-sabadell="sabadell" aria-pressed="'+(sabadellMode==='sabadell')+'">👪 Visitar a mi tía en Sabadell</button><span class="switch-note">Si eligen Barcelona, se propone free tour diurno del Barrio Gótico (horario pendiente de verificar). Sabadell requiere rediseñar los horarios: la visita 17:45–19:15 NO permite regresar al hotel Barcelona antes de las 18:00. No reservar esta rama sin adelantar la visita o dormir en Sabadell. El presupuesto se recalcula. El presupuesto se recalcula según la opción elegida.</span></div>';
  var target=document.getElementById('sabadell-home');if(target)target.innerHTML=sabadellHtml;
 }
 function renderDayPickers(){
@@ -754,7 +754,8 @@ function syncCostUI(){
 function renderStats(){var filtered=selectItems(),cities={};items.filter(function(i){return visibleItem(i)}).forEach(function(i){cities[baseCity(i)]=true});document.getElementById('stats').innerHTML=[['12','días de viaje'],[String(plans[plan].people),'viajera'+(plans[plan].people===2?'s':'')],[String(Object.keys(cities).length),'ciudades base del plan'],[String(filtered.filter(function(i){return !isDone(i)}).length),'actividades pendientes']].map(function(a){return '<div class="stat"><small>'+a[1]+'</small><div class="num">'+a[0]+'</div></div>'}).join('')}
 function bookingMarkup(i){
  var t=i.title.toLowerCase(), url='',label='Consultar / reservar';
- if(t.includes('lisboa alternativa')&&t.includes('vuelo directo barcelona')){url='https://www.vueling.com/en/flights-from-barcelona-to-lisbon';label='✈️ Reservar BCN-Lisboa · Vueling'}
+ if(t.includes('free tour barrio gótico')){url='https://www.civitatis.com/es/barcelona/free-tour-misterios-leyendas-barrio-gotico/';label='📸 Consultar free tour Barrio Gótico · horario por confirmar'}
+ else if(t.includes('lisboa alternativa')&&t.includes('vuelo directo barcelona')){url='https://www.vueling.com/en/flights-from-barcelona-to-lisbon';label='✈️ Reservar BCN-Lisboa · Vueling'}
  else if(t.includes('lisboa alternativa')&&t.includes('vuelo lisboa')){url='https://www.iberia.com/es/cheap-flights/Lisbon-Madrid/';label='✈️ Comparar LIS-Madrid · Iberia'}
  else if(t.includes('lisboa alternativa')&&t.includes('hotel saldanha')){url='https://www.booking.com/city/pt/lisbon.es.html';label='🏨 Hoteles Lisboa · Booking'}
  else if(t.includes('lisboa alternativa')&&t.includes('hotel lk')){url='https://www.booking.com/hotel/es/hostal-lk-barcelona.es.html?checkin=2026-11-10&checkout=2026-11-11&group_adults=2&no_rooms=1';label='🏨 Hotel LK · Booking'}
@@ -808,8 +809,7 @@ function eventMarkup(i){
 function dayTotal(d){var total=0,known=0,missing=0;selectItems().filter(function(i){return i.date===d}).forEach(function(i){var n=calcCost(i);if(n===null)missing++;else{total+=n;known++}});return {total:total,known:known,missing:missing}}
 function daySummary(d){var x=dayTotal(d);return '<div class="daytotals"><span class="daysum" data-day-total="'+d+'">'+(x.total===0&&x.missing?'Por cotizar':eur(x.total))+'</span><span class="daynote" data-day-note="'+d+'">'+(x.missing?'Faltan '+x.missing+' importes':'Importes provisionales')+'</span></div>'}
 
-var sabadellOption='barcelona';
-try{ sabadellOption=localStorage.getItem('viajex-sabadell-option')==='sabadell'?'sabadell':'barcelona';}catch(e){}
+var sabadellOption=sabadellMode;
 function sabadellChoice(d){
  if(d!=='2026-11-10'&&d!=='2026-11-11'&&d!=='2026-11-12')return '';
  var going=sabadellOption==='sabadell';
@@ -845,7 +845,7 @@ function renderAgenda(preview){
  filtered.forEach(function(i){(by[i.date]||(by[i.date]=[])).push(i)});
  var dates=Object.keys(by).sort();
  if(preview)dates=dates.slice(0,3);
- return '<div class="hotel18-rule" role="note"><strong>🕕 Regla de las 18:00:</strong> estar instaladas en el hotel antes de las 18:00, sin vuelos ni trenes nocturnos. La cena se decide después. <strong>⚠️ Excepciones pendientes:</strong> Toledo–Segovia 9 nov (~20:00), conexión París vía Lyon y vuelo BCN→Lisboa 15:50; <strong>no reservar estos horarios sin resolver los conflictos</strong>. Tren: 90 minutos antes de abrir el embarque (aprox. 2 h antes de salida si abre 30 min antes).</div>' + (preview?'<div class="day-audit-help"><strong>Regla conservadora:</strong> llegar a la estación 90 minutos ANTES DE QUE ABRA EL EMBARQUE. Si abre 30 min antes de salida, equivale a 2 horas antes de salida. OUIGO 06:22 → Atocha 04:22. Si por «embarque» querías decir la salida del tren, serían 04:52. Horarios de apertura sujetos a la operadora. Los importes mostrados son subtotales parciales para dos personas, no presupuestos cerrados. Los precios de hoteles y vuelos sin confirmar, desayunos, propinas, traslados no detallados y extras pueden incrementar el total.</div>':'')+activityLegend()+dates.map(function(d){
+ return '<div class="hotel18-rule" role="note"><strong>🕕 Regla de las 18:00:</strong> estar instaladas en el hotel antes de las 18:00, sin vuelos ni trenes nocturnos. La cena se decide después. <strong>⚠️ Excepciones pendientes:</strong> Toledo–Segovia 9 nov (~20:00) y vuelo BCN→Lisboa 15:50; <strong>no reservar estos horarios sin resolver los conflictos</strong>. Tren: 90 minutos antes de abrir el embarque (aprox. 2 h antes de salida si abre 30 min antes).</div>' + (preview?'<div class="day-audit-help"><strong>Regla conservadora:</strong> llegar a la estación 90 minutos ANTES DE QUE ABRA EL EMBARQUE. Si abre 30 min antes de salida, equivale a 2 horas antes de salida. OUIGO 06:22 → Atocha 04:22. Si por «embarque» querías decir la salida del tren, serían 04:52. Horarios de apertura sujetos a la operadora. Los importes mostrados son subtotales parciales para dos personas, no presupuestos cerrados. Los precios de hoteles y vuelos sin confirmar, desayunos, propinas, traslados no detallados y extras pueden incrementar el total.</div>':'')+activityLegend()+dates.map(function(d){
   return '<article class="day" data-agenda-day="'+d+'"><div class="dayhead"><div><strong>'+escapeHtml(fmt(d))+'</strong><div class="count">'+by[d].length+' actividades visibles</div></div>'+daySummary(d)+'</div>'
   +dayAuditCard(d)+sabadellChoice(d)+by[d].map(eventMarkup).join('')+'</article>';
  }).join('') || '<p class="notice">✅ No quedan actividades pendientes en este filtro. Pulsa «Mostrar realizadas» para revisarlas o marcarlas de nuevo como pendientes.</p>';
@@ -905,7 +905,7 @@ function renderTasks(){
  document.getElementById('checklist').innerHTML='<p class="day-filter-summary">Actividades del <strong>'+escapeHtml(fmt(selectedDay))+'</strong>. Marca las realizadas; se sincronizan con Agenda.</p>'+dailyItems().map(function(i){var done=isDone(i),price=calcCost(i);return '<article class="step daily-check"><div><strong>'+(done?'✅':'☐')+' '+escapeHtml(i.time+' · '+i.title)+'</strong><div class="sub">'+(companyCovered(i)?'Pagado por Becones':(price===null?'Precio pendiente':price===0?'Sin costo':eur(price)+' para ambas'))+' · '+escapeHtml(i.city)+'</div></div><div class="daily-check-controls"><a href="'+link(i.place)+'" target="_blank" rel="noopener noreferrer">📍 Ubicación ↗</a>'+bookingMarkup(i)+'<button type="button" data-toggle-done="'+i.id+'">'+(done?'↩ Pendiente':'✓ Realizada')+'</button></div></article>'}).join('')||'<p class="notice">No hay actividades previstas para esta fecha y el filtro seleccionado.</p>';
 }
 function render(){renderDayPickers();renderSabadellHome();document.getElementById('plan').value=plan;document.getElementById('city').value=city;document.getElementById('quicklinks-paris').hidden=true;document.getElementById('quicklinks-lisboa').hidden=false;document.getElementById('hotel-paris').hidden=true;document.getElementById('hotel-barcelona-backup').hidden=true;document.getElementById('paris-billetes').hidden=true;renderBudgetBar();renderStats();renderSummary();document.getElementById('agenda-list').innerHTML=renderAgenda(false);renderProgress();renderBudget();renderRoutes();renderMaps();renderTasks()}
-document.addEventListener('click',function(e){var b=e.target.closest('[data-sabadell-choice]');if(!b)return;sabadellOption=b.getAttribute('data-sabadell-choice')==='sabadell'?'sabadell':'barcelona';try{localStorage.setItem('viajex-sabadell-option',sabadellOption)}catch(e){}render();});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-sabadell-choice]');if(!b)return;sabadellMode=b.getAttribute('data-sabadell-choice')==='sabadell'?'sabadell':'barcelona';sabadellOption=sabadellMode;try{localStorage.setItem('viajex-sabadell-B',sabadellMode)}catch(e){}render();});
 document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){active=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.dataset.tab===active);if(e.dataset.tab===active)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current')});document.querySelectorAll('section.section').forEach(function(e){e.classList.toggle('active',e.id===active)});window.scrollTo({top:0,behavior:'smooth'})})});
 document.getElementById('toggle-completed').addEventListener('click',function(){showCompleted=!showCompleted;render()});
 
@@ -913,7 +913,7 @@ document.getElementById('toggle-completed').addEventListener('click',function(){
 document.addEventListener('click',function(e){
  var btn=e.target.closest('[data-sabadell]');if(!btn)return;
  var mode=btn.getAttribute('data-sabadell');if(mode!=='barcelona'&&mode!=='sabadell')return;
- sabadellMode=mode;try{localStorage.setItem('viajex-sabadell-B',mode)}catch(e){}
+ sabadellMode=mode;sabadellOption=mode;try{localStorage.setItem('viajex-sabadell-B',mode)}catch(e){}
  render();
 });
 
