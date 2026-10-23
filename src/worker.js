@@ -8,7 +8,7 @@ async function identity(req,env){
  let header,payload;try{header=JSON.parse(new TextDecoder().decode(b64url(parts[0])));payload=JSON.parse(new TextDecoder().decode(b64url(parts[1])))}catch{return null}
  const domain=env.ACCESS_TEAM_DOMAIN.replace(/^https?:\/\//,"").replace(/\/$/,"");
  if(!/^[a-z0-9-]+\.cloudflareaccess\.com$/i.test(domain))return null;
- if(header.alg!=="RS256"||!header.kid||payload.iss!=="https://"+domain||!(Array.isArray(payload.aud)?payload.aud.includes(env.ACCESS_AUD):payload.aud===env.ACCESS_AUD)||!payload.exp||payload.exp<=Date.now()/1000||!payload.nbf||payload.nbf>Date.now()/1000)return null;
+ if(header.alg!=="RS256"||!header.kid||payload.iss!=="https://"+domain||!(Array.isArray(payload.aud)?payload.aud.includes(env.ACCESS_AUD):payload.aud===env.ACCESS_AUD)||!payload.exp||payload.exp<=Date.now()/1000||(payload.nbf&&payload.nbf>Date.now()/1000))return null;
  const keys=await fetch("https://"+domain+"/cdn-cgi/access/certs").then(r=>r.ok?r.json():null).catch(()=>null);
  const jwk=keys?.keys?.find(k=>k.kid===header.kid&&k.kty==="RSA");if(!jwk)return null;
  const key=await crypto.subtle.importKey("jwk",jwk,{name:"RSASSA-PKCS1-v1_5",hash:"SHA-256"},false,["verify"]);
