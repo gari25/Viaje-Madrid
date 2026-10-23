@@ -744,7 +744,56 @@ function dop(n){return 'RD$ '+new Intl.NumberFormat('es-ES',{minimumFractionDigi
 function usd(n){return 'US$ '+new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n*72.50/62)}
 function eur(n){return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n)}
 function totalCost(){var total=0,priced=0,missing=0;items.filter(function(i){return visibleItem(i)}).forEach(function(i){var n=calcCost(i);if(n===null)missing++;else{total+=n;priced++}});return {total:total,priced:priced,missing:missing}}
-function persistCosts(){try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}}
+var cloudRevision=0,cloudReady=false,cloudPending={},cloudBusy=false,cloudTimer=null;
+function cloudNotice(message){var el=document.getElementById('viajex-cloud-status');if(el)el.textContent=message;}
+function persistCosts(){try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}
+ if(!cloudReady)return;
+ Object.assign(cloudPending,localEstimates);
+ clearTimeout(cloudTimer);cloudTimer=setTimeout(flushCloud,700);
+}
+async function fetchCloud(){var r=await fetch('/api/shared/costs',{cache:'no-store',credentials:'same-origin'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()}
+async function flushCloud(){
+ if(cloudBusy||!cloudReady||!Object.keys(cloudPending).length)return;
+ cloudBusy=true;var edits=cloudPending;cloudPending={};
+ try{
+  for(var attempt=0;attempt<4;attempt++){
+   var remote=await fetchCloud(),merged=Object.assign({},remote.data,edits);
+   var r=await fetch('/api/shared/costs',{method:'PUT',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({revision:remote.revision,data:merged})});
+   if(r.status===409)continue;
+   if(!r.ok)throw Error('HTTP '+r.status);
+   cloudRevision=(await r.json()).revision;
+   localEstimates=Object.assign({},merged,cloudPending);
+   try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}
+   syncCostUI();cloudNotice('☁️ Presupuesto guardado y compartido');return;
+  }
+  throw Error('Conflicto de edición');
+ }catch(e){cloudPending=Object.assign({},edits,cloudPending);cloudNotice('⚠️ No se pudo guardar en la nube. Conservamos copia local.');}
+ finally{cloudBusy=false;if(Object.keys(cloudPending).length){clearTimeout(cloudTimer);cloudTimer=setTimeout(flushCloud,5000)}}
+}
+async function initCloud(){
+ cloudNotice('☁️ Conectando presupuesto compartido…');
+ try{
+  var remote=await fetchCloud();
+  cloudRevision=remote.revision;cloudReady=true;
+  var local=localEstimates||{};
+  if(remote.revision===0&&Object.keys(local).length){
+   if(window.confirm('Hay presupuestos guardados en este navegador y la nube está vacía. ¿Deseas subirlos como presupuesto compartido?')){
+    cloudPending=Object.assign({},local);cloudNotice('☁️ Importando presupuesto local…');flushCloud();return;
+   }
+  }
+  if(remote.revision>0&&Object.keys(local).length){
+   var diff=Object.keys(local).filter(function(k){return JSON.stringify(local[k])!==JSON.stringify(remote.data[k])});
+   if(diff.length&&window.confirm('La nube tiene un presupuesto compartido diferente. ¿Deseas conservar tus '+diff.length+' cambios locales y sincronizarlos con la nube? Pulsa Cancelar para usar la versión compartida.')){
+    cloudPending=Object.fromEntries(diff.map(function(k){return [k,local[k]]}));flushCloud();return;
+   }
+  }
+  localEstimates=remote.data||{};
+  try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}
+  render();cloudNotice('☁️ Presupuesto compartido conectado');
+ }catch(e){cloudNotice('⚠️ Sin conexión con la nube. Los cambios solo se guardan aquí.');}
+}
+function showCloudStatus(){var e=document.createElement('div');e.id='viajex-cloud-status';e.setAttribute('role','status');e.style.cssText='position:fixed;bottom:12px;right:12px;z-index:1000;background:#14243b;color:white;padding:9px 14px;border-radius:12px;box-shadow:0 3px 16px #0005;font-size:13px;max-width:320px';e.textContent='☁️ Conectando…';document.body.appendChild(e)}
+
 function costControl(i){
  var c=getCost(i),val=c.amount==null?'':escapeHtml(c.amount);
  var sel=function(field,opts){return '<select aria-label="'+field+'" data-cost-field="'+field+'" data-cost-id="'+i.id+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(c[field]===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'};
@@ -999,7 +1048,7 @@ document.getElementById('plans').addEventListener('click',function(e){var b=e.ta
 document.addEventListener('input',function(e){var fld=e.target.getAttribute('data-cost-field');if(fld!=='amount')return;updateCostField(e.target,fld)});
 document.addEventListener('change',function(e){var fld=e.target.getAttribute('data-cost-field');if(fld&&fld!=='amount')updateCostField(e.target,fld)});
 function updateCostField(el,fld){var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;var c=Object.assign({},getCost(i));if(fld==='amount'){var n=el.value===''?null:Number(el.value);c.amount=(n===null||!isFinite(n)||n<0)?null:n}else{c[fld]=el.value}localEstimates[costKey(i)]=c;persistCosts();syncCostUI()}
-document.getElementById('reset-estimates').addEventListener('click',function(){if(window.confirm('¿Restablecer solamente los presupuestos modificados en este navegador? Se conservarán los precios publicados en ViajeX.')){localEstimates={};try{localStorage.removeItem('viajex-costos-local-v1')}catch(e){}render()}});
+document.getElementById('reset-estimates').addEventListener('click',function(){if(window.confirm('¿Restablecer solamente los presupuestos modificados en este navegador? Se conservarán los precios publicados en ViajeX.')){localEstimates={};try{localStorage.removeItem('viajex-costos-local-v1')}catch(e){}if(cloudReady){cloudPending={};cloudNotice('⚠️ Reinicio local: la nube conserva los importes anteriores.')}render()}});
 document.getElementById('copy-budget').addEventListener('click',function(){
  var list=items.filter(function(i){return visibleItem(i)&&calcCost(i)!==null}),lines=['ViajeX Plan '+plan+' · costos para publicar','Tasas de referencia: 1 EUR = RD$72,50; 1 USD = RD$62'];
  list.forEach(function(i){var c=getCost(i);lines.push(i.date+' '+i.time+' | '+i.title+' | '+c.amount+' EUR | '+(c.scope==='person'?'por persona':'grupo')+' | '+c.status+' | '+eur(calcCost(i))+' | '+dop(calcCost(i))+' | '+usd(calcCost(i)))});
@@ -1009,7 +1058,7 @@ document.getElementById('copy-budget').addEventListener('click',function(){
  var txt=lines.join('\n');
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){alert('Presupuesto copiado. Pégamelo en ChatGPT para publicarlo a ambas.')}).catch(function(){window.prompt('Copia este presupuesto para ChatGPT:',txt)})}else{window.prompt('Copia este presupuesto para ChatGPT:',txt)}
 });
-render();
+render();showCloudStatus();initCloud();
 })();
 </script>
 </body></html>
