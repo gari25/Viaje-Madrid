@@ -746,9 +746,9 @@ function eur(n){return new Intl.NumberFormat('es-ES',{style:'currency',currency:
 function totalCost(){var total=0,priced=0,missing=0;items.filter(function(i){return visibleItem(i)}).forEach(function(i){var n=calcCost(i);if(n===null)missing++;else{total+=n;priced++}});return {total:total,priced:priced,missing:missing}}
 var cloudRevision=0,cloudReady=false,cloudPending={},cloudBusy=false,cloudTimer=null;
 function cloudNotice(message){var el=document.getElementById('viajex-cloud-status');if(el)el.textContent=message;}
-function persistCosts(){try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}
+function persistCosts(changedKey){try{localStorage.setItem('viajex-costos-local-v1',JSON.stringify(localEstimates))}catch(e){}
  if(!cloudReady)return;
- Object.assign(cloudPending,localEstimates);
+ if(changedKey)cloudPending[changedKey]=localEstimates[changedKey];
  clearTimeout(cloudTimer);cloudTimer=setTimeout(flushCloud,700);
 }
 async function fetchCloud(){var r=await fetch('/api/shared/costs',{cache:'no-store',credentials:'same-origin'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()}
@@ -1047,7 +1047,7 @@ document.getElementById('print').addEventListener('click',function(){document.qu
 document.getElementById('plans').addEventListener('click',function(e){var b=e.target.closest('[data-setplan]');if(b){plan='A';city='';render()}});
 document.addEventListener('input',function(e){var fld=e.target.getAttribute('data-cost-field');if(fld!=='amount')return;updateCostField(e.target,fld)});
 document.addEventListener('change',function(e){var fld=e.target.getAttribute('data-cost-field');if(fld&&fld!=='amount')updateCostField(e.target,fld)});
-function updateCostField(el,fld){var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;var c=Object.assign({},getCost(i));if(fld==='amount'){var n=el.value===''?null:Number(el.value);c.amount=(n===null||!isFinite(n)||n<0)?null:n}else{c[fld]=el.value}localEstimates[costKey(i)]=c;persistCosts();syncCostUI()}
+function updateCostField(el,fld){var i=items[Number(el.getAttribute('data-cost-id'))];if(!i)return;var c=Object.assign({},getCost(i));if(fld==='amount'){var n=el.value===''?null:Number(el.value);c.amount=(n===null||!isFinite(n)||n<0)?null:n}else{c[fld]=el.value}localEstimates[costKey(i)]=c;persistCosts(costKey(i));syncCostUI()}
 document.getElementById('reset-estimates').addEventListener('click',function(){if(window.confirm('¿Restablecer solamente los presupuestos modificados en este navegador? Se conservarán los precios publicados en ViajeX.')){localEstimates={};try{localStorage.removeItem('viajex-costos-local-v1')}catch(e){}if(cloudReady){cloudPending={};cloudNotice('⚠️ Reinicio local: la nube conserva los importes anteriores.')}render()}});
 document.getElementById('copy-budget').addEventListener('click',function(){
  var list=items.filter(function(i){return visibleItem(i)&&calcCost(i)!==null}),lines=['ViajeX Plan '+plan+' · costos para publicar','Tasas de referencia: 1 EUR = RD$72,50; 1 USD = RD$62'];
