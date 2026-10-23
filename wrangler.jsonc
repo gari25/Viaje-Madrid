@@ -1,9 +1,19 @@
 {
   "name": "viajex-europa-2026",
   "compatibility_date": "2026-10-16",
+  "main": "src/worker.js",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "viajex-europa-2026-db",
+      "database_id": "4b604f75-3490-4013-aab6-a09b2167b3c6"
+    }
+  ],
   "observability": {
     "enabled": false
   }
